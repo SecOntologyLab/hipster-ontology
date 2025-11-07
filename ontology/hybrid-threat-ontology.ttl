@@ -1,0 +1,362 @@
+@prefix hti: <http://example.org/hybrid-threat-intelligence#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix hyp:  <http://example.org/hypster/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+
+# Ontology Declaration
+hti:HybridThreatIntelligenceOntology a owl:Ontology ;
+    dct:title "Hybrid Threat Intelligence Ontology (HTI-Onto)" ;
+    dct:description "Ontology for detecting and analyzing hybrid threats including disinformation, social media manipulation, and psychological operations" ;
+    dct:created "2024-01-01"^^xsd:date ;
+    dct:source "Based on HIPSTER project requirements" .
+
+# =============================================================================
+# CORE THREAT CLASSES
+# =============================================================================
+
+hti:ThreatEntity a owl:Class ;
+    rdfs:label "Threat Entity" ;
+    rdfs:comment "Any entity involved in or affected by hybrid threat activities" .
+
+hti:Threat a owl:Class ;
+    rdfs:label "Threat" ;
+    rdfs:comment "A potential or active threat to security, society, or information integrity" ;
+    rdfs:subClassOf hti:ThreatEntity .
+
+hti:ThreatActor a owl:Class ;
+    rdfs:label "Threat Actor" ;
+    rdfs:comment "Individual, group, or organization conducting threat activities" ;
+    rdfs:subClassOf hti:ThreatEntity .
+
+hti:Target a owl:Class ;
+    rdfs:label "Target" ;
+    rdfs:comment "Entity being targeted by threat activities" ;
+    rdfs:subClassOf hti:ThreatEntity .
+
+hti:ThreatIndicator a owl:Class ;
+    rdfs:label "Threat Indicator" ;
+    rdfs:comment "Observable patterns or behaviors indicating potential threats" ;
+    rdfs:subClassOf hti:ThreatEntity .
+
+hyp:hasFunctionality
+  a            owl:ObjectProperty ;
+  rdfs:domain   hyp:ThreatActor ;
+  rdfs:range    skos:Concept ;
+  rdfs:label    "has functionality" ;
+  rdfs:comment  "Links a domain class to one of the SKOS‑defined functionalities." .
+
+
+# =============================================================================
+# THREAT TYPES (Based on HIPSTER requirements)
+# =============================================================================
+
+hti:HybridThreat a owl:Class ;
+    rdfs:label "Hybrid Threat" ;
+    rdfs:comment "Threats combining multiple attack vectors (cyber, physical, psychological)" ;
+    rdfs:subClassOf hti:Threat .
+
+hti:DisinformationCampaign a owl:Class ;
+    rdfs:label "Disinformation Campaign" ;
+    rdfs:comment "Coordinated spreading of false information" ;
+    rdfs:subClassOf hti:HybridThreat .
+
+hti:MisinformationSpread a owl:Class ;
+    rdfs:label "Misinformation Spread" ;
+    rdfs:comment "Unintentional spread of false information" ;
+    rdfs:subClassOf hti:HybridThreat .
+
+hti:PsychologicalOperation a owl:Class ;
+    rdfs:label "Psychological Operation" ;
+    rdfs:comment "Operations aimed at influencing emotions, motives, and behavior" ;
+    rdfs:subClassOf hti:HybridThreat .
+
+hti:SocialMediaManipulation a owl:Class ;
+    rdfs:label "Social Media Manipulation" ;
+    rdfs:comment "Coordinated inauthentic behavior on social platforms" ;
+    rdfs:subClassOf hti:HybridThreat .
+
+hti:NarrativeWarfare a owl:Class ;
+    rdfs:label "Narrative Warfare" ;
+    rdfs:comment "Strategic use of narratives to shape perceptions" ;
+    rdfs:subClassOf hti:HybridThreat .
+
+# =============================================================================
+# THREAT ACTORS
+# =============================================================================
+
+hti:StateActor a owl:Class ;
+    rdfs:label "State Actor" ;
+    rdfs:comment "Nation-state or government-affiliated threat actor" ;
+    rdfs:subClassOf hti:ThreatActor .
+
+hti:NonStateActor a owl:Class ;
+    rdfs:label "Non-State Actor" ;
+    rdfs:comment "Non-governmental threat actor" ;
+    rdfs:subClassOf hti:ThreatActor .
+
+hti:TerroristGroup a owl:Class ;
+    rdfs:label "Terrorist Group" ;
+    rdfs:subClassOf hti:NonStateActor .
+
+hti:CriminalOrganization a owl:Class ;
+    rdfs:label "Criminal Organization" ;
+    rdfs:subClassOf hti:NonStateActor .
+
+hti:Hacktivist a owl:Class ;
+    rdfs:label "Hacktivist" ;
+    rdfs:subClassOf hti:NonStateActor .
+
+hti:TrollFarm a owl:Class ;
+    rdfs:label "Troll Farm" ;
+    rdfs:comment "Organized group spreading disinformation" ;
+    rdfs:subClassOf hti:ThreatActor .
+
+hti:BotNetwork a owl:Class ;
+    rdfs:label "Bot Network" ;
+    rdfs:comment "Network of automated accounts" ;
+    rdfs:subClassOf hti:ThreatActor .
+
+# =============================================================================
+# CONTENT & NARRATIVE CLASSES
+# =============================================================================
+
+hti:Content a owl:Class ;
+    rdfs:label "Content" ;
+    rdfs:comment "Any form of information or media" ;
+    rdfs:subClassOf hti:ThreatEntity .
+
+hti:Narrative a owl:Class ;
+    rdfs:label "Narrative" ;
+    rdfs:comment "Story or message being promoted" ;
+    rdfs:subClassOf hti:Content .
+
+hti:Propaganda a owl:Class ;
+    rdfs:label "Propaganda" ;
+    rdfs:subClassOf hti:Content .
+
+hti:FakeNews a owl:Class ;
+    rdfs:label "Fake News" ;
+    rdfs:subClassOf hti:Content .
+
+hti:DeepFake a owl:Class ;
+    rdfs:label "Deep Fake" ;
+    rdfs:comment "AI-generated fake content" ;
+    rdfs:subClassOf hti:Content .
+
+hti:Meme a owl:Class ;
+    rdfs:label "Meme" ;
+    rdfs:comment "Viral image or concept" ;
+    rdfs:subClassOf hti:Content .
+
+# =============================================================================
+# PLATFORM & CHANNEL CLASSES
+# =============================================================================
+
+hti:Platform a owl:Class ;
+    rdfs:label "Platform" ;
+    rdfs:comment "Communication platform or channel" ;
+    rdfs:subClassOf hti:ThreatEntity .
+
+hti:SocialMediaPlatform a owl:Class ;
+    rdfs:label "Social Media Platform" ;
+    rdfs:subClassOf hti:Platform .
+
+hti:MessagingApp a owl:Class ;
+    rdfs:label "Messaging App" ;
+    rdfs:subClassOf hti:Platform .
+
+hti:Forum a owl:Class ;
+    rdfs:label "Forum" ;
+    rdfs:subClassOf hti:Platform .
+
+hti:NewsOutlet a owl:Class ;
+    rdfs:label "News Outlet" ;
+    rdfs:subClassOf hti:Platform .
+
+# =============================================================================
+# BEHAVIORAL INDICATORS (From HIPSTER document)
+# =============================================================================
+
+hti:BehavioralPattern a owl:Class ;
+    rdfs:label "Behavioral Pattern" ;
+    rdfs:comment "Observable pattern of behavior" ;
+    rdfs:subClassOf hti:ThreatIndicator .
+
+hti:CoordinatedActivity a owl:Class ;
+    rdfs:label "Coordinated Activity" ;
+    rdfs:comment "Synchronized behavior across multiple accounts" ;
+    rdfs:subClassOf hti:BehavioralPattern .
+
+hti:AnomalousPosting a owl:Class ;
+    rdfs:label "Anomalous Posting" ;
+    rdfs:comment "Unusual posting patterns (time, frequency, content)" ;
+    rdfs:subClassOf hti:BehavioralPattern .
+
+hti:NetworkAmplification a owl:Class ;
+    rdfs:label "Network Amplification" ;
+    rdfs:comment "Artificial amplification of content" ;
+    rdfs:subClassOf hti:BehavioralPattern .
+
+hti:EchoChamber a owl:Class ;
+    rdfs:label "Echo Chamber" ;
+    rdfs:comment "Closed information ecosystem" ;
+    rdfs:subClassOf hti:BehavioralPattern .
+
+# =============================================================================
+# LINGUISTIC INDICATORS
+# =============================================================================
+
+hti:LinguisticIndicator a owl:Class ;
+    rdfs:label "Linguistic Indicator" ;
+    rdfs:comment "Language-based threat indicators" ;
+    rdfs:subClassOf hti:ThreatIndicator .
+
+hti:EmotiveLanguage a owl:Class ;
+    rdfs:label "Emotive Language" ;
+    rdfs:comment "Language designed to provoke emotional response" ;
+    rdfs:subClassOf hti:LinguisticIndicator .
+
+hti:HateSpeech a owl:Class ;
+    rdfs:label "Hate Speech" ;
+    rdfs:subClassOf hti:LinguisticIndicator .
+
+hti:Dehumanization a owl:Class ;
+    rdfs:label "Dehumanization" ;
+    rdfs:comment "Language that dehumanizes groups" ;
+    rdfs:subClassOf hti:LinguisticIndicator .
+
+hti:ConspiracyNarrative a owl:Class ;
+    rdfs:label "Conspiracy Narrative" ;
+    rdfs:subClassOf hti:LinguisticIndicator .
+
+# =============================================================================
+# PROPERTIES
+# =============================================================================
+
+# Object Properties
+hti:conducts a owl:ObjectProperty ;
+    rdfs:label "conducts" ;
+    rdfs:domain hti:ThreatActor ;
+    rdfs:range hti:Threat ;
+    rdfs:comment "Actor conducts threat activity" .
+
+hti:targets a owl:ObjectProperty ;
+    rdfs:label "targets" ;
+    rdfs:domain hti:Threat ;
+    rdfs:range hti:Target ;
+    rdfs:comment "Threat targets entity" .
+
+hti:uses a owl:ObjectProperty ;
+    rdfs:label "uses" ;
+    rdfs:domain hti:Threat ;
+    rdfs:range hti:Content ;
+    rdfs:comment "Threat uses content" .
+
+hti:spreadsOn a owl:ObjectProperty ;
+    rdfs:label "spreads on" ;
+    rdfs:domain hti:Content ;
+    rdfs:range hti:Platform ;
+    rdfs:comment "Content spreads on platform" .
+
+hti:exhibits a owl:ObjectProperty ;
+    rdfs:label "exhibits" ;
+    rdfs:domain hti:ThreatActor ;
+    rdfs:range hti:BehavioralPattern ;
+    rdfs:comment "Actor exhibits behavioral pattern" .
+
+hti:contains a owl:ObjectProperty ;
+    rdfs:label "contains" ;
+    rdfs:domain hti:Content ;
+    rdfs:range hti:LinguisticIndicator ;
+    rdfs:comment "Content contains linguistic indicator" .
+
+hti:amplifies a owl:ObjectProperty ;
+    rdfs:label "amplifies" ;
+    rdfs:domain hti:ThreatActor ;
+    rdfs:range hti:Narrative ;
+    rdfs:comment "Actor amplifies narrative" .
+
+# Data Properties
+hti:threatLevel a owl:DatatypeProperty ;
+    rdfs:label "threat level" ;
+    rdfs:domain hti:Threat ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Threat severity level (low, medium, high, critical)" .
+
+hti:confidence a owl:DatatypeProperty ;
+    rdfs:label "confidence" ;
+    rdfs:domain hti:ThreatIndicator ;
+    rdfs:range xsd:float ;
+    rdfs:comment "Confidence score (0.0-1.0)" .
+
+hti:detectedOn a owl:DatatypeProperty ;
+    rdfs:label "detected on" ;
+    rdfs:domain hti:Threat ;
+    rdfs:range xsd:dateTime ;
+    rdfs:comment "Timestamp of threat detection" .
+
+hti:postCount a owl:DatatypeProperty ;
+    rdfs:label "post count" ;
+    rdfs:domain hti:ThreatActor ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "Number of posts by actor" .
+
+hti:followerCount a owl:DatatypeProperty ;
+    rdfs:label "follower count" ;
+    rdfs:domain hti:ThreatActor ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "Number of followers" .
+
+hti:sentimentScore a owl:DatatypeProperty ;
+    rdfs:label "sentiment score" ;
+    rdfs:domain hti:Content ;
+    rdfs:range xsd:float ;
+    rdfs:comment "Sentiment analysis score (-1.0 to 1.0)" .
+
+hti:viralityScore a owl:DatatypeProperty ;
+    rdfs:label "virality score" ;
+    rdfs:domain hti:Content ;
+    rdfs:range xsd:float ;
+    rdfs:comment "Content virality measure" .
+
+# =============================================================================
+# EXAMPLE INSTANCES (for testing)
+# =============================================================================
+
+hti:ExampleDisinfoCampaign a hti:DisinformationCampaign ;
+    rdfs:label "Example Disinformation Campaign" ;
+    hti:threatLevel "high" ;
+    hti:detectedOn "2024-01-15T10:30:00Z"^^xsd:dateTime ;
+    hti:targets hti:PublicTrust ;
+    hti:uses hti:FakeHealthNews .
+    
+hti:ExampleTrollFarm a hti:TrollFarm ;
+    rdfs:label "Example Troll Farm" ;
+    hti:postCount 10000 ;
+    hti:exhibits hti:CoordinatedPosting ;
+    hti:conducts hti:ExampleDisinfoCampaign .  # ADDED: Actor conducts threat
+
+hti:FakeHealthNews a hti:FakeNews ;
+    rdfs:label "Fake Health News" ;
+    hti:sentimentScore -0.8 ;
+    hti:viralityScore 0.9 ;
+    hti:contains hti:FearInducingLanguage ;
+    hti:spreadsOn hti:Twitter .
+
+hti:PublicTrust a hti:Target ;
+    rdfs:label "Public Trust in Institutions" .
+
+# ADD these missing instances:
+hti:CoordinatedPosting a hti:CoordinatedActivity ;
+    rdfs:label "Coordinated Posting Pattern" .
+
+hti:FearInducingLanguage a hti:EmotiveLanguage ;
+    rdfs:label "Fear-Inducing Language" .
+
+hti:Twitter a hti:SocialMediaPlatform ;
+    rdfs:label "Twitter/X" .
