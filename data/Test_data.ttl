@@ -1,0 +1,7 @@
+@prefix hyp: <http://example.org/hypster/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<http://example.org/device1> hyp:hasFunctionality <http://example.org/function1> .
+
+<http://example.org/function1> a skos:Concept ;
+    skos:prefLabel "Wi-Fi connectivity" .
