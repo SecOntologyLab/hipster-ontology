@@ -1,7 +1,7 @@
 # HIPSTer Project: Technical Validation Results
 # Dataset: Chinese Offensive Language Detection (COLD) benchmark (n=37,480)
 # Infrastructure: Google Colab (Tesla T4 GPU)
-# Reference: Section 6.5 of "Hybrid-Threat Intelligence: A Critical Review..."
+# Reference: Section 6.5 of "Hybrid-Threat Intelligence: A Critical Review of Semantic Integration Challenges and the HIPSTer Ontological Framework."
 
 ============================================================
 TECHNICAL VALIDATION: 10-FOLD CROSS-VALIDATION LOGS
