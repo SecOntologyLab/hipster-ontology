@@ -1,0 +1,32 @@
+# Relationship to Review Article
+# This SPARQL query serves as the primary technical proof-of-concept for the article: 
+# "Hybrid-Threat Intelligence: A Critical Review of Semantic Integration Challenges and the HIPSTer Ontological Framework." 
+#
+# It specifically addresses identified gaps in cross-domain reasoning and automated 
+# attribution (Requirement R8) by correlating disparate indicators—dehumanization 
+# techniques (hyp:) and CIB patterns (hti:)—across a temporal window [cite: 686, 701-702].
+
+PREFIX hti: <http://example.org/hybrid-threat-intelligence#>
+PREFIX hyp: <http://example.org/hypster/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor (COUNT(DISTINCT ?tech) AS ?techCount) (COUNT(DISTINCT ?pattern) AS ?cibCount)
+WHERE {
+  ?actor a hti:ThreatActor ;
+         hti:hasLastActivity ?date ;
+         hti:exhibitsTechnique ?tech ;
+         hti:exhibitsPattern ?pattern .
+  
+  # Filter by SKOS Taxonomy: Domain 10 (Dehumanization and Demonization) [cite: 648]
+  ?tech skos:broader hyp:DehumanizationAndDemonization . 
+  
+  # Filter by Behavioral Domain: Coordinated Inauthentic Behavior (CIB) [cite: 686]
+  ?pattern skos:broader hyp:CoordinatedInauthenticBehavior .
+
+  # Temporal filter: past 90 days (referenced to Dec 2025 data state)
+  FILTER(?date > "2025-10-01"^^xsd:date) 
+}
+GROUP BY ?actor ?date
+HAVING (COUNT(DISTINCT ?tech) >= 10 && COUNT(DISTINCT ?pattern) >= 5)
+ORDER BY DESC(?techCount)
