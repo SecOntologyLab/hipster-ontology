@@ -1,0 +1,32 @@
+# HIPSTer Project: Technical Validation Results
+# Dataset: Chinese Offensive Language Detection (COLD) benchmark (n=37,480)
+# Infrastructure: Google Colab (Tesla T4 GPU)
+# Reference: Section 6.5 of "Hybrid-Threat Intelligence: A Critical Review..."
+
+============================================================
+TECHNICAL VALIDATION: 10-FOLD CROSS-VALIDATION LOGS
+============================================================
+GPU device: Tesla T4 (CUDA available: True)
+Algorithm: CatBoost (GPU-accelerated)
+
+SUMMARY OF KEY METRICS (CatBoost Optimized):
+- Accuracy: 86%
+- AUC-ROC:  0.931
+- Cohen's Kappa: 0.72
+- Total Wall Time: 10min 2s
+
+DETAILED FOLD RESULTS (CatBoost e5 AUC):
+Fold 1:  0.929 | Fold 2:  0.929 | Fold 3:  0.937
+Fold 4:  0.934 | Fold 5:  0.935 | Fold 6:  0.936
+Fold 7:  0.927 | Fold 8:  0.925 | Fold 9:  0.933
+Fold 10: 0.930
+
+CLASSIFICATION REPORT (Final State):
+              precision    recall  f1-score   support
+Non-Offense       0.87      0.86      0.87     19439
+Offense           0.85      0.86      0.86     18041
+
+Accuracy:                           0.86     37480
+Macro Avg:       0.86      0.86      0.86     37480
+Weighted Avg:    0.86      0.86      0.86     37480
+============================================================
