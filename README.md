@@ -1,7 +1,6 @@
-# hipster-ontology
 Ontology for hybrid-threat intelligence (OSINT · SoCMINT · NLP)
 
-# Hybrid-Threat Intelligence: The HIPSTer Ontological Framework
+## Hybrid-Threat Intelligence: The HIPSTer Ontological Framework
 
 This repository contains the **research artefacts** and **technical validation results** for the manuscript:
 > **"Hybrid-Threat Intelligence: A Critical Review of Semantic Integration Challenges and the HIPSTer Ontological Framework"**
