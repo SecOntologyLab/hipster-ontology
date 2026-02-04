@@ -1,35 +1,131 @@
-Ontology for hybrid-threat intelligence (OSINT · SoCMINT · NLP)
+﻿# Hybrid-Threat Intelligence: The HIPSTer Ontological Framework
 
-## Hybrid-Threat Intelligence: The HIPSTer Ontological Framework
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This repository contains the **research artefacts** and **technical validation results** for the manuscript:
-> **"Hybrid-Threat Intelligence: A Critical Review of Semantic Integration Challenges and the HIPSTer Ontological Framework"**
+**Ontology for hybrid-threat intelligence (OSINT Â· SoCMINT Â· NLP)**
 
-This project is a work-in-progress initiative persistently developed by the **Security Research Laboratory, Mykolas Romeris University (MRU)** in collaboration with the **Lithuanian Cybercrime Centre of Excellence (L3CE)**.
+This repository contains the **research artefacts** and **technical validation results** for the HIPSTer (Hybrid Information Psychological Societal Threats) project.
 
----
+## Publications
 
-## Project Overview
-The **HIPSTer** (Hybrid Information Psychological Societal Threats handling system) framework addresses the "semantic gap" in current defensive systems by providing an ontology-driven architecture for multi-domain threat correlation. It integrates **OWL threat modeling** and **SKOS taxonomies** to enable formal reasoning over disparate data streams.
+This framework is documented in:
 
-## Technical Validation (TRL 4)
-The initiative has successfully reached **Technology Readiness Level 4 (Laboratory Validation)**. 
+1. **Paskauskas, R. A., BruÅ¾Ä—, E., SabaliauskaitÄ—, G., MatulytÄ—, R., & LaviÅ¡ius, T.** (2026). Hybrid-Threat Intelligence: A Critical Review of Semantic Integration Challenges and the HIPSTer Ontological Framework. *Journal of Intelligent Communication* (forthcoming).
 
-### Key Performance Benchmarks
-Experimental validation demonstrates high predictive accuracy and computational efficiency using high-efficiency semantic vectors and **SPARQL** (Protocol and RDF Query Language):
+2. **BruÅ¾Ä—, E., Paskauskas, R. A., SabaliauskaitÄ—, G., MatulytÄ—, R., & LaviÅ¡ius, T.** (2026). Integration of Hybrid Threat Intelligence: The HiPSTer Ontological Method for Cross-Domain Correlation in Influence Operations. *Open Research Europe* (forthcoming).
 
-* **Chinese Offensive Language Detection (COLD):** Achieved **86% Accuracy** and an **AUC-ROC of 0.931**.
-* **Classification Reliability:** Demonstrated a **Cohen’s Kappa of 0.72** for Mandarin-based threat indicators.
-* **Operational Efficiency:** Processed adversarial benchmarks in **under 3 minutes** (total wall time for cross-validation ~10 minutes) on standard **Google Colab (Tesla T4 GPU)** cloud infrastructure.
+## Repository Contents
 
-## Repository Structure
-* **`/ontology`**: Contains the core research artefacts, including:
-    * `operational_query_example.rq`: The formal **SPARQL** implementation for cross-domain reasoning.
-    * `ChCOLD_validation_results.txt`: Raw cross-validation logs for the Chinese linguistic extension.
-* **`/docs`**: Expert-based evaluation methodology and functional requirements framework.
-* **`/data`**: OSINT tool competitive analysis and SKOS taxonomy mapping data.
+### `/ontology/` â€” Core OWL Ontology
 
-## Institutional Context & Funding
-This research is part of the project **“Implementation of Mission-Based Science and Innovation Programs” (Project No. 02-002-P-0001)**. It is financed by the **European Union** through the Recovery and Resilience Facility and co-funded by the **Republic of Lithuania** via the Research Council of Lithuania.
+| File | Description |
+|------|-------------|
+| `hipster-model.ttl` | Core OWL ontology defining classes and object properties |
+| `hipster-subset-viz.ttl` | Subset optimised for visualisation |
+| `ChCOLD_validation_results.txt` | Chinese COLD dataset validation results |
 
-Foundational machine learning pipelines for European linguistic contexts (English, Lithuanian, Russian) are based on the [KTU-Misijos-HIPSTer repository](https://github.com/evavaic/KTU-Misijos-HIPSTer).
+### `/taxonomy/` â€” SKOS Capability Taxonomy
+
+| File | Description |
+|------|-------------|
+| `hyp-functionalities.ttl` | SKOS taxonomy covering 12 functional domains and 143 detailed functionalities |
+
+**The 12 Functional Domains:**
+1. Communication Metadata
+2. Language and Phrasing
+3. Symbolism and Imagery
+4. Narratives and Storytelling
+5. Community and Engagement Patterns
+6. Behavioural Patterns and Activity Trends
+7. Visual and Aesthetic Cues
+8. Cultural References and Symbolic Associations
+9. Social Media Metadata and Geolocation
+10. Content Structure and Framing Strategies
+11. **Dehumanization and Demonization** â† Primary focus of case study
+12. Anomalies and Psychological Patterns
+
+### `/indicators/` â€” Indicator Instance Data
+
+| File | Indicator Class | Description |
+|------|-----------------|-------------|
+| `ind-ideology.ttl` | IDEO-* | Ideology indicators (othering, restoration narratives) |
+| `ind-fifthcolumn.ttl` | 5COL-* | Fifth column indicators (attribution reversal, delegitimisation) |
+| `ind-conspiracy.ttl` | CONSP-* | Conspiracy indicators (hidden enemy, existential threat) |
+| `ind-rad-general.ttl` | RAD-GEN-* | Radicalization general indicators |
+| `ind-rad-person.ttl` | RAD-PERSON-* | Radicalization person-level indicators |
+| `ind-rad-topic.ttl` | RAD-TOPIC-* | Radicalization topic-level indicators |
+| `ind-rad-post.ttl` | RAD-POST-* | Radicalization post-level indicators |
+| `ind-rad-event.ttl` | RAD-EVENT-* | Radicalization event-level indicators |
+
+### `/queries/` â€” SPARQL Query Patterns
+
+| File | Purpose |
+|------|---------|
+| `query1-escalation-cluster.sparql` | Detect D&D campaigns with coordination signals near event triggers |
+| `query2-attribution-pattern.sparql` | Trace ecosystem pathways from state actors through proxy outlets |
+| `query3-temporal-tracking.sparql` | Track demonization intensity over time against target groups |
+| `query4-actor-profiling.sparql` | Identify actors employing â‰¥5 distinct D&D techniques |
+
+### `/visualisations/` â€” Interactive Demonstrations
+
+| File | Content | Notes |
+|------|---------|-------|
+| `ontology-network.html` | Core ontology structure | Corresponds to Figure 1 |
+| `ontology-demo.html` | Russia-Ukraine case study | Demonstrates 5 of 7 indicators from Figure 3 |
+| `sparql-demo.html` | Query demonstrations | Simplified versions for accessibility |
+
+**Note:** The interactive SPARQL demos are illustrative. For formal query specifications, see `/queries/`.
+
+### `/data/` â€” Assessment Data
+
+Comparative assessment data underlying Tables 1-2 in the ORE paper.
+
+### `/docs/` â€” Documentation
+
+Extended framework documentation and methodology notes.
+
+## Related Resources
+
+- **ML/NLP Validation Pipeline (KTU):** https://github.com/evavaic/KTU-Misijos-HIPSTer
+- **5G Hybrid Threats Ontology:** https://purl.org/5g-hybrid-threats
+
+## Quick Start
+
+### Load the Ontology
+
+Import `ontology/hipster-model.ttl` into [ProtÃ©gÃ©](https://protege.stanford.edu/) or any OWL-compatible editor.
+
+### Run SPARQL Queries
+
+Load the ontology and indicator files into [Stardog Cloud](https://cloud.stardog.com/) or another SPARQL endpoint, then execute queries from `/queries/`.
+
+### Explore the Taxonomy
+
+The SKOS taxonomy in `taxonomy/hyp-functionalities.ttl` can be browsed in any RDF viewer or imported into knowledge management tools.
+
+## Namespaces
+
+| Prefix | URI |
+|--------|-----|
+| `hti:` | `http://l3ce.eu/ontology/hybrid-threat-intelligence#` |
+| `ind:` | `http://l3ce.eu/ontology/hipster-indicators#` |
+| `hyp:` | `http://l3ce.eu/ontology/hypster-functionalities#` |
+
+## Citation
+
+```bibtex
+@article{bruze2026hipster,
+  title={Integration of Hybrid Threat Intelligence: The HiPSTer Ontological Method for Cross-Domain Correlation in Influence Operations},
+  author={BruÅ¾Ä—, Evaldas and Paskauskas, R. Andrew and SabaliauskaitÄ—, GiedrÄ— and MatulytÄ—, Raminta and LaviÅ¡ius, Tomas},
+  journal={Open Research Europe},
+  year={2026}
+}
+```
+
+## Acknowledgements
+
+This research was prepared as part of the project "Implementation of Mission-Based Science and Innovation Programs" (Project No. 02-002-P-0001), financed by the European Union through the Recovery and Resilience Facility (2021â€“2027 programming period, New Generation Lithuania plan), and co-funded by the state budget of the Republic of Lithuania administered via the Research Council of Lithuania.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
