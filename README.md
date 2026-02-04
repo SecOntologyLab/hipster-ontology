@@ -1,8 +1,8 @@
-﻿# Hybrid-Threat Intelligence: The HIPSTer Ontological Framework
+# Hybrid-Threat Intelligence: The HIPSTer Ontological Framework
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Ontology for hybrid-threat intelligence (OSINT Â· SoCMINT Â· NLP)**
+**Ontology for hybrid-threat intelligence (OSINT - SoCMINT - NLP)**
 
 This repository contains the **research artefacts** and **technical validation results** for the HIPSTer (Hybrid Information Psychological Societal Threats) project.
 
@@ -10,13 +10,13 @@ This repository contains the **research artefacts** and **technical validation r
 
 This framework is documented in:
 
-1. **Paskauskas, R. A., BruÅ¾Ä—, E., SabaliauskaitÄ—, G., MatulytÄ—, R., & LaviÅ¡ius, T.** (2026). Hybrid-Threat Intelligence: A Critical Review of Semantic Integration Challenges and the HIPSTer Ontological Framework. *Journal of Intelligent Communication* (forthcoming).
+1. **Paskauskas, R. A., Bruze, E., Sabaliauskaite, G., Matulyte, R., & Lavisius, T.** (2026). Hybrid-Threat Intelligence: A Critical Review of Semantic Integration Challenges and the HIPSTer Ontological Framework. *Journal of Intelligent Communication* (forthcoming).
 
-2. **BruÅ¾Ä—, E., Paskauskas, R. A., SabaliauskaitÄ—, G., MatulytÄ—, R., & LaviÅ¡ius, T.** (2026). Integration of Hybrid Threat Intelligence: The HiPSTer Ontological Method for Cross-Domain Correlation in Influence Operations. *Open Research Europe* (forthcoming).
+2. **Bruze, E., Paskauskas, R. A., Sabaliauskaite, G., Matulyte, R., & Lavisius, T.** (2026). Integration of Hybrid Threat Intelligence: The HiPSTer Ontological Method for Cross-Domain Correlation in Influence Operations. *Open Research Europe* (forthcoming).
 
 ## Repository Contents
 
-### `/ontology/` â€” Core OWL Ontology
+### `/ontology/` - Core OWL Ontology
 
 | File | Description |
 |------|-------------|
@@ -24,7 +24,7 @@ This framework is documented in:
 | `hipster-subset-viz.ttl` | Subset optimised for visualisation |
 | `ChCOLD_validation_results.txt` | Chinese COLD dataset validation results |
 
-### `/taxonomy/` â€” SKOS Capability Taxonomy
+### `/taxonomy/` - SKOS Capability Taxonomy
 
 | File | Description |
 |------|-------------|
@@ -41,10 +41,10 @@ This framework is documented in:
 8. Cultural References and Symbolic Associations
 9. Social Media Metadata and Geolocation
 10. Content Structure and Framing Strategies
-11. **Dehumanization and Demonization** â† Primary focus of case study
+11. **Dehumanization and Demonization** (primary focus of case study)
 12. Anomalies and Psychological Patterns
 
-### `/indicators/` â€” Indicator Instance Data
+### `/indicators/` - Indicator Instance Data
 
 | File | Indicator Class | Description |
 |------|-----------------|-------------|
@@ -57,16 +57,16 @@ This framework is documented in:
 | `ind-rad-post.ttl` | RAD-POST-* | Radicalization post-level indicators |
 | `ind-rad-event.ttl` | RAD-EVENT-* | Radicalization event-level indicators |
 
-### `/queries/` â€” SPARQL Query Patterns
+### `/queries/` - SPARQL Query Patterns
 
 | File | Purpose |
 |------|---------|
 | `query1-escalation-cluster.sparql` | Detect D&D campaigns with coordination signals near event triggers |
 | `query2-attribution-pattern.sparql` | Trace ecosystem pathways from state actors through proxy outlets |
 | `query3-temporal-tracking.sparql` | Track demonization intensity over time against target groups |
-| `query4-actor-profiling.sparql` | Identify actors employing â‰¥5 distinct D&D techniques |
+| `query4-actor-profiling.sparql` | Identify actors employing 5+ distinct D&D techniques |
 
-### `/visualisations/` â€” Interactive Demonstrations
+### `/visualisations/` - Interactive Demonstrations
 
 | File | Content | Notes |
 |------|---------|-------|
@@ -76,11 +76,11 @@ This framework is documented in:
 
 **Note:** The interactive SPARQL demos are illustrative. For formal query specifications, see `/queries/`.
 
-### `/data/` â€” Assessment Data
+### `/data/` - Assessment Data
 
 Comparative assessment data underlying Tables 1-2 in the ORE paper.
 
-### `/docs/` â€” Documentation
+### `/docs/` - Documentation
 
 Extended framework documentation and methodology notes.
 
@@ -93,7 +93,7 @@ Extended framework documentation and methodology notes.
 
 ### Load the Ontology
 
-Import `ontology/hipster-model.ttl` into [ProtÃ©gÃ©](https://protege.stanford.edu/) or any OWL-compatible editor.
+Import `ontology/hipster-model.ttl` into [Protege](https://protege.stanford.edu/) or any OWL-compatible editor.
 
 ### Run SPARQL Queries
 
@@ -116,7 +116,7 @@ The SKOS taxonomy in `taxonomy/hyp-functionalities.ttl` can be browsed in any RD
 ```bibtex
 @article{bruze2026hipster,
   title={Integration of Hybrid Threat Intelligence: The HiPSTer Ontological Method for Cross-Domain Correlation in Influence Operations},
-  author={BruÅ¾Ä—, Evaldas and Paskauskas, R. Andrew and SabaliauskaitÄ—, GiedrÄ— and MatulytÄ—, Raminta and LaviÅ¡ius, Tomas},
+  author={Bruze, Evaldas and Paskauskas, R. Andrew and Sabaliauskaite, Giedre and Matulyte, Raminta and Lavisius, Tomas},
   journal={Open Research Europe},
   year={2026}
 }
@@ -124,7 +124,7 @@ The SKOS taxonomy in `taxonomy/hyp-functionalities.ttl` can be browsed in any RD
 
 ## Acknowledgements
 
-This research was prepared as part of the project "Implementation of Mission-Based Science and Innovation Programs" (Project No. 02-002-P-0001), financed by the European Union through the Recovery and Resilience Facility (2021â€“2027 programming period, New Generation Lithuania plan), and co-funded by the state budget of the Republic of Lithuania administered via the Research Council of Lithuania.
+This research was prepared as part of the project "Implementation of Mission-Based Science and Innovation Programs" (Project No. 02-002-P-0001), financed by the European Union through the Recovery and Resilience Facility (2021-2027 programming period, New Generation Lithuania plan), and co-funded by the state budget of the Republic of Lithuania administered via the Research Council of Lithuania.
 
 ## License
 
