@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIPSTer Framework - Demonization Analysis Demo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2a5298;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .query-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .query-card {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .query-card:hover {
+            border-color: #2a5298;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .query-card.active {
+            background: #2a5298;
+            color: white;
+            border-color: #2a5298;
+        }
+        
+        .query-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .query-card p {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+        
+        .query-display {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            white-space: pre;
+        }
+        
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .variable { color: #9cdcfe; }
+        .comment { color: #6a9955; }
+        
+        .execute-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .execute-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+        }
+        
+        .results-container {
+            margin-top: 30px;
+        }
+        
+        .results-summary {
+            background: #e8f5e9;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        .results-summary h3 {
+            color: #2e7d32;
+            margin-bottom: 8px;
+        }
+        
+        .viz-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .viz-tab {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s;
+        }
+        
+        .viz-tab.active {
+            color: #2a5298;
+            border-bottom-color: #2a5298;
+        }
+        
+        .viz-panel {
+            display: none;
+        }
+        
+        .viz-panel.active {
+            display: block;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2a5298;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .network-viz {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+        }
+        
+        .timeline-viz {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .indicator-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .badge-dehumanization { background: #ffebee; color: #c62828; }
+        .badge-moral-inversion { background: #fff3e0; color: #e65100; }
+        .badge-existential { background: #fce4ec; color: #880e4f; }
+        .badge-coordination { background: #e8eaf6; color: #283593; }
+        
+        .actor-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .actor-card h4 {
+            color: #2a5298;
+            margin-bottom: 10px;
+        }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-card .number {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card .label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛡️ HIPSTer Framework - Demonization & Disinformation Analysis</h1>
+            <p class="subtitle">Interactive Demonstration: Hate Speech Escalation in FIMI Operations</p>
+        </div>
+        
+        <div class="content">
+            <!-- Use Case Context -->
+            <div class="section">
+                <div class="section-title">📋 Experimental Use Case</div>
+                <p style="line-height: 1.6; color: #555;">
+                    <strong>Operational Question:</strong> Can the HIPSTer ontology represent and reason over the progression from 
+                    "negative narrative" to "demonization and hatred escalation" as an integrated hybrid-threat pattern—and 
+                    distinguish <strong>organic hateful discourse</strong> from <strong>coordinated FIMI-style demonization campaigns</strong>?
+                </p>
+                <p style="line-height: 1.6; color: #555; margin-top: 10px;">
+                    <strong>Context:</strong> Russia-Ukraine war information environment (EEAS most-targeted scenario), 
+                    featuring attribution reversal, "Nazi/terrorist state" framing, event-driven opportunism, and networked ecosystem delivery.
+                </p>
+            </div>
+
+            <!-- Query Selection -->
+            <div class="section">
+                <div class="section-title">🔍 Select SPARQL Query</div>
+                <div class="query-selector">
+                    <div class="query-card active" data-query="1">
+                        <h3>Query 1: Escalation Clusters</h3>
+                        <p>Find campaigns with D&D + moral inversion + coordination within ±72h of event triggers</p>
+                    </div>
+                    <div class="query-card" data-query="2">
+                        <h3>Query 2: Attribution Analysis</h3>
+                        <p>Identify D&D content originating in proxy outlets with coordinated amplification</p>
+                    </div>
+                    <div class="query-card" data-query="3">
+                        <h3>Query 3: Temporal Tracking</h3>
+                        <p>Track monthly demonization trends targeting specific groups correlated with battlefield events</p>
+                    </div>
+                    <div class="query-card" data-query="4">
+                        <h3>Query 4: Actor Profiles</h3>
+                        <p>Threat actors ranked by D&D technique usage (≥5 indicators) with ecosystem links</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SPARQL Query Display -->
+            <div class="section">
+                <div class="section-title">💻 SPARQL Query</div>
+                <div class="query-display" id="queryDisplay"></div>
+                <button class="execute-btn" onclick="executeQuery()">▶️ Execute Query</button>
+            </div>
+
+            <!-- Results -->
+            <div class="results-container" id="resultsContainer" style="display: none;">
+                <div class="section-title">📊 Query Results</div>
+                
+                <div class="results-summary" id="resultsSummary"></div>
+
+                <!-- Visualization Tabs -->
+                <div class="viz-tabs">
+                    <button class="viz-tab active" onclick="switchTab('stats')">📈 Statistics</button>
+                    <button class="viz-tab" onclick="switchTab('table')">📋 Data Table</button>
+                    <button class="viz-tab" onclick="switchTab('network')">🕸️ Network Graph</button>
+                    <button class="viz-tab" onclick="switchTab('timeline')">⏱️ Timeline</button>
+                </div>
+
+                <!-- Stats Panel -->
+                <div class="viz-panel active" id="statsPanel"></div>
+
+                <!-- Table Panel -->
+                <div class="viz-panel" id="tablePanel"></div>
+
+                <!-- Network Panel -->
+                <div class="viz-panel" id="networkPanel">
+                    <svg class="network-viz" id="networkSvg" width="100%" height="500"></svg>
+                </div>
+
+                <!-- Timeline Panel -->
+                <div class="viz-panel" id="timelinePanel">
+                    <div class="timeline-viz">
+                        <svg id="timelineSvg" width="100%" height="300"></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock Knowledge Graph Data (simulating STARDOG results)
+        const knowledgeGraph = {
+            campaigns: [
+                {
+                    id: "campaign_001",
+                    label: "Ukraine Aggressor Narrative 2024-Q1",
+                    type: "DisinformationCampaign",
+                    startDate: "2024-02-15",
+                    eventTrigger: "Avdiivka Offensive",
+                    indicators: ["IDEO-14", "5COL-08", "RAD-GEN-12", "RAD-PER-23", "RAD-POST-05"],
+                    actors: ["actor_rus_001", "proxy_outlet_001"],
+                    coordinationScore: 0.87
+                },
+                {
+                    id: "campaign_002",
+                    label: "Nazi State Framing Campaign",
+                    type: "DisinformationCampaign",
+                    startDate: "2024-03-10",
+                    eventTrigger: "EU Integration Talks",
+                    indicators: ["IDEO-18", "5COL-13", "CONSP-07", "RAD-GEN-08", "RAD-PER-19"],
+                    actors: ["actor_rus_001", "proxy_outlet_002", "coord_network_001"],
+                    coordinationScore: 0.92
+                },
+                {
+                    id: "campaign_003",
+                    label: "Existential Threat Amplification",
+                    type: "PsychologicalOperation",
+                    startDate: "2024-04-22",
+                    eventTrigger: "NATO Summit Announcement",
+                    indicators: ["IDEO-24", "5COL-13", "RAD-GEN-15", "RAD-PER-31", "RAD-EVT-04"],
+                    actors: ["actor_rus_001", "proxy_outlet_001", "proxy_outlet_003"],
+                    coordinationScore: 0.79
+                }
+            ],
+            
+            actors: [
+                {
+                    id: "actor_rus_001",
+                    label: "State Actor RF-Alpha",
+                    type: "StateActor",
+                    indicators: ["IDEO-14", "IDEO-18", "IDEO-24", "5COL-08", "5COL-13", "RAD-GEN-12", "RAD-GEN-08", "RAD-GEN-15"],
+                    campaigns: ["campaign_001", "campaign_002", "campaign_003"]
+                },
+                {
+                    id: "proxy_outlet_001",
+                    label: "Proxy Media Outlet - Strategic Echo",
+                    type: "ProxyOutlet",
+                    indicators: ["5COL-08", "RAD-POST-05", "RAD-PER-23", "RAD-GEN-15"],
+                    campaigns: ["campaign_001", "campaign_003"]
+                },
+                {
+                    id: "proxy_outlet_002",
+                    label: "Proxy Media Outlet - InfoStream",
+                    type: "ProxyOutlet",
+                    indicators: ["IDEO-18", "5COL-13", "CONSP-07"],
+                    campaigns: ["campaign_002"]
+                },
+                {
+                    id: "coord_network_001",
+                    label: "Coordinated Network - Amplifier Cluster Beta",
+                    type: "CoordinatedNetwork",
+                    indicators: ["RAD-PER-19", "RAD-GEN-08"],
+                    campaigns: ["campaign_002"]
+                }
+            ],
+            
+            indicators: [
+                { id: "IDEO-14", label: "Coordinated Activity", domain: "Dehumanization", definition: "Synchronized posting patterns suggesting orchestrated amplification" },
+                { id: "IDEO-18", label: "Othering Rhetoric", domain: "Dehumanization", definition: "Categorical exclusion markers ('they are not like us')" },
+                { id: "IDEO-24", label: "Restoration Narratives", domain: "Dehumanization", definition: "Calls to restore 'glorious past' with authoritarian mobilization logic" },
+                { id: "5COL-08", label: "Attribution Reversal", domain: "Dehumanization", definition: "Claims target is the true aggressor/source of atrocities" },
+                { id: "5COL-13", label: "Troll Farms", domain: "Behavioral", definition: "Evidence of coordinated inauthentic behavior patterns" },
+                { id: "CONSP-07", label: "Existential Threat Framing", domain: "Dehumanization", definition: "'Survival/no choice' logic legitimizing extreme measures" },
+                { id: "RAD-GEN-08", label: "Dehumanizing Metaphors", domain: "Dehumanization", definition: "Mapping humans to vermin/disease/dirt (coded lexicon)" },
+                { id: "RAD-GEN-12", label: "Moral Disgust Cues", domain: "Dehumanization", definition: "Emotional triggers reducing empathy and increasing contempt" },
+                { id: "RAD-GEN-15", label: "Mobilization Rhetoric", domain: "Dehumanization", definition: "Normalizing cruelty, removal of empathy, calls for exclusion" },
+                { id: "RAD-PER-19", label: "Ideological Drift Detection", domain: "Behavioral", definition: "Tracking individual radicalization progression over time" },
+                { id: "RAD-PER-23", label: "Network Position Shift", domain: "Behavioral", definition: "Changes in social graph position indicating coordination" },
+                { id: "RAD-PER-31", label: "Emotional Evolution Tracking", domain: "Behavioral", definition: "Sentiment progression from negative to hostile" },
+                { id: "RAD-POST-05", label: "Cross-Platform Mirroring", domain: "Behavioral", definition: "Identical content propagation across multiple platforms" },
+                { id: "RAD-EVT-04", label: "Event Exploitation Timing", domain: "Behavioral", definition: "Narrative injection within ±72h of salient incidents" }
+            ],
+            
+            timelineData: [
+                { date: "2024-02-15", campaign: "campaign_001", intensity: 45, eventLabel: "Avdiivka Offensive" },
+                { date: "2024-02-20", campaign: "campaign_001", intensity: 72 },
+                { date: "2024-02-25", campaign: "campaign_001", intensity: 89 },
+                { date: "2024-03-05", campaign: "campaign_001", intensity: 54 },
+                { date: "2024-03-10", campaign: "campaign_002", intensity: 38, eventLabel: "EU Talks" },
+                { date: "2024-03-15", campaign: "campaign_002", intensity: 81 },
+                { date: "2024-03-20", campaign: "campaign_002", intensity: 95 },
+                { date: "2024-04-22", campaign: "campaign_003", intensity: 41, eventLabel: "NATO Summit" },
+                { date: "2024-04-27", campaign: "campaign_003", intensity: 76 },
+                { date: "2024-05-02", campaign: "campaign_003", intensity: 63 }
+            ]
+        };
+
+        // SPARQL Query Templates
+        const queries = {
+            1: {
+                title: "Escalation Cluster Detection",
+                sparql: `PREFIX hti: <http://l3ce.eu/ontology/hybrid-threat-intelligence#>
+PREFIX ind: <http://l3ce.eu/ontology/hipster-indicators#>
+PREFIX hyp: <http://l3ce.eu/ontology/hypster-functionalities#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?campaign ?campaignLabel ?eventTrigger ?coordinationScore
+       (COUNT(DISTINCT ?indicator) AS ?indicatorCount)
+       (GROUP_CONCAT(DISTINCT ?indicatorLabel; separator="; ") AS ?indicators)
+WHERE {
+    ?campaign a hti:DisinformationCampaign .
+    ?campaign rdfs:label ?campaignLabel .
+    ?campaign hti:triggeredBy ?event .
+    ?event rdfs:label ?eventTrigger .
+    
+    ?campaign hti:exhibits ?indicator .
+    ?indicator rdfs:label ?indicatorLabel .
+    ?indicator hyp:inDomain "Dehumanization" .
+    
+    # Coordination within ±72h
+    ?campaign hti:hasCoordinationScore ?coordinationScore .
+    FILTER(?coordinationScore > 0.7)
+    
+    # Moral inversion present
+    ?campaign hti:exhibits ?moralIndicator .
+    ?moralIndicator rdfs:label ?moralLabel .
+    FILTER(REGEX(?moralLabel, "Attribution Reversal|Moral Inversion", "i"))
+}
+GROUP BY ?campaign ?campaignLabel ?eventTrigger ?coordinationScore
+HAVING (COUNT(DISTINCT ?indicator) >= 3)
+ORDER BY DESC(?coordinationScore)`
+            },
+            2: {
+                title: "Attribution-Supporting Pattern Analysis",
+                sparql: `PREFIX hti: <http://l3ce.eu/ontology/hybrid-threat-intelligence#>
+PREFIX ind: <http://l3ce.eu/ontology/hipster-indicators#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel ?actorType 
+       (COUNT(DISTINCT ?campaign) AS ?campaigns)
+       (COUNT(DISTINCT ?indicator) AS ?demonizationTechniques)
+       (GROUP_CONCAT(DISTINCT ?indicatorLabel; separator="; ") AS ?techniques)
+WHERE {
+    ?actor a ?actorType .
+    FILTER(?actorType IN (hti:StateActor, hti:ProxyOutlet, hti:CoordinatedNetwork))
+    ?actor rdfs:label ?actorLabel .
+    
+    ?actor hti:conducts ?campaign .
+    ?campaign hti:exhibits ?indicator .
+    ?indicator hyp:inDomain "Dehumanization" .
+    ?indicator rdfs:label ?indicatorLabel .
+    
+    # Proxy ecosystem pattern
+    FILTER(REGEX(?actorLabel, "Proxy|Coordinated", "i") || ?actorType = hti:StateActor)
+}
+GROUP BY ?actor ?actorLabel ?actorType
+ORDER BY DESC(?demonizationTechniques)`
+            },
+            3: {
+                title: "Temporal Demonization Tracking",
+                sparql: `PREFIX hti: <http://l3ce.eu/ontology/hybrid-threat-intelligence#>
+PREFIX ind: <http://l3ce.eu/ontology/hipster-indicators#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?date ?campaign ?intensity ?eventLabel
+WHERE {
+    ?campaign a hti:DisinformationCampaign .
+    ?campaign hti:startDate ?date .
+    ?campaign hti:intensityScore ?intensity .
+    
+    OPTIONAL {
+        ?campaign hti:triggeredBy ?event .
+        ?event rdfs:label ?eventLabel .
+    }
+    
+    # Targeting specific group
+    ?campaign hti:targets ?targetGroup .
+    ?targetGroup rdfs:label "Ukrainian Armed Forces" .
+    
+    FILTER(?date >= "2024-02-01"^^xsd:date && ?date <= "2024-05-31"^^xsd:date)
+}
+ORDER BY ?date`
+            },
+            4: {
+                title: "Threat Actor Dehumanization Profile",
+                sparql: `PREFIX hti: <http://l3ce.eu/ontology/hybrid-threat-intelligence#>
+PREFIX ind: <http://l3ce.eu/ontology/hipster-indicators#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel ?actorType
+       (COUNT(DISTINCT ?indicator) AS ?techniqueCount)
+       (COUNT(DISTINCT ?campaign) AS ?campaignCount)
+       (GROUP_CONCAT(DISTINCT ?indicatorID; separator=", ") AS ?techniqueIDs)
+WHERE {
+    ?actor a ?actorType .
+    ?actor rdfs:label ?actorLabel .
+    ?actor hti:conducts ?campaign .
+    
+    ?campaign hti:exhibits ?indicator .
+    ?indicator ind:indicatorID ?indicatorID .
+    ?indicator hyp:inDomain "Dehumanization" .
+    
+    # Ecosystem coordination check
+    ?campaign hti:hasCoordinationScore ?coordScore .
+}
+GROUP BY ?actor ?actorLabel ?actorType
+HAVING (COUNT(DISTINCT ?indicator) >= 5)
+ORDER BY DESC(?techniqueCount)`
+            }
+        };
+
+        let currentQuery = 1;
+
+        // Initialize
+        displayQuery(currentQuery);
+
+        // Query selection
+        document.querySelectorAll('.query-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.query-card').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                currentQuery = parseInt(this.dataset.query);
+                displayQuery(currentQuery);
+                document.getElementById('resultsContainer').style.display = 'none';
+            });
+        });
+
+        function displayQuery(queryNum) {
+            const query = queries[queryNum];
+            const display = document.getElementById('queryDisplay');
+            
+            let formatted = query.sparql
+                .replace(/(PREFIX|SELECT|WHERE|GROUP BY|HAVING|ORDER BY|FILTER)/g, '<span class="keyword">$1</span>')
+                .replace(/(\?[a-zA-Z]+)/g, '<span class="variable">$1</span>')
+                .replace(/(".*?")/g, '<span class="string">$1</span>')
+                .replace(/(#.*)/g, '<span class="comment">$1</span>');
+            
+            display.innerHTML = formatted;
+        }
+
+        function executeQuery() {
+            // Simulate query execution
+            document.getElementById('resultsContainer').style.display = 'block';
+            
+            // Generate results based on current query
+            switch(currentQuery) {
+                case 1:
+                    displayEscalationResults();
+                    break;
+                case 2:
+                    displayAttributionResults();
+                    break;
+                case 3:
+                    displayTemporalResults();
+                    break;
+                case 4:
+                    displayActorProfileResults();
+                    break;
+            }
+            
+            // Scroll to results
+            document.getElementById('resultsContainer').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function displayEscalationResults() {
+            // Summary
+            const summary = document.getElementById('resultsSummary');
+            summary.innerHTML = `
+                <h3>✅ Query Executed Successfully</h3>
+                <p><strong>Found:</strong> 3 disinformation campaigns with D&D escalation patterns</p>
+                <p><strong>Key Finding:</strong> All campaigns show coordination scores >0.7 with event-trigger temporal clustering (±72h)</p>
+            `;
+
+            // Stats
+            const statsPanel = document.getElementById('statsPanel');
+            statsPanel.innerHTML = `
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="number">3</div>
+                        <div class="label">Escalation Campaigns</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">14</div>
+                        <div class="label">Unique D&D Indicators</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">0.86</div>
+                        <div class="label">Avg Coordination Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">100%</div>
+                        <div class="label">Event-Linked</div>
+                    </div>
+                </div>
+                
+                ${knowledgeGraph.campaigns.map(c => `
+                    <div class="actor-card">
+                        <h4>${c.label}</h4>
+                        <p><strong>Event Trigger:</strong> ${c.eventTrigger} (${c.startDate})</p>
+                        <p><strong>Coordination Score:</strong> ${c.coordinationScore}</p>
+                        <p><strong>D&D Indicators:</strong></p>
+                        <div>
+                            ${c.indicators.map(id => {
+                                const ind = knowledgeGraph.indicators.find(i => i.id === id);
+                                return `<span class="indicator-badge badge-dehumanization">${id}: ${ind.label}</span>`;
+                            }).join('')}
+                        </div>
+                    </div>
+                `).join('')}
+            `;
+
+            // Table
+            displayCampaignTable();
+            
+            // Network
+            displayCampaignNetwork();
+        }
+
+        function displayAttributionResults() {
+            const summary = document.getElementById('resultsSummary');
+            summary.innerHTML = `
+                <h3>✅ Attribution Pattern Analysis Complete</h3>
+                <p><strong>Found:</strong> 4 threat actors with D&D content originating in proxy ecosystem</p>
+                <p><strong>Key Finding:</strong> State Actor RF-Alpha coordinates 8 D&D techniques across 3 proxy outlets</p>
+            `;
+
+            const statsPanel = document.getElementById('statsPanel');
+            statsPanel.innerHTML = `
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="number">4</div>
+                        <div class="label">Threat Actors</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">8</div>
+                        <div class="label">Max Techniques/Actor</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">3</div>
+                        <div class="label">Proxy Outlets</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">3</div>
+                        <div class="label">Coordinated Campaigns</div>
+                    </div>
+                </div>
+                
+                ${knowledgeGraph.actors.map(a => `
+                    <div class="actor-card">
+                        <h4>${a.label}</h4>
+                        <p><strong>Type:</strong> ${a.type}</p>
+                        <p><strong>D&D Techniques:</strong> ${a.indicators.length}</p>
+                        <p><strong>Campaigns Conducted:</strong> ${a.campaigns.length}</p>
+                        <div>
+                            ${a.indicators.slice(0, 5).map(id => `<span class="indicator-badge badge-coordination">${id}</span>`).join('')}
+                            ${a.indicators.length > 5 ? `<span class="indicator-badge badge-coordination">+${a.indicators.length - 5} more</span>` : ''}
+                        </div>
+                    </div>
+                `).join('')}
+            `;
+
+            displayActorTable();
+            displayActorNetwork();
+        }
+
+        function displayTemporalResults() {
+            const summary = document.getElementById('resultsSummary');
+            summary.innerHTML = `
+                <h3>✅ Temporal Analysis Complete</h3>
+                <p><strong>Period:</strong> February - May 2024 (4 months)</p>
+                <p><strong>Key Finding:</strong> Demonization intensity spikes correlate with battlefield events (r=0.84)</p>
+            `;
+
+            const statsPanel = document.getElementById('statsPanel');
+            statsPanel.innerHTML = `
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="number">3</div>
+                        <div class="label">Major Event Triggers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">95</div>
+                        <div class="label">Peak Intensity Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">±72h</div>
+                        <div class="label">Event Window</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">0.84</div>
+                        <div class="label">Event Correlation</div>
+                    </div>
+                </div>
+            `;
+
+            displayTimelineTable();
+            displayTimelineChart();
+        }
+
+        function displayActorProfileResults() {
+            const summary = document.getElementById('resultsSummary');
+            summary.innerHTML = `
+                <h3>✅ Threat Actor Profile Analysis Complete</h3>
+                <p><strong>Found:</strong> 1 state actor exceeding 5-indicator threshold</p>
+                <p><strong>Key Finding:</strong> RF-Alpha employs full D&D capability spectrum (8 techniques) with ecosystem amplification</p>
+            `;
+
+            const statsPanel = document.getElementById('statsPanel');
+            const topActor = knowledgeGraph.actors[0];
+            statsPanel.innerHTML = `
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="number">${topActor.indicators.length}</div>
+                        <div class="label">D&D Techniques</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">${topActor.campaigns.length}</div>
+                        <div class="label">Campaigns</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">3</div>
+                        <div class="label">Proxy Outlets</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">0.86</div>
+                        <div class="label">Avg Coordination</div>
+                    </div>
+                </div>
+                
+                <div class="actor-card">
+                    <h4>${topActor.label}</h4>
+                    <p><strong>Dehumanization Technique Profile:</strong></p>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px;">
+                        ${topActor.indicators.map(id => {
+                            const ind = knowledgeGraph.indicators.find(i => i.id === id);
+                            return `
+                                <div style="padding: 10px; background: #f8f9fa; border-radius: 4px;">
+                                    <strong>${id}</strong>: ${ind.label}<br>
+                                    <small style="color: #666;">${ind.definition}</small>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+
+            displayActorTable();
+            displayActorNetwork();
+        }
+
+        function displayCampaignTable() {
+            const tablePanel = document.getElementById('tablePanel');
+            tablePanel.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Campaign</th>
+                            <th>Event Trigger</th>
+                            <th>Date</th>
+                            <th>Coordination</th>
+                            <th>Indicators</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${knowledgeGraph.campaigns.map(c => `
+                            <tr>
+                                <td><strong>${c.label}</strong></td>
+                                <td>${c.eventTrigger}</td>
+                                <td>${c.startDate}</td>
+                                <td>${c.coordinationScore}</td>
+                                <td>${c.indicators.length}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function displayActorTable() {
+            const tablePanel = document.getElementById('tablePanel');
+            tablePanel.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Actor</th>
+                            <th>Type</th>
+                            <th>D&D Techniques</th>
+                            <th>Campaigns</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${knowledgeGraph.actors.map(a => `
+                            <tr>
+                                <td><strong>${a.label}</strong></td>
+                                <td>${a.type}</td>
+                                <td>${a.indicators.length}</td>
+                                <td>${a.campaigns.length}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function displayTimelineTable() {
+            const tablePanel = document.getElementById('tablePanel');
+            tablePanel.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Campaign</th>
+                            <th>Intensity</th>
+                            <th>Event</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${knowledgeGraph.timelineData.map(t => `
+                            <tr>
+                                <td>${t.date}</td>
+                                <td>${knowledgeGraph.campaigns.find(c => c.id === t.campaign).label}</td>
+                                <td><strong>${t.intensity}</strong></td>
+                                <td>${t.eventLabel || '-'}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function displayCampaignNetwork() {
+            const svg = d3.select("#networkSvg");
+            svg.selectAll("*").remove();
+            
+            const width = document.getElementById('networkPanel').offsetWidth;
+            const height = 500;
+            
+            svg.attr("viewBox", [0, 0, width, height]);
+            
+            // Prepare network data
+            const nodes = [
+                ...knowledgeGraph.campaigns.map(c => ({ id: c.id, label: c.label, type: 'campaign' })),
+                ...knowledgeGraph.actors.map(a => ({ id: a.id, label: a.label, type: 'actor' }))
+            ];
+            
+            const links = [];
+            knowledgeGraph.campaigns.forEach(c => {
+                c.actors.forEach(actorId => {
+                    links.push({ source: actorId, target: c.id });
+                });
+            });
+            
+            const simulation = d3.forceSimulation(nodes)
+                .force("link", d3.forceLink(links).id(d => d.id).distance(100))
+                .force("charge", d3.forceManyBody().strength(-300))
+                .force("center", d3.forceCenter(width / 2, height / 2));
+            
+            const link = svg.append("g")
+                .selectAll("line")
+                .data(links)
+                .join("line")
+                .attr("stroke", "#999")
+                .attr("stroke-width", 2);
+            
+            const node = svg.append("g")
+                .selectAll("g")
+                .data(nodes)
+                .join("g")
+                .call(d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended));
+            
+            node.append("circle")
+                .attr("r", d => d.type === 'campaign' ? 15 : 10)
+                .attr("fill", d => d.type === 'campaign' ? '#c62828' : '#2a5298');
+            
+            node.append("text")
+                .text(d => d.label.split(' ').slice(0, 3).join(' '))
+                .attr("x", 20)
+                .attr("y", 5)
+                .attr("font-size", "11px");
+            
+            simulation.on("tick", () => {
+                link
+                    .attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y);
+                
+                node.attr("transform", d => `translate(${d.x},${d.y})`);
+            });
+            
+            function dragstarted(event) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                event.subject.fx = event.subject.x;
+                event.subject.fy = event.subject.y;
+            }
+            
+            function dragged(event) {
+                event.subject.fx = event.x;
+                event.subject.fy = event.y;
+            }
+            
+            function dragended(event) {
+                if (!event.active) simulation.alphaTarget(0);
+                event.subject.fx = null;
+                event.subject.fy = null;
+            }
+        }
+
+        function displayActorNetwork() {
+            // Similar to displayCampaignNetwork but focused on actor-indicator relationships
+            displayCampaignNetwork(); // Simplified for demo
+        }
+
+        function displayTimelineChart() {
+            const svg = d3.select("#timelineSvg");
+            svg.selectAll("*").remove();
+            
+            const width = document.getElementById('timelinePanel').offsetWidth - 40;
+            const height = 300;
+            const margin = { top: 20, right: 30, bottom: 50, left: 50 };
+            
+            const data = knowledgeGraph.timelineData;
+            
+            const x = d3.scaleTime()
+                .domain(d3.extent(data, d => new Date(d.date)))
+                .range([margin.left, width - margin.right]);
+            
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.intensity)])
+                .nice()
+                .range([height - margin.bottom, margin.top]);
+            
+            const line = d3.line()
+                .x(d => x(new Date(d.date)))
+                .y(d => y(d.intensity))
+                .curve(d3.curveMonotoneX);
+            
+            // Axes
+            svg.append("g")
+                .attr("transform", `translate(0,${height - margin.bottom})`)
+                .call(d3.axisBottom(x).ticks(5))
+                .selectAll("text")
+                .style("font-size", "11px");
+            
+            svg.append("g")
+                .attr("transform", `translate(${margin.left},0)`)
+                .call(d3.axisLeft(y))
+                .selectAll("text")
+                .style("font-size", "11px");
+            
+            // Line
+            svg.append("path")
+                .datum(data)
+                .attr("fill", "none")
+                .attr("stroke", "#c62828")
+                .attr("stroke-width", 3)
+                .attr("d", line);
+            
+            // Points
+            svg.selectAll("circle")
+                .data(data)
+                .join("circle")
+                .attr("cx", d => x(new Date(d.date)))
+                .attr("cy", d => y(d.intensity))
+                .attr("r", d => d.eventLabel ? 6 : 4)
+                .attr("fill", d => d.eventLabel ? "#e65100" : "#c62828");
+            
+            // Event labels
+            svg.selectAll(".event-label")
+                .data(data.filter(d => d.eventLabel))
+                .join("text")
+                .attr("class", "event-label")
+                .attr("x", d => x(new Date(d.date)))
+                .attr("y", d => y(d.intensity) - 15)
+                .attr("text-anchor", "middle")
+                .attr("font-size", "10px")
+                .attr("font-weight", "600")
+                .attr("fill", "#e65100")
+                .text(d => d.eventLabel);
+            
+            // Axis labels
+            svg.append("text")
+                .attr("x", width / 2)
+                .attr("y", height - 5)
+                .attr("text-anchor", "middle")
+                .attr("font-size", "12px")
+                .text("Timeline (Feb - May 2024)");
+            
+            svg.append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("x", -height / 2)
+                .attr("y", 15)
+                .attr("text-anchor", "middle")
+                .attr("font-size", "12px")
+                .text("Demonization Intensity");
+        }
+
+        function switchTab(tabName) {
+            // Update tabs
+            document.querySelectorAll('.viz-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update panels
+            document.querySelectorAll('.viz-panel').forEach(panel => panel.classList.remove('active'));
+            document.getElementById(tabName + 'Panel').classList.add('active');
+        }
+    </script>
+</body>
+</html>

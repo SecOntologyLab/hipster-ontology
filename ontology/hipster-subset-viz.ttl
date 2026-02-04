@@ -1,0 +1,93 @@
+@prefix hti: <http://l3ce.eu/ontology/hybrid-threat-intelligence#> .
+@prefix ind: <http://l3ce.eu/ontology/hipster-indicators#> .
+@prefix hyp: <http://l3ce.eu/ontology/hypster-functionalities#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+# ============================================
+# HTI CLASS HIERARCHY
+# ============================================
+
+hti:TrollFarm rdfs:subClassOf hti:ThreatActor .
+hti:DisinformationCampaign rdfs:subClassOf hti:HybridThreat .
+hti:HybridThreat rdfs:subClassOf hti:Threat .
+hti:BehavioralPattern rdfs:subClassOf hti:ThreatIndicator .
+
+# ============================================
+# IND CLASS HIERARCHY
+# ============================================
+
+ind:Indicator rdfs:subClassOf hti:ThreatIndicator .
+ind:IdeologyIndicator rdfs:subClassOf ind:Indicator .
+ind:FifthColumnIndicator rdfs:subClassOf ind:Indicator .
+ind:ConspiracyIndicator rdfs:subClassOf ind:Indicator .
+ind:RadicalizationIndicator rdfs:subClassOf ind:Indicator .
+ind:PersonLevelIndicator rdfs:subClassOf ind:RadicalizationIndicator .
+
+# ============================================
+# SPECIFIC INDICATOR INSTANCES
+# ============================================
+
+ind:IDEO-14 a ind:IdeologyIndicator ;
+    rdfs:label "Coordinated Activity" ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasFunctionality hyp:Coordinated_Posting_Activity .
+
+ind:IDEO-15 a ind:IdeologyIndicator ;
+    rdfs:label "Echo Chambers" ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasScope ind:Person, ind:InformationMonitoring ;
+    ind:hasFunctionality hyp:Echo_Chambers_and_Reinforcement .
+
+ind:5COL-13 a ind:FifthColumnIndicator ;
+    rdfs:label "Troll Farms" ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasScope ind:Person, ind:Network ;
+    ind:hasFunctionality hyp:Troll_Farms .
+
+ind:CONSP-13 a ind:ConspiracyIndicator ;
+    rdfs:label "Influencer Networks" ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasScope ind:Person, ind:Network ;
+    ind:hasFunctionality hyp:Influencer_Networks .
+
+ind:RAD-PER-09 a ind:PersonLevelIndicator ;
+    rdfs:label "Social Bubble" ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasScope ind:Person, ind:Network .
+
+# ============================================
+# ANALYTICAL LEVELS
+# ============================================
+
+ind:L1 rdfs:label "L1 - Content Analysis" .
+ind:L2 rdfs:label "L2 - Pattern Recognition" .
+ind:L4 rdfs:label "L4 - Complex Coordination" .
+
+# ============================================
+# SCOPES
+# ============================================
+
+ind:Person rdfs:label "Person" .
+ind:Network rdfs:label "Network" .
+ind:Post rdfs:label "Post" .
+ind:InformationMonitoring rdfs:label "Information Monitoring" .
+
+# ============================================
+# FUNCTIONALITIES (SKOS TAXONOMY)
+# ============================================
+
+hyp:Community_and_Engagement_Patterns skos:prefLabel "Community and Engagement Patterns" .
+
+hyp:Coordinated_Posting_Activity skos:prefLabel "Coordinated Posting Activity" ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Echo_Chambers_and_Reinforcement skos:prefLabel "Echo Chambers and Reinforcement" ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Influencer_Networks skos:prefLabel "Influencer Networks" ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Troll_Farms skos:prefLabel "Troll Farms" .

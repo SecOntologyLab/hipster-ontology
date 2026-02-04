@@ -1,0 +1,28 @@
+﻿# Query Pattern 4: Actor Capability Profiling
+# 
+# Purpose: Identify actors who employ >=5 distinct D&D techniques with 
+# evidence of ecosystem coordination.
+#
+# Reference: Bruze et al. (2026), Open Research Europe, Section 4.7
+# Repository: https://github.com/SecOntologyLab/hipster-ontology
+
+PREFIX hti: <http://l3ce.eu/ontology/hybrid-threat-intelligence#>
+PREFIX ind: <http://l3ce.eu/ontology/hipster-indicators#>
+PREFIX hyp: <http://l3ce.eu/ontology/hypster-functionalities#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?actor ?actorLabel
+       (COUNT(DISTINCT ?indicator) AS ?techniqueCount)
+       (GROUP_CONCAT(DISTINCT ?indicatorID; separator=", ") AS ?techniques)
+WHERE {
+    ?actor a/rdfs:subClassOf* hti:ThreatActor .
+    ?actor rdfs:label ?actorLabel .
+    ?actor hti:conducts ?campaign .
+    ?campaign hti:exhibits ?indicator .
+    ?indicator ind:indicatorID ?indicatorID .
+    ?indicator ind:hasFunctionality/skos:broader* hyp:Dehumanization_and_Demonization .
+}
+GROUP BY ?actor ?actorLabel
+HAVING (COUNT(DISTINCT ?indicator) >= 5)
+ORDER BY DESC(?techniqueCount)

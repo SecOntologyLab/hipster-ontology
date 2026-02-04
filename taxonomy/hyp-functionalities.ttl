@@ -1,0 +1,840 @@
+@prefix hyp: <http://l3ce.eu/ontology/hypster-functionalities#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+
+# =============================================================================
+# CONCEPT SCHEME
+# =============================================================================
+
+hyp:scheme a skos:ConceptScheme ;
+    skos:prefLabel "HYPSTer Functionalities"@en ;
+    skos:note "Functionality taxonomy for hybrid threat analysis. Labels preserved from original project documentation."@en ;
+    dct:created "2025-01-19" ;
+    dct:source "HIPSTer Project" .
+
+# =============================================================================
+# TOP-LEVEL CONCEPTS
+# =============================================================================
+
+hyp:Anomalies_and_Psychological_Patterns a skos:Concept ;
+    skos:prefLabel "Anomalies and Psychological Patterns"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:topConceptOf hyp:scheme .
+
+hyp:Behavioral_Patterns_and_Activity_Trends a skos:Concept ;
+    skos:prefLabel "Behavioral Patterns and Activity Trends"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:topConceptOf hyp:scheme .
+
+hyp:Communication_Metadata a skos:Concept ;
+    skos:prefLabel "Communication Metadata"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:topConceptOf hyp:scheme .
+
+hyp:Community_and_Engagement_Patterns a skos:Concept ;
+    skos:prefLabel "Community and Engagement Patterns"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:topConceptOf hyp:scheme .
+
+hyp:Content_Structure_and_Framing_Strategies a skos:Concept ;
+    skos:prefLabel "Content Structure and Framing Strategies"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:topConceptOf hyp:scheme .
+
+hyp:Cultural_References_and_Symbolic_Associations a skos:Concept ;
+    skos:prefLabel "Cultural References and Symbolic Associations"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:topConceptOf hyp:scheme .
+
+hyp:Dehumanization_and_Demonization a skos:Concept ;
+    skos:prefLabel "Dehumanization and Demonization"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:topConceptOf hyp:scheme .
+
+hyp:High_level_functionality a skos:Concept ;
+    skos:prefLabel "High level functionality"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:topConceptOf hyp:scheme .
+
+hyp:Language_and_Phrasing a skos:Concept ;
+    skos:prefLabel "Language and Phrasing"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:topConceptOf hyp:scheme .
+
+hyp:Narratives_and_Storytelling a skos:Concept ;
+    skos:prefLabel "Narratives and Storytelling"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:topConceptOf hyp:scheme .
+
+hyp:Social_Media_Metadata_and_Geolocation a skos:Concept ;
+    skos:prefLabel "Social Media Metadata and Geolocation"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:topConceptOf hyp:scheme .
+
+hyp:Symbolism_and_Imagery a skos:Concept ;
+    skos:prefLabel "Symbolism and Imagery"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:topConceptOf hyp:scheme .
+
+hyp:Visual_and_Aesthetic_Cues a skos:Concept ;
+    skos:prefLabel "Visual and Aesthetic Cues"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:topConceptOf hyp:scheme .
+
+# =============================================================================
+# HIGH LEVEL FUNCTIONALITY - Children
+# =============================================================================
+
+hyp:Detailed_functionality a skos:Concept ;
+    skos:prefLabel "Detailed functionality"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:High_level_functionality .
+
+hyp:CredentialHarvesting a skos:Concept ;
+    skos:prefLabel "Credential harvesting"@en ;
+    skos:broader hyp:High_level_functionality ;
+    skos:inScheme hyp:scheme ;
+    skos:definition "Obtaining user credentials through malicious means."@en .
+
+# =============================================================================
+# COMMUNICATION METADATA - Children
+# =============================================================================
+
+hyp:Post_Metadata a skos:Concept ;
+    skos:prefLabel "Post Metadata"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Communication_Metadata .
+
+hyp:Location_Data a skos:Concept ;
+    skos:prefLabel "Location Data (if available)"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Communication_Metadata .
+
+hyp:Active_and_communication_time a skos:Concept ;
+    skos:prefLabel "Active and communication time"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Communication_Metadata .
+
+hyp:Time_zone_calculated a skos:Concept ;
+    skos:prefLabel "Time zone (calculated)"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Communication_Metadata .
+
+hyp:Algorithmicity_calculated a skos:Concept ;
+    skos:prefLabel "Algorithmicity (calculated)"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Communication_Metadata .
+
+hyp:Human_or_bot a skos:Concept ;
+    skos:prefLabel "Human or bot"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Communication_Metadata .
+
+hyp:Network_Anomalies a skos:Concept ;
+    skos:prefLabel "Network Anomalies"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Communication_Metadata .
+
+hyp:Suspicious_Active_Times a skos:Concept ;
+    skos:prefLabel "Suspicious Active Times"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Communication_Metadata .
+
+hyp:Coordinated_Posting_Patterns a skos:Concept ;
+    skos:prefLabel "Coordinated Posting Patterns"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Communication_Metadata .
+
+# =============================================================================
+# LANGUAGE AND PHRASING - Children
+# =============================================================================
+
+hyp:Ideological_Keywords_and_Phrases a skos:Concept ;
+    skos:prefLabel "Ideological Keywords and Phrases"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Feelings a skos:Concept ;
+    skos:prefLabel "Feelings"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Feelings_change a skos:Concept ;
+    skos:prefLabel "Feelings change"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Sentiments a skos:Concept ;
+    skos:prefLabel "Sentiments"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Emotions a skos:Concept ;
+    skos:prefLabel "Emotions"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Emotive_and_Polarizing_Language a skos:Concept ;
+    skos:prefLabel "Emotive and Polarizing Language"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Highly_Charged_Language a skos:Concept ;
+    skos:prefLabel "Highly Charged Language"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Polarizing_Terminology a skos:Concept ;
+    skos:prefLabel "Polarizing Terminology"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Slang a skos:Concept ;
+    skos:prefLabel "Slang"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Code_Words_and_Euphemisms a skos:Concept ;
+    skos:prefLabel "Code Words and Euphemisms"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Engagement_Trends a skos:Concept ;
+    skos:prefLabel "Engagement Trends"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Post_Frequency a skos:Concept ;
+    skos:prefLabel "Post Frequency"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Burstiness a skos:Concept ;
+    skos:prefLabel "Burstiness"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Covered_Language a skos:Concept ;
+    skos:prefLabel "Covered Language"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Viral_content_calculated a skos:Concept ;
+    skos:prefLabel "Viral content (calculated)"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Hate_speech_calculated a skos:Concept ;
+    skos:prefLabel "Hate speech (calculated)"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Behavioral_Trends_calculated a skos:Concept ;
+    skos:prefLabel "Behavioral Trends (calculated)"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Content_themes a skos:Concept ;
+    skos:prefLabel "Content themes"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Historical_References_and_Revisionism a skos:Concept ;
+    skos:prefLabel "Historical References and Revisionism"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Conspiratorial_Keywords a skos:Concept ;
+    skos:prefLabel "Conspiratorial Keywords"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Common_phrases a skos:Concept ;
+    skos:prefLabel "Common phrases"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Hashtags a skos:Concept ;
+    skos:prefLabel "Hashtags"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Ambiguity a skos:Concept ;
+    skos:prefLabel "Ambiguity"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Mimicking_local_dialects a skos:Concept ;
+    skos:prefLabel "Mimicking local dialects"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+hyp:Anti_State_Sentiments a skos:Concept ;
+    skos:prefLabel "Anti-State Sentiments"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Language_and_Phrasing .
+
+# =============================================================================
+# SYMBOLISM AND IMAGERY - Children
+# =============================================================================
+
+hyp:Ideological_Symbols a skos:Concept ;
+    skos:prefLabel "Ideological Symbols"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Symbolism_and_Imagery .
+
+hyp:Ideological_Symbols_and_Icons a skos:Concept ;
+    skos:prefLabel "Ideological Symbols and Icons"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Symbolism_and_Imagery .
+
+hyp:Color_Schemes a skos:Concept ;
+    skos:prefLabel "Color Schemes"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Symbolism_and_Imagery .
+
+hyp:Color_Schemes_and_Visual_Aesthetics a skos:Concept ;
+    skos:prefLabel "Color Schemes and Visual Aesthetics"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Symbolism_and_Imagery .
+
+hyp:Iconography_of_Leaders_and_Figures a skos:Concept ;
+    skos:prefLabel "Iconography of Leaders and Figures"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Symbolism_and_Imagery .
+
+hyp:Iconography_of_Figures a skos:Concept ;
+    skos:prefLabel "Iconography of Figures"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Symbolism_and_Imagery .
+
+hyp:Hand_Gestures_or_Poses a skos:Concept ;
+    skos:prefLabel "Hand Gestures or Poses"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Symbolism_and_Imagery .
+
+hyp:Memes_and_GIFs a skos:Concept ;
+    skos:prefLabel "Memes and GIFs"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Symbolism_and_Imagery .
+
+hyp:Misleading_Memes_GIFs a skos:Concept ;
+    skos:prefLabel "Misleading Memes, GIFs etc."@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Symbolism_and_Imagery .
+
+hyp:Meme_Warfare a skos:Concept ;
+    skos:prefLabel "Meme Warfare"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Symbolism_and_Imagery .
+
+hyp:Profile_Images_and_Avatars a skos:Concept ;
+    skos:prefLabel "Profile Images and Avatars"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Symbolism_and_Imagery .
+
+# =============================================================================
+# NARRATIVES AND STORYTELLING - Children
+# =============================================================================
+
+hyp:Core_Narratives_and_Themes a skos:Concept ;
+    skos:prefLabel "Core Narratives and Themes"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Narratives_and_Storytelling .
+
+hyp:Hero_and_Villain_Framing a skos:Concept ;
+    skos:prefLabel "Hero and Villain Framing"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Narratives_and_Storytelling .
+
+hyp:Victimization_and_Persecution_Narratives a skos:Concept ;
+    skos:prefLabel "Victimization and Persecution Narratives"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Narratives_and_Storytelling .
+
+hyp:Restoration_and_National_Rebirth a skos:Concept ;
+    skos:prefLabel "Restoration and National Rebirth"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Narratives_and_Storytelling .
+
+hyp:Narrative_Structures a skos:Concept ;
+    skos:prefLabel "Narrative Structures"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Narratives_and_Storytelling .
+
+# =============================================================================
+# COMMUNITY AND ENGAGEMENT PATTERNS - Children
+# =============================================================================
+
+hyp:Echo_Chambers_and_Reinforcement a skos:Concept ;
+    skos:prefLabel "Echo Chambers and Reinforcement"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Social_bubble a skos:Concept ;
+    skos:prefLabel "Social bubble"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Community_belonging a skos:Concept ;
+    skos:prefLabel "Community belonging"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Betweenness_Centrality a skos:Concept ;
+    skos:prefLabel "Betweenness Centrality"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Deviation_from_the_mean_of_the_group a skos:Concept ;
+    skos:prefLabel "Deviation from the mean of the group"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Echo_Chamber_Participation a skos:Concept ;
+    skos:prefLabel "Echo Chamber Participation"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:High_risk_profile a skos:Concept ;
+    skos:prefLabel "High risk profile"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:High_radicalization a skos:Concept ;
+    skos:prefLabel "High radicalization"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Radicalization_Stage a skos:Concept ;
+    skos:prefLabel "Radicalization Stage"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Social_Media_Content a skos:Concept ;
+    skos:prefLabel "Social Media Content"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Narrative_Spread a skos:Concept ;
+    skos:prefLabel "Narrative Spread"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Influence_and_Interaction a skos:Concept ;
+    skos:prefLabel "Influence and Interaction"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Behavioral_Changes_Over_Time a skos:Concept ;
+    skos:prefLabel "Behavioral Changes Over Time"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Engagement_Over_Time a skos:Concept ;
+    skos:prefLabel "Engagement Over Time"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Abnormal_activity a skos:Concept ;
+    skos:prefLabel "Abnormal activity, silence or immediate activity (calculated)"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Anomalies a skos:Concept ;
+    skos:prefLabel "Anomalies"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Sudden_changes_or_shifts a skos:Concept ;
+    skos:prefLabel "Sudden changes or shifts"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Narrative_Shifts a skos:Concept ;
+    skos:prefLabel "Narrative Shifts"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Behavioral_Shifts a skos:Concept ;
+    skos:prefLabel "Behavioral Shifts"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Topic_Shifts a skos:Concept ;
+    skos:prefLabel "Topic Shifts"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Psychological_and_Ideological_Commitment a skos:Concept ;
+    skos:prefLabel "Psychological and Ideological Commitment"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Influencer_Networks a skos:Concept ;
+    skos:prefLabel "Influencer Networks"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Coordinated_Posting_Activity a skos:Concept ;
+    skos:prefLabel "Coordinated Posting Activity"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+hyp:Intolerance_for_Opposition a skos:Concept ;
+    skos:prefLabel "Intolerance for Opposition"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Community_and_Engagement_Patterns .
+
+# =============================================================================
+# BEHAVIORAL PATTERNS AND ACTIVITY TRENDS - Children
+# =============================================================================
+
+hyp:Posting_Frequency_and_Burstiness a skos:Concept ;
+    skos:prefLabel "Posting Frequency and Burstiness"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Behavioral_Patterns_and_Activity_Trends .
+
+hyp:Seasonality_and_Significant_Dates a skos:Concept ;
+    skos:prefLabel "Seasonality and Significant Dates"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Behavioral_Patterns_and_Activity_Trends .
+
+hyp:Engagement_Abnormalities a skos:Concept ;
+    skos:prefLabel "Engagement Abnormalities"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Behavioral_Patterns_and_Activity_Trends .
+
+hyp:Switching_Identities a skos:Concept ;
+    skos:prefLabel "Switching Identities"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Behavioral_Patterns_and_Activity_Trends .
+
+hyp:Social_Bubble_Analysis a skos:Concept ;
+    skos:prefLabel "Social Bubble Analysis"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Behavioral_Patterns_and_Activity_Trends .
+
+hyp:Bot_Like_Activity a skos:Concept ;
+    skos:prefLabel "Bot-Like Activity"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Behavioral_Patterns_and_Activity_Trends .
+
+hyp:Amplification_Patterns a skos:Concept ;
+    skos:prefLabel "Amplification Patterns"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Behavioral_Patterns_and_Activity_Trends .
+
+hyp:Seasonality a skos:Concept ;
+    skos:prefLabel "Seasonality"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Behavioral_Patterns_and_Activity_Trends .
+
+hyp:Posting_Times a skos:Concept ;
+    skos:prefLabel "Posting Times"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Behavioral_Patterns_and_Activity_Trends .
+
+hyp:Rapid_Mobilization a skos:Concept ;
+    skos:prefLabel "Rapid Mobilization"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Behavioral_Patterns_and_Activity_Trends .
+
+hyp:Silence_Followed_by_Bursts a skos:Concept ;
+    skos:prefLabel "Silence Followed by Bursts"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Behavioral_Patterns_and_Activity_Trends .
+
+hyp:Shifts_in_Topics a skos:Concept ;
+    skos:prefLabel "Shifts in Topics"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Behavioral_Patterns_and_Activity_Trends .
+
+# =============================================================================
+# VISUAL AND AESTHETIC CUES - Children
+# =============================================================================
+
+hyp:Propagandistic_Imagery a skos:Concept ;
+    skos:prefLabel "Propagandistic Imagery"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Visual_and_Aesthetic_Cues .
+
+hyp:Militaristic_and_Uniformed_Imagery a skos:Concept ;
+    skos:prefLabel "Militaristic and Uniformed Imagery"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Visual_and_Aesthetic_Cues .
+
+hyp:Architectural_and_Monumental_Imagery a skos:Concept ;
+    skos:prefLabel "Architectural and Monumental Imagery"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Visual_and_Aesthetic_Cues .
+
+hyp:Religious_or_Mythological_Symbols a skos:Concept ;
+    skos:prefLabel "Religious or Mythological Symbols"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Visual_and_Aesthetic_Cues .
+
+# =============================================================================
+# CULTURAL REFERENCES AND SYMBOLIC ASSOCIATIONS - Children
+# =============================================================================
+
+hyp:Historical_or_Cultural_References a skos:Concept ;
+    skos:prefLabel "Historical or Cultural References"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Cultural_References_and_Symbolic_Associations .
+
+hyp:Nationalistic_Icons_and_Artifacts a skos:Concept ;
+    skos:prefLabel "Nationalistic Icons and Artifacts"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Cultural_References_and_Symbolic_Associations .
+
+hyp:Selective_Historical_Revisionism a skos:Concept ;
+    skos:prefLabel "Selective Historical Revisionism"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Cultural_References_and_Symbolic_Associations .
+
+hyp:Symbolic_Historical_Events a skos:Concept ;
+    skos:prefLabel "Symbolic Historical Events"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Cultural_References_and_Symbolic_Associations .
+
+# =============================================================================
+# SOCIAL MEDIA METADATA AND GEOLOCATION - Children
+# =============================================================================
+
+hyp:Location_and_Language_Preferences a skos:Concept ;
+    skos:prefLabel "Location and Language Preferences"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Social_Media_Metadata_and_Geolocation .
+
+hyp:Language_and_Location_Preferences a skos:Concept ;
+    skos:prefLabel "Language and Location Preferences"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Social_Media_Metadata_and_Geolocation .
+
+hyp:Engagement_Patterns a skos:Concept ;
+    skos:prefLabel "Engagement Patterns"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Social_Media_Metadata_and_Geolocation .
+
+# =============================================================================
+# CONTENT STRUCTURE AND FRAMING STRATEGIES - Children
+# =============================================================================
+
+hyp:Misinformation_and_Conspiracy_Narratives a skos:Concept ;
+    skos:prefLabel "Misinformation and Conspiracy Narratives"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Sensational_Headlines_and_Clickbait a skos:Concept ;
+    skos:prefLabel "Sensational Headlines and Clickbait"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Misinformation_and_Fact_Manipulation a skos:Concept ;
+    skos:prefLabel "Misinformation and Fact Manipulation"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Binary_Framing a skos:Concept ;
+    skos:prefLabel "Binary Framing"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Disinformation_Campaigns a skos:Concept ;
+    skos:prefLabel "Disinformation Campaigns"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Divide_and_Conquer_Tactics a skos:Concept ;
+    skos:prefLabel "Divide-and-Conquer Tactics"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Misinformation_Playbooks a skos:Concept ;
+    skos:prefLabel "Misinformation Playbooks"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:False_Flag_Operations a skos:Concept ;
+    skos:prefLabel "False Flag Operations"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Fake_Crisis_Creation a skos:Concept ;
+    skos:prefLabel "Fake Stress-Inducing Looming Crisis"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Narrative_Seeding a skos:Concept ;
+    skos:prefLabel "Narrative Seeding"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Amplifying_Divisive_Narratives a skos:Concept ;
+    skos:prefLabel "Amplifying Divisive Narratives"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Reframing_Legitimate_Movements a skos:Concept ;
+    skos:prefLabel "Reframing Legitimate Movements"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Narrative_Hijacking a skos:Concept ;
+    skos:prefLabel "Narrative Hijacking"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Astroturfing a skos:Concept ;
+    skos:prefLabel "Astroturfing"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Delegitimizing_Campaigns a skos:Concept ;
+    skos:prefLabel "Delegitimizing Campaigns"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Cascading_Threats a skos:Concept ;
+    skos:prefLabel "Cascading Threats"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Fear_Mongering a skos:Concept ;
+    skos:prefLabel "Fear-Mongering"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Sockpuppets a skos:Concept ;
+    skos:prefLabel "Sockpuppets"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Troll_Farms a skos:Concept ;
+    skos:prefLabel "Troll Farms"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Coordination_of_Sleeper_Cells a skos:Concept ;
+    skos:prefLabel "Coordination of Sleeper Cells"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Cyber_Mobs a skos:Concept ;
+    skos:prefLabel "Cyber Mobs"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Anti_State_Reputation_Sabotage a skos:Concept ;
+    skos:prefLabel "Anti-State Reputation Sabotage"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Community_Hijacking a skos:Concept ;
+    skos:prefLabel "Community Hijacking"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Online_Subversion a skos:Concept ;
+    skos:prefLabel "Online Subversion"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Dog_Whistles a skos:Concept ;
+    skos:prefLabel "Dog Whistles"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Cultural_Appropriation a skos:Concept ;
+    skos:prefLabel "Cultural Appropriation"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Information_Laundering a skos:Concept ;
+    skos:prefLabel "Information Laundering"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Interfering_in_Democratic_Processes a skos:Concept ;
+    skos:prefLabel "Interfering in Democratic Processes"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Crisis_Exploitation a skos:Concept ;
+    skos:prefLabel "Crisis Exploitation"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Doxxing a skos:Concept ;
+    skos:prefLabel "Doxxing"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Misleading_Social_Proof a skos:Concept ;
+    skos:prefLabel "Misleading Social Proof and Fabricated Consensus"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Information_Overload a skos:Concept ;
+    skos:prefLabel "Information Overload"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Information_Bombardment a skos:Concept ;
+    skos:prefLabel "Information Bombardment"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Cognitive_Fatigue a skos:Concept ;
+    skos:prefLabel "Cognitive Fatigue"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Exaggerating_Threats a skos:Concept ;
+    skos:prefLabel "Exaggerating Threats"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Fear_and_Anxiety_Induction a skos:Concept ;
+    skos:prefLabel "Fear and Anxiety Induction"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+hyp:Loss_Aversion a skos:Concept ;
+    skos:prefLabel "Loss Aversion"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Content_Structure_and_Framing_Strategies .
+
+# =============================================================================
+# DEHUMANIZATION AND DEMONIZATION - Children
+# =============================================================================
+
+hyp:Demonizing_Language a skos:Concept ;
+    skos:prefLabel "Demonizing Language"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Dehumanization_and_Demonization .
+
+hyp:Apocalyptic_or_Existential_Framing a skos:Concept ;
+    skos:prefLabel "Apocalyptic or Existential Framing"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Dehumanization_and_Demonization .
+
+# =============================================================================
+# ANOMALIES AND PSYCHOLOGICAL PATTERNS - Children
+# =============================================================================
+
+hyp:Paranoia_and_Distrust a skos:Concept ;
+    skos:prefLabel "Paranoia and Distrust"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Anomalies_and_Psychological_Patterns .
+
+hyp:Ideological_Commitment a skos:Concept ;
+    skos:prefLabel "Ideological Commitment"@en ;
+    skos:inScheme hyp:scheme ;
+    skos:broader hyp:Anomalies_and_Psychological_Patterns .
+
+# =============================================================================
+# END OF VOCABULARY
+# =============================================================================

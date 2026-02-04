@@ -1,0 +1,28 @@
+﻿# Query Pattern 3: Temporal Demonization Tracking
+# 
+# Purpose: Track monthly demonization intensity against specific target 
+# groups, correlated with battlefield or political events.
+#
+# Reference: Bruze et al. (2026), Open Research Europe, Section 4.7
+# Repository: https://github.com/SecOntologyLab/hipster-ontology
+
+PREFIX hti: <http://l3ce.eu/ontology/hybrid-threat-intelligence#>
+PREFIX ind: <http://l3ce.eu/ontology/hipster-indicators#>
+PREFIX hyp: <http://l3ce.eu/ontology/hypster-functionalities#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?month (COUNT(?indicator) AS ?ddIntensity) ?targetGroup
+WHERE {
+    ?campaign a hti:DisinformationCampaign .
+    ?campaign hti:targets ?target .
+    ?target rdfs:label ?targetGroup .
+    ?campaign hti:exhibits ?indicator .
+    ?indicator ind:hasFunctionality/skos:broader* hyp:Dehumanization_and_Demonization .
+    ?campaign hti:detectedOn ?date .
+    BIND(SUBSTR(STR(?date), 1, 7) AS ?month)
+    FILTER(?targetGroup = "Ukrainian Armed Forces")
+}
+GROUP BY ?month ?targetGroup
+ORDER BY ?month

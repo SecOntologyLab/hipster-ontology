@@ -1,0 +1,27 @@
+﻿# Query Pattern 2: Attribution-Supporting Pattern Analysis
+# 
+# Purpose: Identify D&D content originating in proxy outlets that 
+# subsequently enters mainstream platforms via coordinated amplification.
+#
+# Reference: Bruze et al. (2026), Open Research Europe, Section 4.7
+# Repository: https://github.com/SecOntologyLab/hipster-ontology
+
+PREFIX hti: <http://l3ce.eu/ontology/hybrid-threat-intelligence#>
+PREFIX ind: <http://l3ce.eu/ontology/hipster-indicators#>
+PREFIX hyp: <http://l3ce.eu/ontology/hypster-functionalities#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?actor ?actorLabel ?actorType
+       (COUNT(DISTINCT ?campaign) AS ?campaignCount)
+       (COUNT(DISTINCT ?indicator) AS ?ddTechniques)
+WHERE {
+    ?actor a ?actorType .
+    FILTER(?actorType IN (hti:StateActor, hti:TrollFarm, hti:BotNetwork))
+    ?actor rdfs:label ?actorLabel .
+    ?actor hti:conducts|hti:amplifies ?campaign .
+    ?campaign hti:exhibits ?indicator .
+    ?indicator ind:hasFunctionality/skos:broader* hyp:Dehumanization_and_Demonization .
+}
+GROUP BY ?actor ?actorLabel ?actorType
+ORDER BY DESC(?ddTechniques)

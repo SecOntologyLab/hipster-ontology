@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIPSTer Indicators Visualization</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        #container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            margin: 0 0 10px 0;
+            font-size: 24px;
+        }
+        
+        .controls {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+        
+        button {
+            padding: 8px 15px;
+            margin-right: 10px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background: #45a049;
+        }
+        
+        #graph {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+        }
+        
+        .node {
+            cursor: pointer;
+        }
+        
+        .node circle {
+            stroke: #fff;
+            stroke-width: 2px;
+        }
+        
+        .node text {
+            font-size: 12px;
+            pointer-events: none;
+        }
+        
+        .link {
+            stroke: #999;
+            stroke-opacity: 0.6;
+        }
+        
+        .link-label {
+            font-size: 10px;
+            fill: #666;
+            pointer-events: none;
+        }
+        
+        .legend {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+        
+        .legend-item {
+            display: inline-block;
+            margin-right: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .legend-color {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>HIPSTer Indicators Network Visualization</h1>
+        
+        <div class="controls">
+            <button onclick="resetZoom()">Reset View</button>
+            <button onclick="toggleLabels()">Toggle Labels</button>
+            <span style="margin-left: 20px; color: #666;">Drag nodes to rearrange | Scroll to zoom</span>
+        </div>
+        
+        <svg id="graph" width="1200" height="700"></svg>
+        
+        <div class="legend">
+            <strong>Legend:</strong>
+            <div class="legend-item"><span class="legend-color" style="background: #e74c3c;"></span>Indicators</div>
+            <div class="legend-item"><span class="legend-color" style="background: #3498db;"></span>Classes</div>
+            <div class="legend-item"><span class="legend-color" style="background: #2ecc71;"></span>Analytical Levels</div>
+            <div class="legend-item"><span class="legend-color" style="background: #f39c12;"></span>Scopes</div>
+            <div class="legend-item"><span class="legend-color" style="background: #9b59b6;"></span>Functionalities (SKOS)</div>
+        </div>
+    </div>
+
+    <script>
+        // Data structure
+        const nodes = [
+            // Indicators
+            { id: "IDEO-14", label: "IDEO-14\nCoordinated Activity", type: "indicator", group: 1 },
+            { id: "IDEO-15", label: "IDEO-15\nEcho Chambers", type: "indicator", group: 1 },
+            { id: "5COL-13", label: "5COL-13\nTroll Farms", type: "indicator", group: 1 },
+            { id: "CONSP-13", label: "CONSP-13\nInfluencer Networks", type: "indicator", group: 1 },
+            { id: "RAD-PER-09", label: "RAD-PER-09\nSocial Bubble", type: "indicator", group: 1 },
+            
+            // Classes
+            { id: "IdeologyIndicator", label: "Ideology\nIndicator", type: "class", group: 2 },
+            { id: "FifthColumnIndicator", label: "Fifth Column\nIndicator", type: "class", group: 2 },
+            { id: "ConspiracyIndicator", label: "Conspiracy\nIndicator", type: "class", group: 2 },
+            { id: "PersonLevelIndicator", label: "Person Level\nIndicator", type: "class", group: 2 },
+            { id: "RadicalizationIndicator", label: "Radicalization\nIndicator", type: "class", group: 2 },
+            { id: "Indicator", label: "Indicator", type: "class", group: 2 },
+            
+            // Analytical Levels
+            { id: "L2", label: "L2\nPattern Recognition", type: "level", group: 3 },
+            { id: "L4", label: "L4\nComplex Coordination", type: "level", group: 3 },
+            
+            // Scopes
+            { id: "Person", label: "Person", type: "scope", group: 4 },
+            { id: "Network", label: "Network", type: "scope", group: 4 },
+            { id: "InformationMonitoring", label: "Information\nMonitoring", type: "scope", group: 4 },
+            
+            // Functionalities (SKOS)
+            { id: "Community_and_Engagement", label: "Community &\nEngagement Patterns", type: "functionality", group: 5 },
+            { id: "Coordinated_Posting", label: "Coordinated\nPosting Activity", type: "functionality", group: 5 },
+            { id: "Echo_Chambers", label: "Echo Chambers &\nReinforcement", type: "functionality", group: 5 },
+            { id: "Influencer_Networks", label: "Influencer\nNetworks", type: "functionality", group: 5 },
+            { id: "Troll_Farms", label: "Troll Farms", type: "functionality", group: 5 }
+        ];
+
+        const links = [
+            // Indicator to Class relationships
+            { source: "IDEO-14", target: "IdeologyIndicator", label: "type" },
+            { source: "IDEO-15", target: "IdeologyIndicator", label: "type" },
+            { source: "5COL-13", target: "FifthColumnIndicator", label: "type" },
+            { source: "CONSP-13", target: "ConspiracyIndicator", label: "type" },
+            { source: "RAD-PER-09", target: "PersonLevelIndicator", label: "type" },
+            
+            // Class hierarchy
+            { source: "IdeologyIndicator", target: "Indicator", label: "subClassOf" },
+            { source: "FifthColumnIndicator", target: "Indicator", label: "subClassOf" },
+            { source: "ConspiracyIndicator", target: "Indicator", label: "subClassOf" },
+            { source: "RadicalizationIndicator", target: "Indicator", label: "subClassOf" },
+            { source: "PersonLevelIndicator", target: "RadicalizationIndicator", label: "subClassOf" },
+            
+            // Analytical Levels
+            { source: "IDEO-14", target: "L4", label: "hasLevel" },
+            { source: "IDEO-15", target: "L2", label: "hasLevel" },
+            { source: "5COL-13", target: "L2", label: "hasLevel" },
+            { source: "CONSP-13", target: "L2", label: "hasLevel" },
+            { source: "RAD-PER-09", target: "L4", label: "hasLevel" },
+            
+            // Scopes
+            { source: "IDEO-14", target: "InformationMonitoring", label: "hasScope" },
+            { source: "IDEO-15", target: "Person", label: "hasScope" },
+            { source: "IDEO-15", target: "InformationMonitoring", label: "hasScope" },
+            { source: "5COL-13", target: "Person", label: "hasScope" },
+            { source: "5COL-13", target: "Network", label: "hasScope" },
+            { source: "CONSP-13", target: "Person", label: "hasScope" },
+            { source: "CONSP-13", target: "Network", label: "hasScope" },
+            { source: "RAD-PER-09", target: "Person", label: "hasScope" },
+            { source: "RAD-PER-09", target: "Network", label: "hasScope" },
+            
+            // Functionalities
+            { source: "IDEO-14", target: "Coordinated_Posting", label: "hasFunctionality" },
+            { source: "IDEO-15", target: "Echo_Chambers", label: "hasFunctionality" },
+            { source: "5COL-13", target: "Troll_Farms", label: "hasFunctionality" },
+            { source: "CONSP-13", target: "Influencer_Networks", label: "hasFunctionality" },
+            
+            // SKOS hierarchy
+            { source: "Coordinated_Posting", target: "Community_and_Engagement", label: "broader" },
+            { source: "Echo_Chambers", target: "Community_and_Engagement", label: "broader" },
+            { source: "Influencer_Networks", target: "Community_and_Engagement", label: "broader" }
+        ];
+
+        // Color mapping
+        const colorMap = {
+            indicator: "#e74c3c",
+            class: "#3498db",
+            level: "#2ecc71",
+            scope: "#f39c12",
+            functionality: "#9b59b6"
+        };
+
+        // Size mapping
+        const sizeMap = {
+            indicator: 12,
+            class: 10,
+            level: 8,
+            scope: 8,
+            functionality: 10
+        };
+
+        // Setup SVG
+        const svg = d3.select("#graph");
+        const width = +svg.attr("width");
+        const height = +svg.attr("height");
+
+        const g = svg.append("g");
+
+        // Zoom behavior
+        const zoom = d3.zoom()
+            .scaleExtent([0.1, 4])
+            .on("zoom", (event) => {
+                g.attr("transform", event.transform);
+            });
+
+        svg.call(zoom);
+
+        // Force simulation
+        const simulation = d3.forceSimulation(nodes)
+            .force("link", d3.forceLink(links).id(d => d.id).distance(120))
+            .force("charge", d3.forceManyBody().strength(-500))
+            .force("center", d3.forceCenter(width / 2, height / 2))
+            .force("collision", d3.forceCollide().radius(40));
+
+        // Links
+        const link = g.append("g")
+            .selectAll("line")
+            .data(links)
+            .enter().append("line")
+            .attr("class", "link")
+            .attr("stroke-width", 1.5);
+
+        // Link labels
+        const linkLabel = g.append("g")
+            .selectAll("text")
+            .data(links)
+            .enter().append("text")
+            .attr("class", "link-label")
+            .text(d => d.label);
+
+        // Nodes
+        const node = g.append("g")
+            .selectAll("g")
+            .data(nodes)
+            .enter().append("g")
+            .attr("class", "node")
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended));
+
+        node.append("circle")
+            .attr("r", d => sizeMap[d.type])
+            .attr("fill", d => colorMap[d.type]);
+
+        node.append("text")
+            .attr("dx", 15)
+            .attr("dy", 4)
+            .text(d => d.label)
+            .style("font-size", "11px")
+            .style("font-weight", d => d.type === "indicator" ? "bold" : "normal");
+
+        // Simulation tick
+        simulation.on("tick", () => {
+            link
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+
+            linkLabel
+                .attr("x", d => (d.source.x + d.target.x) / 2)
+                .attr("y", d => (d.source.y + d.target.y) / 2);
+
+            node
+                .attr("transform", d => `translate(${d.x},${d.y})`);
+        });
+
+        // Drag functions
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+
+        // Control functions
+        let labelsVisible = true;
+
+        function resetZoom() {
+            svg.transition().duration(750).call(
+                zoom.transform,
+                d3.zoomIdentity
+            );
+        }
+
+        function toggleLabels() {
+            labelsVisible = !labelsVisible;
+            node.selectAll("text")
+                .transition()
+                .duration(300)
+                .style("opacity", labelsVisible ? 1 : 0);
+            linkLabel
+                .transition()
+                .duration(300)
+                .style("opacity", labelsVisible ? 1 : 0);
+        }
+
+        // Initial zoom to fit
+        setTimeout(() => {
+            const bounds = g.node().getBBox();
+            const fullWidth = bounds.width;
+            const fullHeight = bounds.height;
+            const midX = bounds.x + fullWidth / 2;
+            const midY = bounds.y + fullHeight / 2;
+            const scale = 0.8 / Math.max(fullWidth / width, fullHeight / height);
+            const translate = [width / 2 - scale * midX, height / 2 - scale * midY];
+            
+            svg.call(zoom.transform, d3.zoomIdentity
+                .translate(translate[0], translate[1])
+                .scale(scale));
+        }, 100);
+    </script>
+</body>
+</html>

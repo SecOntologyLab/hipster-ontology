@@ -1,0 +1,301 @@
+@prefix ind: <http://l3ce.eu/ontology/hipster-indicators#> .
+@prefix hyp: <http://l3ce.eu/ontology/hypster-functionalities#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# =============================================================================
+# CONSPIRACY INDICATORS (CONSP-01 to CONSP-29)
+# =============================================================================
+
+ind:CONSP-01 a ind:ConspiracyIndicator ;
+    rdfs:label "Monitored Conspiracy Theories Registry"@en ;
+    ind:indicatorID "CONSP-01" ;
+    ind:definition "A maintained catalogue of conspiracy theories monitored by the system, ranked by frequency, reach, and activity, with drill-down analytics per theory."@en ;
+    ind:hipsterContext "Entry point for all conspiracy-specific analytics in HIPSTER."@en ;
+    ind:systemRequirements "Registry of theories; frequency ranking; per-theory dashboards; admin/analyst management."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:CONSP-02 a ind:ConspiracyIndicator ;
+    rdfs:label "Code Words and Euphemisms"@en ;
+    ind:indicatorID "CONSP-02" ;
+    ind:definition "Terms, phrases, numbers, or symbols that indirectly reference conspiracy theories while signaling in-group understanding."@en ;
+    ind:hipsterContext "Detects evasive and coded conspiratorial communication."@en ;
+    ind:systemRequirements "Theory-specific dictionaries; text/hashtag/metadata scanning; editable vocabularies; attribution to triggering theory."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Code_Words_and_Euphemisms .
+
+ind:CONSP-03 a ind:ConspiracyIndicator ;
+    rdfs:label "Color Schemes and Visual Aesthetics"@en ;
+    ind:indicatorID "CONSP-03" ;
+    ind:definition "Use of recurring color palettes or dark/ominous visual styles commonly associated with specific conspiracy narratives."@en ;
+    ind:hipsterContext "Weak but scalable visual conspiracy signals."@en ;
+    ind:systemRequirements "Defined color palettes per theory; image and thumbnail analysis; visual pattern tagging."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Color_Schemes_and_Visual_Aesthetics .
+
+ind:CONSP-04 a ind:ConspiracyIndicator ;
+    rdfs:label "Conspiratorial Keywords"@en ;
+    ind:indicatorID "CONSP-04" ;
+    ind:definition "Explicit conspiracy-related terms and phrases (e.g., cover-up, false flag, wake up)."@en ;
+    ind:hipsterContext "Baseline conspiracy detection layer."@en ;
+    ind:systemRequirements "Per-theory keyword sets; text/hashtag/title scanning; admin-editable lists; theory attribution."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L0 ;
+    ind:hasFunctionality hyp:Conspiratorial_Keywords .
+
+ind:CONSP-05 a ind:ConspiracyIndicator ;
+    rdfs:label "Iconography of Figures"@en ;
+    ind:indicatorID "CONSP-05" ;
+    ind:definition "Recurrent depiction of specific individuals as symbolic figures within conspiracy narratives, often exaggerated or caricatured."@en ;
+    ind:hipsterContext "Identifies symbolic protagonists and antagonists."@en ;
+    ind:systemRequirements "Iconic-figure lists per theory; image detection; continuous updates; attribution to theory."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Iconography_of_Figures .
+
+ind:CONSP-06 a ind:ConspiracyIndicator ;
+    rdfs:label "Ideological Symbols and Icons"@en ;
+    ind:indicatorID "CONSP-06" ;
+    ind:definition "Visual symbols repeatedly interpreted as coded messages in conspiracies (e.g., pyramids, all-seeing eyes)."@en ;
+    ind:hipsterContext "Visual shorthand for conspiratorial meaning."@en ;
+    ind:systemRequirements "Symbol databases; object detection; admin-managed catalogues; explicit symbol-theory linkage."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Ideological_Symbols_and_Icons .
+
+ind:CONSP-07 a ind:ConspiracyIndicator ;
+    rdfs:label "Militaristic and Uniformed Imagery"@en ;
+    ind:indicatorID "CONSP-07" ;
+    ind:definition "Images presenting armed, uniformed, or militant aesthetics implying organized resistance to perceived threats."@en ;
+    ind:hipsterContext "Indicates escalation and mobilization narratives."@en ;
+    ind:systemRequirements "Uniform/weapon detection; emotion recognition in images; analyst-maintained symbol lists."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Militaristic_and_Uniformed_Imagery .
+
+ind:CONSP-08 a ind:ConspiracyIndicator ;
+    rdfs:label "Propagandistic Imagery"@en ;
+    ind:indicatorID "CONSP-08" ;
+    ind:definition "Manipulated or exaggerated visuals designed to provoke fear, anger, or hostility (e.g., demonized public figures)."@en ;
+    ind:hipsterContext "Visual radicalization and mobilization signals."@en ;
+    ind:systemRequirements "Propaganda-style classifiers; visual criteria traceability; emotion analysis."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Propagandistic_Imagery .
+
+ind:CONSP-09 a ind:ConspiracyIndicator ;
+    rdfs:label "Religious or Mythological Symbols"@en ;
+    ind:indicatorID "CONSP-09" ;
+    ind:definition "Use of religious or mythological imagery to frame conspiracies as prophecy, salvation, or cosmic struggle."@en ;
+    ind:hipsterContext "Sacralization of conspiratorial narratives."@en ;
+    ind:systemRequirements "Religious/mythological symbol lexicons; image detection; theory-specific attribution."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Religious_or_Mythological_Symbols .
+
+ind:CONSP-10 a ind:ConspiracyIndicator ;
+    rdfs:label "Sensational Headlines and Clickbait"@en ;
+    ind:indicatorID "CONSP-10" ;
+    ind:definition "Headlines or summaries using exaggerated emotional tone or secrecy cues to attract attention."@en ;
+    ind:hipsterContext "Drives conspiracy consumption and virality."@en ;
+    ind:systemRequirements "Clickbait ruleset; keyword explanation tooltips; automatic labeling; text classification."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Sensational_Headlines_and_Clickbait .
+
+ind:CONSP-11 a ind:ConspiracyIndicator ;
+    rdfs:label "Coordinated Posting Activity"@en ;
+    ind:indicatorID "CONSP-11" ;
+    ind:definition "Multiple actors publishing identical or highly similar conspiracy content within short time windows."@en ;
+    ind:hipsterContext "Detects orchestrated conspiracy campaigns."@en ;
+    ind:systemRequirements "Temporal correlation; similarity detection; network graphs; originator vs amplifier identification; interactive timelines."@en ;
+    ind:hasScope ind:InformationMonitoring, ind:Network ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Coordinated_Posting_Activity .
+
+ind:CONSP-12 a ind:ConspiracyIndicator ;
+    rdfs:label "Echo Chambers and Reinforcement"@en ;
+    ind:indicatorID "CONSP-12" ;
+    ind:definition "Closed or semi-closed communities repeatedly circulating the same conspiracy narratives without external challenge."@en ;
+    ind:hipsterContext "Accelerates belief reinforcement and radicalization."@en ;
+    ind:systemRequirements "Closed-group monitoring; repetition detection; narrative homogeneity metrics; network visualization."@en ;
+    ind:hasScope ind:Group, ind:Network ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Echo_Chambers_and_Reinforcement .
+
+ind:CONSP-13 a ind:ConspiracyIndicator ;
+    rdfs:label "Influencer Networks"@en ;
+    ind:indicatorID "CONSP-13" ;
+    ind:definition "Highly influential accounts acting as primary amplifiers or originators of conspiracy narratives."@en ;
+    ind:hipsterContext "Actor-centric conspiracy dissemination analysis."@en ;
+    ind:systemRequirements "Influence scoring (reach, engagement, speed); network graphs; longitudinal tracking; filtering by theory."@en ;
+    ind:hasScope ind:Person, ind:Network ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Influencer_Networks .
+
+ind:CONSP-14 a ind:ConspiracyIndicator ;
+    rdfs:label "Conspiratorial Language"@en ;
+    ind:indicatorID "CONSP-14" ;
+    ind:definition "General use of language implying hidden powers or manipulation (controlled media, hidden hands)."@en ;
+    ind:hipsterContext "Linguistic conspiracy marker."@en ;
+    ind:systemRequirements "Keyword and phrase detection; theory-specific attribution; editable vocabularies."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Conspiratorial_Keywords .
+
+ind:CONSP-15 a ind:ConspiracyIndicator ;
+    rdfs:label "Apocalyptic or Existential Framing"@en ;
+    ind:indicatorID "CONSP-15" ;
+    ind:definition "Framing conspiracies as existential threats where immediate action is required to avoid catastrophe."@en ;
+    ind:hipsterContext "High-risk mobilization framing."@en ;
+    ind:systemRequirements "Aspect-based sentiment analysis; NER; text classification."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Apocalyptic_or_Existential_Framing .
+
+ind:CONSP-16 a ind:ConspiracyIndicator ;
+    rdfs:label "Binary Framing"@en ;
+    ind:indicatorID "CONSP-16" ;
+    ind:definition "Presenting issues as absolute good vs evil, truth vs lies, eliminating nuance."@en ;
+    ind:hipsterContext "Polarization driver."@en ;
+    ind:systemRequirements "Aspect-based sentiment analysis; polarity scoring."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Binary_Framing .
+
+ind:CONSP-17 a ind:ConspiracyIndicator ;
+    rdfs:label "Heroes and Villains Framing"@en ;
+    ind:indicatorID "CONSP-17" ;
+    ind:definition "Consistent portrayal of truth-tellers versus malevolent elites or institutions."@en ;
+    ind:hipsterContext "Narrative structuring of conspiracies."@en ;
+    ind:systemRequirements "Role identification; sentiment analysis; side definition."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Hero_and_Villain_Framing .
+
+ind:CONSP-18 a ind:ConspiracyIndicator ;
+    rdfs:label "Victimization and Persecution Narratives"@en ;
+    ind:indicatorID "CONSP-18" ;
+    ind:definition "Depicting believers or the public as oppressed, silenced, or attacked by powerful forces."@en ;
+    ind:hipsterContext "Justifies distrust and resistance."@en ;
+    ind:systemRequirements "Aspect-based sentiment analysis; grievance detection."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Victimization_and_Persecution_Narratives .
+
+ind:CONSP-19 a ind:ConspiracyIndicator ;
+    rdfs:label "Highly Charged Language"@en ;
+    ind:indicatorID "CONSP-19" ;
+    ind:definition "Extreme emotional language inducing fear, anger, or betrayal."@en ;
+    ind:hipsterContext "Emotional manipulation signal."@en ;
+    ind:systemRequirements "Emotion distribution analysis; fear-level measurement; LLM support."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Highly_Charged_Language .
+
+ind:CONSP-20 a ind:ConspiracyIndicator ;
+    rdfs:label "Narrative Structures"@en ;
+    ind:indicatorID "CONSP-20" ;
+    ind:definition "Recurrent conspiracy story templates (hidden agenda, protagonists vs antagonists, sacred mission)."@en ;
+    ind:hipsterContext "Structural conspiracy identification."@en ;
+    ind:systemRequirements "LLM-based narrative template detection; diffusion analysis; vector storage and clustering."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Narrative_Structures .
+
+ind:CONSP-21 a ind:ConspiracyIndicator ;
+    rdfs:label "Polarizing Terminology"@en ;
+    ind:indicatorID "CONSP-21" ;
+    ind:definition "Us vs them language positioning believers against outsiders."@en ;
+    ind:hipsterContext "Social division mechanism."@en ;
+    ind:systemRequirements "Sentiment and entity analysis; polarity extraction."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Polarizing_Terminology .
+
+ind:CONSP-22 a ind:ConspiracyIndicator ;
+    rdfs:label "Posting Frequency and Burstiness"@en ;
+    ind:indicatorID "CONSP-22" ;
+    ind:definition "Sudden spikes in conspiracy-related posting aligned with events or signals."@en ;
+    ind:hipsterContext "Activation and escalation indicator."@en ;
+    ind:systemRequirements "Time-series anomaly detection; SIGACT correlation; date classifiers."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Posting_Frequency_and_Burstiness .
+
+ind:CONSP-23 a ind:ConspiracyIndicator ;
+    rdfs:label "Seasonality and Significant Dates"@en ;
+    ind:indicatorID "CONSP-23" ;
+    ind:definition "Recurrent conspiracy activity around symbolic dates (elections, anniversaries, summits)."@en ;
+    ind:hipsterContext "Predictive conspiracy monitoring."@en ;
+    ind:systemRequirements "Conspiracy-relevant date lists; seasonal pattern detection."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Seasonality_and_Significant_Dates .
+
+ind:CONSP-24 a ind:ConspiracyIndicator ;
+    rdfs:label "Demonizing Language"@en ;
+    ind:indicatorID "CONSP-24" ;
+    ind:definition "Language portraying opponents as subhuman, evil, or inhuman."@en ;
+    ind:hipsterContext "Escalation and dehumanization signal."@en ;
+    ind:systemRequirements "Classification models; LLM-assisted detection."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Demonizing_Language .
+
+ind:CONSP-25 a ind:ConspiracyIndicator ;
+    rdfs:label "Language and Location Preferences"@en ;
+    ind:indicatorID "CONSP-25" ;
+    ind:definition "Correlation between specific conspiracies and languages, regions, or demographics."@en ;
+    ind:hipsterContext "Audience targeting analysis."@en ;
+    ind:systemRequirements "Language and geo classifiers; warehouse analytics; LLM/ML hybrid approach."@en ;
+    ind:hasScope ind:Post, ind:Person ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Language_and_Location_Preferences .
+
+ind:CONSP-26 a ind:ConspiracyIndicator ;
+    rdfs:label "Misinformation and Fact Manipulation"@en ;
+    ind:indicatorID "CONSP-26" ;
+    ind:definition "Distorted statistics, fabricated data, or selective quotation presented as evidence."@en ;
+    ind:hipsterContext "Core disinformation mechanism."@en ;
+    ind:systemRequirements "Fact-checking integration; IR pipelines; advanced validation workflows."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Misinformation_and_Fact_Manipulation .
+
+ind:CONSP-27 a ind:ConspiracyIndicator ;
+    rdfs:label "Paranoia and Distrust"@en ;
+    ind:indicatorID "CONSP-27" ;
+    ind:definition "Language expressing pervasive distrust toward institutions, science, or media."@en ;
+    ind:hipsterContext "Cognitive destabilization marker."@en ;
+    ind:systemRequirements "Text classification; NER; paranoia-pattern detection."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Paranoia_and_Distrust .
+
+ind:CONSP-28 a ind:ConspiracyIndicator ;
+    rdfs:label "Selective Historical Revisionism"@en ;
+    ind:indicatorID "CONSP-28" ;
+    ind:definition "Referencing historical events while distorting facts to support conspiracies."@en ;
+    ind:hipsterContext "Legitimization through history manipulation."@en ;
+    ind:systemRequirements "IR systems; historical fact comparison; classification."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Selective_Historical_Revisionism .
+
+ind:CONSP-29 a ind:ConspiracyIndicator ;
+    rdfs:label "Symbolic Historical Events"@en ;
+    ind:indicatorID "CONSP-29" ;
+    ind:definition "Use of specific historical events as symbolic proof within conspiracies."@en ;
+    ind:hipsterContext "Narrative anchoring technique."@en ;
+    ind:systemRequirements "IR-based detection; historical reference classification."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Symbolic_Historical_Events .
+
+# =============================================================================
+# END BATCH 3: CONSPIRACY INDICATORS
+# =============================================================================

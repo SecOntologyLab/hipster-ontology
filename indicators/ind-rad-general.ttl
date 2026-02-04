@@ -1,0 +1,396 @@
+@prefix ind: <http://l3ce.eu/ontology/hipster-indicators#> .
+@prefix hyp: <http://l3ce.eu/ontology/hypster-functionalities#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# =============================================================================
+# GENERAL RADICALIZATION INDICATORS (RAD-GEN-01 to RAD-GEN-41)
+# =============================================================================
+
+ind:RAD-GEN-01 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Related Media - Images and Symbols"@en ;
+    ind:indicatorID "RAD-GEN-01" ;
+    ind:definition "All images and symbolic visual elements published together with a narrative or post, including icons, symbols, memes, and illustrative graphics."@en ;
+    ind:hipsterContext "Enables visual grounding of radical narratives and symbolic analysis."@en ;
+    ind:systemRequirements "Image gallery per narrative; linkage to post text; symbol tagging; analyst drill-down."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-GEN-02 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Related Media - Video"@en ;
+    ind:indicatorID "RAD-GEN-02" ;
+    ind:definition "All video materials (clips, thumbnails, embedded videos) associated with a narrative."@en ;
+    ind:hipsterContext "Detects audiovisual radicalization cues."@en ;
+    ind:systemRequirements "Video gallery; thumbnail analysis; linkage to narrative card."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-GEN-03 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Specific Expressions"@en ;
+    ind:indicatorID "RAD-GEN-03" ;
+    ind:definition "Distinct expressions, slogans, or recurring phrases characteristic of a radical narrative."@en ;
+    ind:hipsterContext "Linguistic fingerprinting of narratives."@en ;
+    ind:systemRequirements "Expression frequency tables; occurrence counters; sortable lists."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Common_phrases .
+
+ind:RAD-GEN-04 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Hashtags"@en ;
+    ind:indicatorID "RAD-GEN-04" ;
+    ind:definition "Hashtags used to label, amplify, or coordinate narrative dissemination."@en ;
+    ind:hipsterContext "Campaign-level amplification signals."@en ;
+    ind:systemRequirements "Bubble chart (top ~100); adjustable display size; filtering by hashtag frequency; click-through to post lists."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L0 ;
+    ind:hasFunctionality hyp:Hashtags .
+
+ind:RAD-GEN-05 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Keywords"@en ;
+    ind:indicatorID "RAD-GEN-05" ;
+    ind:definition "Core terms and phrases repeatedly associated with a specific ideology, movement, or radical message."@en ;
+    ind:hipsterContext "Semantic backbone of narratives."@en ;
+    ind:systemRequirements "Keyword extraction model; bubble chart visualization; frequency-based filtering; drill-down to sources."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Ideological_Keywords_and_Phrases .
+
+ind:RAD-GEN-06 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Target Audience / Social Groups"@en ;
+    ind:indicatorID "RAD-GEN-06" ;
+    ind:definition "Social groups explicitly or implicitly targeted by the narrative (e.g., youth, vulnerable groups, ideologically aligned audiences)."@en ;
+    ind:hipsterContext "Audience-centric radicalization analysis."@en ;
+    ind:systemRequirements "Predefined audience taxonomy; lists and overlap visualizations; optional Venn-style diagrams."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Group ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-GEN-07 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Main Message"@en ;
+    ind:indicatorID "RAD-GEN-07" ;
+    ind:definition "The core, condensed message the narrative intends the audience to accept and remember."@en ;
+    ind:hipsterContext "Central meaning extraction for narrative cards."@en ;
+    ind:systemRequirements "LLM-based summarization; single-sentence core message; analyst validation."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-GEN-08 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Narrative Purpose"@en ;
+    ind:indicatorID "RAD-GEN-08" ;
+    ind:definition "Intended goal of the narrative (recruitment, mobilization, justification, polarization, fear-spreading, identity formation)."@en ;
+    ind:hipsterContext "Intent detection across radical narratives."@en ;
+    ind:systemRequirements "Purpose classifier (LLM); multi-label support; analyst-editable taxonomy."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-GEN-09 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Ideological Association"@en ;
+    ind:indicatorID "RAD-GEN-09" ;
+    ind:definition "Explicit or implicit linkage to political, religious, or socio-economic ideologies (e.g., nationalism, extremism, anti-government)."@en ;
+    ind:hipsterContext "Ideological anchoring of narratives."@en ;
+    ind:systemRequirements "Ideology classifier (LLM); linkage to ideology registry."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-GEN-10 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Conspiracy Association"@en ;
+    ind:indicatorID "RAD-GEN-10" ;
+    ind:definition "References to known conspiracy theories or conspiracy-style reasoning."@en ;
+    ind:hipsterContext "Cross-domain linkage (radicalization + conspiracies)."@en ;
+    ind:systemRequirements "Matching against conspiracy registry; LLM inference; theory attribution."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L0 ;
+    ind:hasFunctionality hyp:Misinformation_and_Conspiracy_Narratives .
+
+ind:RAD-GEN-11 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Religious Association"@en ;
+    ind:indicatorID "RAD-GEN-11" ;
+    ind:definition "Use of religious values, symbolism, or distorted religious arguments."@en ;
+    ind:hipsterContext "Sacralization of radical narratives."@en ;
+    ind:systemRequirements "Religious symbol/value detection; contextual classification."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-GEN-12 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Association with Radical Movements"@en ;
+    ind:indicatorID "RAD-GEN-12" ;
+    ind:definition "Explicit or implicit support for known radical or extremist movements or their rhetoric."@en ;
+    ind:hipsterContext "Group-level radical alignment detection."@en ;
+    ind:systemRequirements "Matching against radical-group registry; rhetoric pattern detection."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-GEN-13 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "5th Column Association"@en ;
+    ind:indicatorID "RAD-GEN-13" ;
+    ind:definition "Indicators of internal subversion: internal enemy framing, institutional distrust, societal division, masked propaganda."@en ;
+    ind:hipsterContext "Hybrid-threat and influence-operation linkage."@en ;
+    ind:systemRequirements "Pattern-based classification; linkage to 5th-column indicators; analyst justification."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-GEN-14 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Framing Strategy"@en ;
+    ind:indicatorID "RAD-GEN-14" ;
+    ind:definition "The dominant framing technique used (victimization, empowerment, us-vs-them, hero/villain, binary, apocalyptic)."@en ;
+    ind:hipsterContext "Cognitive manipulation strategy detection."@en ;
+    ind:systemRequirements "Framing-strategy classifier (LLM); framing handbook (T6 taxonomy)."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-GEN-15 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Association with Strategic Events / Dates"@en ;
+    ind:indicatorID "RAD-GEN-15" ;
+    ind:definition "Narrative linkage to elections, anniversaries, crises, or symbolic dates."@en ;
+    ind:hipsterContext "Temporal activation analysis."@en ;
+    ind:systemRequirements "Date classifier; keyword/event matching; warehouse-based reporting."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:RAD-GEN-16 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Counter-Narrative"@en ;
+    ind:indicatorID "RAD-GEN-16" ;
+    ind:definition "Content explicitly designed to counter, neutralize, or de-radicalize the narrative."@en ;
+    ind:hipsterContext "Prevention and mitigation analysis."@en ;
+    ind:systemRequirements "Counter-narrative registry; linkage between narrative and counter-narrative."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-GEN-17 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Engagement Trends"@en ;
+    ind:indicatorID "RAD-GEN-17" ;
+    ind:definition "Evolution of likes, shares, comments, views over time."@en ;
+    ind:hipsterContext "Measures narrative traction and momentum."@en ;
+    ind:systemRequirements "Automated engagement collection; time-series charts; BI export; comparative views."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Engagement_Trends .
+
+ind:RAD-GEN-18 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Post Frequency"@en ;
+    ind:indicatorID "RAD-GEN-18" ;
+    ind:definition "Frequency of posts related to the narrative over time."@en ;
+    ind:hipsterContext "Activation and escalation tracking."@en ;
+    ind:systemRequirements "Time-filtered bar charts; narrative-level aggregation."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Post_Frequency .
+
+ind:RAD-GEN-19 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Influencers"@en ;
+    ind:indicatorID "RAD-GEN-19" ;
+    ind:definition "High-reach individuals/accounts frequently disseminating the narrative."@en ;
+    ind:hipsterContext "Actor-level amplification analysis."@en ;
+    ind:systemRequirements "Influencer detection (>=10k followers, configurable); engagement metrics; profile drill-down."@en ;
+    ind:hasScope ind:Person, ind:Network ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Influencer_Networks .
+
+ind:RAD-GEN-20 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Agents"@en ;
+    ind:indicatorID "RAD-GEN-20" ;
+    ind:definition "Accounts acting in a targeted, repetitive manner to promote the narrative."@en ;
+    ind:hipsterContext "Active operator identification."@en ;
+    ind:systemRequirements "Behavioral consistency rules (>=1 post/week); thematic focus analysis."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:RAD-GEN-21 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Saturation"@en ;
+    ind:indicatorID "RAD-GEN-21" ;
+    ind:definition "Degree to which a narrative dominates sources, posts, and engagement within a time window."@en ;
+    ind:hipsterContext "Market-penetration assessment."@en ;
+    ind:systemRequirements "Saturation rules (30% sources, 25% posts, 35% high-engagement shares, growth rate >15%); radar charts."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L3 .
+
+ind:RAD-GEN-22 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Sources"@en ;
+    ind:indicatorID "RAD-GEN-22" ;
+    ind:definition "Channels, groups, or platforms where the narrative is disseminated."@en ;
+    ind:hipsterContext "Distribution-channel mapping."@en ;
+    ind:systemRequirements "Source lists; top-source ranking."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-GEN-23 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Theme"@en ;
+    ind:indicatorID "RAD-GEN-23" ;
+    ind:definition "Higher-level thematic category grouping multiple narratives."@en ;
+    ind:hipsterContext "Thematic aggregation."@en ;
+    ind:systemRequirements "Narrative-to-theme mapping; arc-based visualization; engagement-weighted nodes."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Content_themes .
+
+ind:RAD-GEN-24 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Region"@en ;
+    ind:indicatorID "RAD-GEN-24" ;
+    ind:definition "References to cities, countries, or regions."@en ;
+    ind:hipsterContext "Geographic contextualization."@en ;
+    ind:systemRequirements "Entity extraction; region lists."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-GEN-25 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Seasonality"@en ;
+    ind:indicatorID "RAD-GEN-25" ;
+    ind:definition "Recurring temporal patterns in narrative activity."@en ;
+    ind:hipsterContext "Predictive monitoring."@en ;
+    ind:systemRequirements "Seasonal anomaly detection; warehouse analytics."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Seasonality .
+
+ind:RAD-GEN-26 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Network of Narratives"@en ;
+    ind:indicatorID "RAD-GEN-26" ;
+    ind:definition "Relationships between narratives (overlap, reinforcement, evolution)."@en ;
+    ind:hipsterContext "Narrative ecosystem modeling."@en ;
+    ind:systemRequirements "Graph database; narrative linkage edges."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-GEN-27 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Narrative Phases"@en ;
+    ind:indicatorID "RAD-GEN-27" ;
+    ind:definition "Lifecycle stages: Emergence, Amplification, Maturity (repeatable)."@en ;
+    ind:hipsterContext "Escalation-phase analysis."@en ;
+    ind:systemRequirements "Phase detection over time; curve visualization; warehouse reports."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L3 .
+
+ind:RAD-GEN-28 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Sentiments"@en ;
+    ind:indicatorID "RAD-GEN-28" ;
+    ind:definition "Aggregate sentiment polarity (positive/negative/neutral)."@en ;
+    ind:hipsterContext "Emotional tone monitoring."@en ;
+    ind:systemRequirements "Sentiment aggregation; percentage breakdowns."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L0 ;
+    ind:hasFunctionality hyp:Sentiments .
+
+ind:RAD-GEN-29 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Emotions"@en ;
+    ind:indicatorID "RAD-GEN-29" ;
+    ind:definition "Distribution of emotions (fear, anger, contempt, sadness, etc.)."@en ;
+    ind:hipsterContext "Emotional manipulation analysis."@en ;
+    ind:systemRequirements "Emotion classifiers; percentage distributions."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L0 ;
+    ind:hasFunctionality hyp:Emotions .
+
+ind:RAD-GEN-30 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Bot Networks"@en ;
+    ind:indicatorID "RAD-GEN-30" ;
+    ind:definition "Automated or semi-automated accounts acting in synchrony."@en ;
+    ind:hipsterContext "Artificial amplification detection."@en ;
+    ind:systemRequirements "Bot-behavior detection; sync analysis; warehouse reporting."@en ;
+    ind:hasScope ind:Network ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Bot_Like_Activity .
+
+ind:RAD-GEN-31 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Languages"@en ;
+    ind:indicatorID "RAD-GEN-31" ;
+    ind:definition "Languages used to disseminate the narrative."@en ;
+    ind:hipsterContext "Audience and origin profiling."@en ;
+    ind:systemRequirements "Language detection; language lists."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-GEN-32 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Narrative Structure"@en ;
+    ind:indicatorID "RAD-GEN-32" ;
+    ind:definition "Structural components: emotional intent, trust-building, framing, target message."@en ;
+    ind:hipsterContext "Deep narrative analysis."@en ;
+    ind:systemRequirements "LLM-based structure detection; narrative handbook integration."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Narrative_Structures .
+
+ind:RAD-GEN-33 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Coordinated Activity"@en ;
+    ind:indicatorID "RAD-GEN-33" ;
+    ind:definition "Evidence of organized promotion via synchronized actors or bots."@en ;
+    ind:hipsterContext "Campaign-level detection."@en ;
+    ind:systemRequirements "Temporal similarity detection; network analytics."@en ;
+    ind:hasScope ind:Network, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Coordinated_Posting_Activity .
+
+ind:RAD-GEN-34 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Hidden Message"@en ;
+    ind:indicatorID "RAD-GEN-34" ;
+    ind:definition "Implicit or encoded messages not explicitly stated."@en ;
+    ind:hipsterContext "Plausible-deniability detection."@en ;
+    ind:systemRequirements "LLM inference; analyst validation."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-GEN-35 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Threat / Risk Level"@en ;
+    ind:indicatorID "RAD-GEN-35" ;
+    ind:definition "Composite assessment of longevity, escalation type, speed, and danger."@en ;
+    ind:hipsterContext "Governance-level risk scoring."@en ;
+    ind:systemRequirements "Risk-scoring formula; comparative baselines."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L0 ;
+    ind:hasFunctionality hyp:High_risk_profile .
+
+ind:RAD-GEN-36 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Escalation Speed"@en ;
+    ind:indicatorID "RAD-GEN-36" ;
+    ind:definition "Rate at which narrative intensity and reach increase."@en ;
+    ind:hipsterContext "Early-warning indicator."@en ;
+    ind:systemRequirements "Growth-rate calculation; alert thresholds."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L3 .
+
+ind:RAD-GEN-37 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Beneficiary"@en ;
+    ind:indicatorID "RAD-GEN-37" ;
+    ind:definition "Actor, group, or ideology benefiting from narrative spread."@en ;
+    ind:hipsterContext "Strategic-interest analysis."@en ;
+    ind:systemRequirements "Network + narrative inference; bubble/context analysis."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-GEN-38 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Sentiments (Factual)"@en ;
+    ind:indicatorID "RAD-GEN-38" ;
+    ind:definition "Sentiment derived from fact-checked or verified content."@en ;
+    ind:hipsterContext "Credibility-adjusted sentiment view."@en ;
+    ind:systemRequirements "Fact-linked sentiment analysis."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:RAD-GEN-39 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Emotions (Factual)"@en ;
+    ind:indicatorID "RAD-GEN-39" ;
+    ind:definition "Emotion analysis constrained to verified content."@en ;
+    ind:hipsterContext "Reduced-noise emotional assessment."@en ;
+    ind:systemRequirements "Fact-filtered emotion classifiers."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:RAD-GEN-40 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Narrative vs Counter-Narrative Relationship"@en ;
+    ind:indicatorID "RAD-GEN-40" ;
+    ind:definition "Interaction between radical content and moderating responses."@en ;
+    ind:hipsterContext "Effectiveness of counter-measures."@en ;
+    ind:systemRequirements "Comparative engagement and sentiment analysis."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-GEN-41 a ind:GeneralRadicalizationIndicator ;
+    rdfs:label "Intended Emotional Reaction"@en ;
+    ind:indicatorID "RAD-GEN-41" ;
+    ind:definition "Emotion the narrative aims to evoke in the audience."@en ;
+    ind:hipsterContext "Cognitive-intent detection."@en ;
+    ind:systemRequirements "LLM-based intent inference; emotion-goal mapping."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+# =============================================================================
+# END BATCH 4: GENERAL RADICALIZATION INDICATORS
+# =============================================================================

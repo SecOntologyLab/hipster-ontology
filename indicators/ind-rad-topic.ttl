@@ -1,0 +1,182 @@
+@prefix ind: <http://l3ce.eu/ontology/hipster-indicators#> .
+@prefix hyp: <http://l3ce.eu/ontology/hypster-functionalities#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# =============================================================================
+# TOPIC-LEVEL RADICALIZATION INDICATORS (RAD-TOP-01 to RAD-TOP-18)
+# =============================================================================
+
+ind:RAD-TOP-01 a ind:TopicLevelIndicator ;
+    rdfs:label "Actors"@en ;
+    ind:indicatorID "RAD-TOP-01" ;
+    ind:definition "Accounts or personas that consistently communicate on the given topic, demonstrating repeated thematic engagement over time."@en ;
+    ind:hipsterContext "Identifies topic-specific agents and sustained participants."@en ;
+    ind:systemRequirements "NER on posts; actor aggregation; consistency rules (>=1 post/week); rhetoric similarity tracking; time-interval analysis."@en ;
+    ind:hasScope ind:Person, ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-TOP-02 a ind:TopicLevelIndicator ;
+    rdfs:label "Influencers"@en ;
+    ind:indicatorID "RAD-TOP-02" ;
+    ind:definition "Accounts or persons with a large follower base that frequently mention or promote the topic and generate disproportionate engagement."@en ;
+    ind:hipsterContext "Topic-level amplification and opinion-shaping detection."@en ;
+    ind:systemRequirements "Automatic influencer assignment; follower count display; engagement metrics; TOP ranking by topic frequency; configurable threshold (default >=10k followers)."@en ;
+    ind:hasScope ind:Person, ind:Network ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Influencer_Networks .
+
+ind:RAD-TOP-03 a ind:TopicLevelIndicator ;
+    rdfs:label "Narratives"@en ;
+    ind:indicatorID "RAD-TOP-03" ;
+    ind:definition "Distinct narratives associated with the topic, each representing a coherent storyline or interpretation."@en ;
+    ind:hipsterContext "Topic decomposition into narrative strands."@en ;
+    ind:systemRequirements "Narrative classification model; bar-chart visualization; mandatory theme assignment per narrative."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-TOP-04 a ind:TopicLevelIndicator ;
+    rdfs:label "Hashtags"@en ;
+    ind:indicatorID "RAD-TOP-04" ;
+    ind:definition "Hashtags used to label, amplify, or coordinate dissemination of the topic."@en ;
+    ind:hipsterContext "Campaign and coordination signals at topic level."@en ;
+    ind:systemRequirements "Extraction from metadata; bubble-chart visualization; size proportional to frequency; hover details (hashtag, count, linked themes)."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Hashtags .
+
+ind:RAD-TOP-05 a ind:TopicLevelIndicator ;
+    rdfs:label "Keywords"@en ;
+    ind:indicatorID "RAD-TOP-05" ;
+    ind:definition "Recurrent keywords and key phrases associated with the topic, including slogans and shorthand references."@en ;
+    ind:hipsterContext "Semantic backbone of topic discourse."@en ;
+    ind:systemRequirements "Metadata extraction; bubble-chart visualization; frequency-based sizing; drill-down to posts."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Ideological_Keywords_and_Phrases .
+
+ind:RAD-TOP-06 a ind:TopicLevelIndicator ;
+    rdfs:label "Links with Conspiracies and Ideologies"@en ;
+    ind:indicatorID "RAD-TOP-06" ;
+    ind:definition "Analytical linkage between topic-related posts and predefined conspiracy theories or ideological frameworks (e.g., antisemitism, authoritarianism)."@en ;
+    ind:hipsterContext "Cross-domain risk contextualization."@en ;
+    ind:systemRequirements "Classification model; force-directed network graph; visual flag/icon on posts linked to conspiracies or ideologies."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Misinformation_and_Conspiracy_Narratives .
+
+ind:RAD-TOP-07 a ind:TopicLevelIndicator ;
+    rdfs:label "Languages"@en ;
+    ind:indicatorID "RAD-TOP-07" ;
+    ind:definition "Languages used in topic-related content, expressed as relative proportions."@en ;
+    ind:hipsterContext "Audience and origin profiling."@en ;
+    ind:systemRequirements "Language detection; pie-chart visualization; percentage breakdown."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-TOP-08 a ind:TopicLevelIndicator ;
+    rdfs:label "Involved Social Groups / Target Audiences"@en ;
+    ind:indicatorID "RAD-TOP-08" ;
+    ind:definition "Social groups explicitly or implicitly targeted by the topic (e.g., unemployed, pensioners, youth)."@en ;
+    ind:hipsterContext "Audience-centric radicalization analysis."@en ;
+    ind:systemRequirements "Social-group taxonomy; LLM + vector DB matching; visual diagram where color = group, size = engagement."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Group ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:RAD-TOP-09 a ind:TopicLevelIndicator ;
+    rdfs:label "Engagement (Aggregated)"@en ;
+    ind:indicatorID "RAD-TOP-09" ;
+    ind:definition "Aggregated interaction volume across all topic-related content (likes, comments, shares, views)."@en ;
+    ind:hipsterContext "Measures topic traction and resonance."@en ;
+    ind:systemRequirements "Engagement formula definition; interactive bar chart; separate bars per interaction type with distinct colors; topic-level aggregation."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Engagement_Over_Time .
+
+ind:RAD-TOP-10 a ind:TopicLevelIndicator ;
+    rdfs:label "Domain"@en ;
+    ind:indicatorID "RAD-TOP-10" ;
+    ind:definition "Higher-level domain grouping the topic (e.g., politics, religion, security, health, conspiracies)."@en ;
+    ind:hipsterContext "Contextual framing above topic level."@en ;
+    ind:systemRequirements "Domain assignment logic; fixed domain taxonomy; domain displayed above topic."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-TOP-11 a ind:TopicLevelIndicator ;
+    rdfs:label "Timeline"@en ;
+    ind:indicatorID "RAD-TOP-11" ;
+    ind:definition "Temporal evolution of the topic showing emergence, growth, and decline."@en ;
+    ind:hipsterContext "Activation and escalation tracking."@en ;
+    ind:systemRequirements "Time-series line/bar charts; engagement on Y-axis; selectable time windows; synchronized filtering across widgets."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L3 .
+
+ind:RAD-TOP-12 a ind:TopicLevelIndicator ;
+    rdfs:label "Location"@en ;
+    ind:indicatorID "RAD-TOP-12" ;
+    ind:definition "Geographic entities referenced or visually detected in topic-related content."@en ;
+    ind:hipsterContext "Spatial contextualization."@en ;
+    ind:systemRequirements "NER for locations; object recognition (images/video); region aggregation."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-TOP-13 a ind:TopicLevelIndicator ;
+    rdfs:label "Emotion (Static)"@en ;
+    ind:indicatorID "RAD-TOP-13" ;
+    ind:definition "Distribution of emotions expressed in topic-related content at a given time."@en ;
+    ind:hipsterContext "Emotional tone snapshot."@en ;
+    ind:systemRequirements "Emotion classifiers; percentage display based on post counts."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Emotions .
+
+ind:RAD-TOP-14 a ind:TopicLevelIndicator ;
+    rdfs:label "Emotional Dynamics"@en ;
+    ind:indicatorID "RAD-TOP-14" ;
+    ind:definition "Change of emotional distribution over time for the topic."@en ;
+    ind:hipsterContext "Emotional escalation or de-escalation analysis."@en ;
+    ind:systemRequirements "Sentiment/emotion time-series graphs; trend detection."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L3 .
+
+ind:RAD-TOP-15 a ind:TopicLevelIndicator ;
+    rdfs:label "Target Audience (Refined)"@en ;
+    ind:indicatorID "RAD-TOP-15" ;
+    ind:definition "More granular classification of the intended or reached audience segments."@en ;
+    ind:hipsterContext "Recruitment and influence targeting analysis."@en ;
+    ind:systemRequirements "Classification via NER and LLM; audience labels per narrative."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Group ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:RAD-TOP-16 a ind:TopicLevelIndicator ;
+    rdfs:label "Engagement (Advanced)"@en ;
+    ind:indicatorID "RAD-TOP-16" ;
+    ind:definition "Analytical engagement metrics beyond raw counts (velocity, spikes, engagement-per-post)."@en ;
+    ind:hipsterContext "Detection of abnormal amplification."@en ;
+    ind:systemRequirements "Advanced engagement models; anomaly detection; configurable thresholds."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Engagement_Abnormalities .
+
+ind:RAD-TOP-17 a ind:TopicLevelIndicator ;
+    rdfs:label "Power Phrases"@en ;
+    ind:indicatorID "RAD-TOP-17" ;
+    ind:definition "Short, emotionally or ideologically charged phrases repeatedly used to strengthen the topic narrative."@en ;
+    ind:hipsterContext "Rhetorical reinforcement detection."@en ;
+    ind:systemRequirements "Curated phrase lists; frequency counters; analyst-editable dictionaries."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L0 ;
+    ind:hasFunctionality hyp:Common_phrases .
+
+ind:RAD-TOP-18 a ind:TopicLevelIndicator ;
+    rdfs:label "Classification (Cultural / Political)"@en ;
+    ind:indicatorID "RAD-TOP-18" ;
+    ind:definition "Classification of the topic as cultural, political, socio-economic, religious, or mixed."@en ;
+    ind:hipsterContext "Governance-level contextual labeling."@en ;
+    ind:systemRequirements "LLM-based topic classification; confidence scoring; multi-label support."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+# =============================================================================
+# END BATCH 6: TOPIC-LEVEL RADICALIZATION INDICATORS
+# =============================================================================

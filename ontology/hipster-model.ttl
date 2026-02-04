@@ -1,0 +1,605 @@
+@prefix hti: <http://l3ce.eu/ontology/hybrid-threat-intelligence#> .
+@prefix ind: <http://l3ce.eu/ontology/hipster-indicators#> .
+@prefix hyp: <http://l3ce.eu/ontology/hypster-functionalities#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# =============================================================================
+# ONTOLOGY DECLARATION 
+# =============================================================================
+
+<http://l3ce.eu/ontology/hipster-model> a owl:Ontology ;
+    dct:title "HIPSTer Hybrid Threat Intelligence Model"@en ;
+    dct:description "Integrated ontology for detecting and analyzing hybrid threats including disinformation, social media manipulation, psychological operations, and threat indicators. Developed for the HIPSTer project."@en ;
+    dct:creator "L3CE - Lithuanian Cybercrime Centre of Excellence"@en ;
+    dct:created "2025-01-19"^^xsd:date ;
+    owl:versionInfo "2.0.0" ;
+    rdfs:comment "Merged schema combining base Hybrid Threat Intelligence ontology (hti:) with Indicator framework (ind:)."@en .
+
+# #############################################################################
+# PART I: HYBRID THREAT INTELLIGENCE CORE (hti:)
+# #############################################################################
+
+# =============================================================================
+# HTI: CORE THREAT CLASSES
+# =============================================================================
+
+hti:ThreatEntity a owl:Class ;
+    rdfs:label "Threat Entity"@en ;
+    rdfs:comment "Any entity involved in or affected by hybrid threat activities."@en .
+
+hti:Threat a owl:Class ;
+    rdfs:label "Threat"@en ;
+    rdfs:comment "A potential or active threat to security, society, or information integrity."@en ;
+    rdfs:subClassOf hti:ThreatEntity .
+
+hti:ThreatActor a owl:Class ;
+    rdfs:label "Threat Actor"@en ;
+    rdfs:comment "Individual, group, or organization conducting threat activities."@en ;
+    rdfs:subClassOf hti:ThreatEntity .
+
+hti:Target a owl:Class ;
+    rdfs:label "Target"@en ;
+    rdfs:comment "Entity being targeted by threat activities."@en ;
+    rdfs:subClassOf hti:ThreatEntity .
+
+hti:ThreatIndicator a owl:Class ;
+    rdfs:label "Threat Indicator"@en ;
+    rdfs:comment "Observable patterns or behaviors indicating potential threats."@en ;
+    rdfs:subClassOf hti:ThreatEntity .
+
+# =============================================================================
+# HTI: THREAT TYPES
+# =============================================================================
+
+hti:HybridThreat a owl:Class ;
+    rdfs:label "Hybrid Threat"@en ;
+    rdfs:comment "Threats combining multiple attack vectors (cyber, physical, psychological)."@en ;
+    rdfs:subClassOf hti:Threat .
+
+hti:DisinformationCampaign a owl:Class ;
+    rdfs:label "Disinformation Campaign"@en ;
+    rdfs:comment "Coordinated spreading of false information."@en ;
+    rdfs:subClassOf hti:HybridThreat .
+
+hti:MisinformationSpread a owl:Class ;
+    rdfs:label "Misinformation Spread"@en ;
+    rdfs:comment "Unintentional spread of false information."@en ;
+    rdfs:subClassOf hti:HybridThreat .
+
+hti:PsychologicalOperation a owl:Class ;
+    rdfs:label "Psychological Operation"@en ;
+    rdfs:comment "Operations aimed at influencing emotions, motives, and behavior."@en ;
+    rdfs:subClassOf hti:HybridThreat .
+
+hti:SocialMediaManipulation a owl:Class ;
+    rdfs:label "Social Media Manipulation"@en ;
+    rdfs:comment "Coordinated inauthentic behavior on social platforms."@en ;
+    rdfs:subClassOf hti:HybridThreat .
+
+hti:NarrativeWarfare a owl:Class ;
+    rdfs:label "Narrative Warfare"@en ;
+    rdfs:comment "Strategic use of narratives to shape perceptions."@en ;
+    rdfs:subClassOf hti:HybridThreat .
+
+# =============================================================================
+# HTI: THREAT ACTORS
+# =============================================================================
+
+hti:StateActor a owl:Class ;
+    rdfs:label "State Actor"@en ;
+    rdfs:comment "Nation-state or government-affiliated threat actor."@en ;
+    rdfs:subClassOf hti:ThreatActor .
+
+hti:NonStateActor a owl:Class ;
+    rdfs:label "Non-State Actor"@en ;
+    rdfs:comment "Non-governmental threat actor."@en ;
+    rdfs:subClassOf hti:ThreatActor .
+
+hti:TerroristGroup a owl:Class ;
+    rdfs:label "Terrorist Group"@en ;
+    rdfs:subClassOf hti:NonStateActor .
+
+hti:CriminalOrganization a owl:Class ;
+    rdfs:label "Criminal Organization"@en ;
+    rdfs:subClassOf hti:NonStateActor .
+
+hti:Hacktivist a owl:Class ;
+    rdfs:label "Hacktivist"@en ;
+    rdfs:subClassOf hti:NonStateActor .
+
+hti:TrollFarm a owl:Class ;
+    rdfs:label "Troll Farm"@en ;
+    rdfs:comment "Organized group spreading disinformation."@en ;
+    rdfs:subClassOf hti:ThreatActor .
+
+hti:BotNetwork a owl:Class ;
+    rdfs:label "Bot Network"@en ;
+    rdfs:comment "Network of automated accounts."@en ;
+    rdfs:subClassOf hti:ThreatActor .
+
+# =============================================================================
+# HTI: CONTENT & NARRATIVE CLASSES
+# =============================================================================
+
+hti:Content a owl:Class ;
+    rdfs:label "Content"@en ;
+    rdfs:comment "Any form of information or media."@en ;
+    rdfs:subClassOf hti:ThreatEntity .
+
+hti:Narrative a owl:Class ;
+    rdfs:label "Narrative"@en ;
+    rdfs:comment "Story or message being promoted."@en ;
+    rdfs:subClassOf hti:Content .
+
+hti:Propaganda a owl:Class ;
+    rdfs:label "Propaganda"@en ;
+    rdfs:subClassOf hti:Content .
+
+hti:FakeNews a owl:Class ;
+    rdfs:label "Fake News"@en ;
+    rdfs:subClassOf hti:Content .
+
+hti:DeepFake a owl:Class ;
+    rdfs:label "Deep Fake"@en ;
+    rdfs:comment "AI-generated fake content."@en ;
+    rdfs:subClassOf hti:Content .
+
+hti:Meme a owl:Class ;
+    rdfs:label "Meme"@en ;
+    rdfs:comment "Viral image or concept."@en ;
+    rdfs:subClassOf hti:Content .
+
+# =============================================================================
+# HTI: PLATFORM & CHANNEL CLASSES
+# =============================================================================
+
+hti:Platform a owl:Class ;
+    rdfs:label "Platform"@en ;
+    rdfs:comment "Communication platform or channel."@en ;
+    rdfs:subClassOf hti:ThreatEntity .
+
+hti:SocialMediaPlatform a owl:Class ;
+    rdfs:label "Social Media Platform"@en ;
+    rdfs:subClassOf hti:Platform .
+
+hti:MessagingApp a owl:Class ;
+    rdfs:label "Messaging App"@en ;
+    rdfs:subClassOf hti:Platform .
+
+hti:Forum a owl:Class ;
+    rdfs:label "Forum"@en ;
+    rdfs:subClassOf hti:Platform .
+
+hti:NewsOutlet a owl:Class ;
+    rdfs:label "News Outlet"@en ;
+    rdfs:subClassOf hti:Platform .
+
+# =============================================================================
+# HTI: BEHAVIORAL INDICATORS
+# =============================================================================
+
+hti:BehavioralPattern a owl:Class ;
+    rdfs:label "Behavioral Pattern"@en ;
+    rdfs:comment "Observable pattern of behavior."@en ;
+    rdfs:subClassOf hti:ThreatIndicator .
+
+hti:CoordinatedActivity a owl:Class ;
+    rdfs:label "Coordinated Activity"@en ;
+    rdfs:comment "Synchronized behavior across multiple accounts."@en ;
+    rdfs:subClassOf hti:BehavioralPattern .
+
+hti:AnomalousPosting a owl:Class ;
+    rdfs:label "Anomalous Posting"@en ;
+    rdfs:comment "Unusual posting patterns (time, frequency, content)."@en ;
+    rdfs:subClassOf hti:BehavioralPattern .
+
+hti:NetworkAmplification a owl:Class ;
+    rdfs:label "Network Amplification"@en ;
+    rdfs:comment "Artificial amplification of content."@en ;
+    rdfs:subClassOf hti:BehavioralPattern .
+
+hti:EchoChamber a owl:Class ;
+    rdfs:label "Echo Chamber"@en ;
+    rdfs:comment "Closed information ecosystem."@en ;
+    rdfs:subClassOf hti:BehavioralPattern .
+
+# =============================================================================
+# HTI: LINGUISTIC INDICATORS
+# =============================================================================
+
+hti:LinguisticIndicator a owl:Class ;
+    rdfs:label "Linguistic Indicator"@en ;
+    rdfs:comment "Language-based threat indicators."@en ;
+    rdfs:subClassOf hti:ThreatIndicator .
+
+hti:EmotiveLanguage a owl:Class ;
+    rdfs:label "Emotive Language"@en ;
+    rdfs:comment "Language designed to provoke emotional response."@en ;
+    rdfs:subClassOf hti:LinguisticIndicator .
+
+hti:HateSpeech a owl:Class ;
+    rdfs:label "Hate Speech"@en ;
+    rdfs:subClassOf hti:LinguisticIndicator .
+
+hti:Dehumanization a owl:Class ;
+    rdfs:label "Dehumanization"@en ;
+    rdfs:comment "Language that dehumanizes groups."@en ;
+    rdfs:subClassOf hti:LinguisticIndicator .
+
+hti:ConspiracyNarrative a owl:Class ;
+    rdfs:label "Conspiracy Narrative"@en ;
+    rdfs:subClassOf hti:LinguisticIndicator .
+
+# =============================================================================
+# HTI: OBJECT PROPERTIES
+# =============================================================================
+
+hti:conducts a owl:ObjectProperty ;
+    rdfs:label "conducts"@en ;
+    rdfs:comment "Actor conducts threat activity."@en ;
+    rdfs:domain hti:ThreatActor ;
+    rdfs:range hti:Threat .
+
+hti:isConductedBy a owl:ObjectProperty ;
+    rdfs:label "is conducted by"@en ;
+    rdfs:comment "Threat activity is conducted by actor."@en ;
+    owl:inverseOf hti:conducts ;
+    rdfs:domain hti:Threat ;
+    rdfs:range hti:ThreatActor .
+
+hti:targets a owl:ObjectProperty ;
+    rdfs:label "targets"@en ;
+    rdfs:comment "Threat targets entity."@en ;
+    rdfs:domain hti:Threat ;
+    rdfs:range hti:Target .
+
+hti:isTargetedBy a owl:ObjectProperty ;
+    rdfs:label "is targeted by"@en ;
+    rdfs:comment "Entity is targeted by threat."@en ;
+    owl:inverseOf hti:targets ;
+    rdfs:domain hti:Target ;
+    rdfs:range hti:Threat .
+
+hti:uses a owl:ObjectProperty ;
+    rdfs:label "uses"@en ;
+    rdfs:comment "Threat uses content."@en ;
+    rdfs:domain hti:Threat ;
+    rdfs:range hti:Content .
+
+hti:spreadsOn a owl:ObjectProperty ;
+    rdfs:label "spreads on"@en ;
+    rdfs:comment "Content spreads on platform."@en ;
+    rdfs:domain hti:Content ;
+    rdfs:range hti:Platform .
+
+hti:exhibits a owl:ObjectProperty ;
+    rdfs:label "exhibits"@en ;
+    rdfs:comment "Actor exhibits behavioral pattern."@en ;
+    rdfs:domain hti:ThreatActor ;
+    rdfs:range hti:BehavioralPattern .
+
+hti:contains a owl:ObjectProperty ;
+    rdfs:label "contains"@en ;
+    rdfs:comment "Content contains linguistic indicator."@en ;
+    rdfs:domain hti:Content ;
+    rdfs:range hti:LinguisticIndicator .
+
+hti:amplifies a owl:ObjectProperty ;
+    rdfs:label "amplifies"@en ;
+    rdfs:comment "Actor amplifies narrative."@en ;
+    rdfs:domain hti:ThreatActor ;
+    rdfs:range hti:Narrative .
+
+hti:hasFunctionality a owl:ObjectProperty ;
+    rdfs:label "has functionality"@en ;
+    rdfs:comment "Links a threat entity to SKOS-defined functionalities."@en ;
+    rdfs:domain hti:ThreatEntity ;
+    rdfs:range skos:Concept .
+
+# =============================================================================
+# HTI: DATA PROPERTIES
+# =============================================================================
+
+hti:threatLevel a owl:DatatypeProperty ;
+    rdfs:label "threat level"@en ;
+    rdfs:comment "Threat severity level (low, medium, high, critical)."@en ;
+    rdfs:domain hti:Threat ;
+    rdfs:range xsd:string .
+
+hti:confidence a owl:DatatypeProperty ;
+    rdfs:label "confidence"@en ;
+    rdfs:comment "Confidence score (0.0-1.0)."@en ;
+    rdfs:domain hti:ThreatIndicator ;
+    rdfs:range xsd:float .
+
+hti:detectedOn a owl:DatatypeProperty ;
+    rdfs:label "detected on"@en ;
+    rdfs:comment "Timestamp of threat detection."@en ;
+    rdfs:domain hti:Threat ;
+    rdfs:range xsd:dateTime .
+
+hti:postCount a owl:DatatypeProperty ;
+    rdfs:label "post count"@en ;
+    rdfs:comment "Number of posts by actor."@en ;
+    rdfs:domain hti:ThreatActor ;
+    rdfs:range xsd:integer .
+
+hti:followerCount a owl:DatatypeProperty ;
+    rdfs:label "follower count"@en ;
+    rdfs:comment "Number of followers."@en ;
+    rdfs:domain hti:ThreatActor ;
+    rdfs:range xsd:integer .
+
+hti:sentimentScore a owl:DatatypeProperty ;
+    rdfs:label "sentiment score"@en ;
+    rdfs:comment "Sentiment analysis score (-1.0 to 1.0)."@en ;
+    rdfs:domain hti:Content ;
+    rdfs:range xsd:float .
+
+hti:viralityScore a owl:DatatypeProperty ;
+    rdfs:label "virality score"@en ;
+    rdfs:comment "Content virality measure."@en ;
+    rdfs:domain hti:Content ;
+    rdfs:range xsd:float .
+
+# #############################################################################
+# PART II: INDICATOR FRAMEWORK (ind:)
+# #############################################################################
+
+# =============================================================================
+# IND: INDICATOR CLASS HIERARCHY
+# =============================================================================
+
+ind:Indicator a owl:Class ;
+    rdfs:label "Indicator"@en ;
+    rdfs:comment "An observable, measurable manifestation of underlying phenomena such as ideological alignment, conspiratorial thinking, radicalization processes, coordinated influence activity, or internal subversion."@en ;
+    rdfs:subClassOf hti:ThreatIndicator .
+
+# -----------------------------------------------------------------------------
+# Indicator Families
+# -----------------------------------------------------------------------------
+
+ind:IdeologyIndicator a owl:Class ;
+    rdfs:label "Ideology Indicator"@en ;
+    rdfs:comment "Indicators capturing worldview-level signals including narratives, symbols, iconography, language, historical framing, and emotional positioning that express or reinforce ideological alignment."@en ;
+    rdfs:subClassOf ind:Indicator .
+
+ind:FifthColumnIndicator a owl:Class ;
+    rdfs:label "Fifth Column Indicator"@en ;
+    rdfs:comment "Indicators addressing internal subversion and hybrid influence activities where narratives and actors undermine institutions, societal cohesion, or democratic trust from within."@en ;
+    rdfs:subClassOf ind:Indicator .
+
+ind:ConspiracyIndicator a owl:Class ;
+    rdfs:label "Conspiracy Indicator"@en ;
+    rdfs:comment "Indicators focusing on alternative explanatory systems that replace evidence-based reasoning with closed belief structures."@en ;
+    rdfs:subClassOf ind:Indicator .
+
+ind:RadicalizationIndicator a owl:Class ;
+    rdfs:label "Radicalization Indicator"@en ;
+    rdfs:comment "Indicators capturing radicalization processes across multiple analytical levels."@en ;
+    rdfs:subClassOf ind:Indicator .
+
+# -----------------------------------------------------------------------------
+# Radicalization Indicator Subclasses (by analytical level)
+# -----------------------------------------------------------------------------
+
+ind:GeneralRadicalizationIndicator a owl:Class ;
+    rdfs:label "General Radicalization Indicator"@en ;
+    rdfs:comment "General radicalization indicators operating at the narrative level, assessing story construction, framing, emotional charge, amplification, and lifecycle."@en ;
+    rdfs:subClassOf ind:RadicalizationIndicator .
+
+ind:PersonLevelIndicator a owl:Class ;
+    rdfs:label "Person-Level Radicalization Indicator"@en ;
+    rdfs:comment "Indicators analyzing individual actors as dynamic profiles, capturing behavioral patterns, ideological drift, emotional evolution, network position, and coordination signals."@en ;
+    rdfs:subClassOf ind:RadicalizationIndicator .
+
+ind:TopicLevelIndicator a owl:Class ;
+    rdfs:label "Topic-Level Radicalization Indicator"@en ;
+    rdfs:comment "Indicators aggregating narratives, actors, and engagement around specific issues or themes."@en ;
+    rdfs:subClassOf ind:RadicalizationIndicator .
+
+ind:PostLevelIndicator a owl:Class ;
+    rdfs:label "Post-Level Radicalization Indicator"@en ;
+    rdfs:comment "Atomic analytical layer indicators capturing textual, visual, emotional, and relational properties of individual content items."@en ;
+    rdfs:subClassOf ind:RadicalizationIndicator .
+
+ind:EventLevelIndicator a owl:Class ;
+    rdfs:label "Event-Level Radicalization Indicator"@en ;
+    rdfs:comment "Indicators aggregating posts, narratives, topics, and actors into temporally and contextually bounded phenomena."@en ;
+    rdfs:subClassOf ind:RadicalizationIndicator .
+
+# =============================================================================
+# IND: ANALYTICAL OBJECT CLASSES (Scopes)
+# =============================================================================
+
+ind:AnalyticalObject a owl:Class ;
+    rdfs:label "Analytical Object"@en ;
+    rdfs:comment "Core objects of analysis within the HIPSTer indicator framework."@en .
+
+ind:Post a owl:Class ;
+    rdfs:label "Post"@en ;
+    rdfs:comment "Individual content items including posts, comments, reposts, articles."@en ;
+    rdfs:subClassOf ind:AnalyticalObject .
+
+ind:AnalyticalNarrative a owl:Class ;
+    rdfs:label "Analytical Narrative"@en ;
+    rdfs:comment "Coherent storylines or interpretations that frame events, issues, or actors (as analytical scope)."@en ;
+    rdfs:subClassOf ind:AnalyticalObject .
+
+ind:Person a owl:Class ;
+    rdfs:label "Person/Persona"@en ;
+    rdfs:comment "Individual actors or account profiles."@en ;
+    rdfs:subClassOf ind:AnalyticalObject .
+
+ind:Network a owl:Class ;
+    rdfs:label "Network"@en ;
+    rdfs:comment "Interconnected actors, accounts, or entities forming influence structures."@en ;
+    rdfs:subClassOf ind:AnalyticalObject .
+
+ind:Topic a owl:Class ;
+    rdfs:label "Topic"@en ;
+    rdfs:comment "Thematic aggregations around specific issues or subjects."@en ;
+    rdfs:subClassOf ind:AnalyticalObject .
+
+ind:Event a owl:Class ;
+    rdfs:label "Event"@en ;
+    rdfs:comment "Temporally and contextually bounded phenomena aggregating multiple analytical objects."@en ;
+    rdfs:subClassOf ind:AnalyticalObject .
+
+ind:Group a owl:Class ;
+    rdfs:label "Group"@en ;
+    rdfs:comment "Communities or social groups targeted by or participating in information activities."@en ;
+    rdfs:subClassOf ind:AnalyticalObject .
+
+ind:InformationMonitoring a owl:Class ;
+    rdfs:label "Information Monitoring"@en ;
+    rdfs:comment "System-level or aggregate monitoring scope for cross-content analysis."@en ;
+    rdfs:subClassOf ind:AnalyticalObject .
+
+# =============================================================================
+# IND: ANALYTICAL LEVEL (Controlled Vocabulary)
+# =============================================================================
+
+ind:AnalyticalLevel a owl:Class ;
+    rdfs:label "Analytical Level"@en ;
+    rdfs:comment "Graduated complexity levels from metadata (L0) to complex coordination signals (L4)."@en .
+
+ind:L0 a ind:AnalyticalLevel ;
+    rdfs:label "L0 - Metadata/Basic"@en ;
+    rdfs:comment "Basic metadata extraction and simple classification."@en ;
+    ind:levelOrder 0 .
+
+ind:L1 a ind:AnalyticalLevel ;
+    rdfs:label "L1 - Content Analysis"@en ;
+    rdfs:comment "Content-level analysis including keywords, symbols, language patterns."@en ;
+    ind:levelOrder 1 .
+
+ind:L2 a ind:AnalyticalLevel ;
+    rdfs:label "L2 - Pattern Recognition"@en ;
+    rdfs:comment "Pattern-level analysis including framing, sentiment, network structures."@en ;
+    ind:levelOrder 2 .
+
+ind:L3 a ind:AnalyticalLevel ;
+    rdfs:label "L3 - Temporal/Behavioral"@en ;
+    rdfs:comment "Temporal and behavioral analysis including trends, anomalies, escalation."@en ;
+    ind:levelOrder 3 .
+
+ind:L4 a ind:AnalyticalLevel ;
+    rdfs:label "L4 - Complex Coordination"@en ;
+    rdfs:comment "High-complexity signals of coordination, mobilization, or high-risk events."@en ;
+    ind:levelOrder 4 .
+
+# =============================================================================
+# IND: ANALYTICAL LAYER (Cognitive, Informational, Technical, Governance)
+# =============================================================================
+
+ind:AnalyticalLayer a owl:Class ;
+    rdfs:label "Analytical Layer"@en ;
+    rdfs:comment "Layers of hybrid threat analysis per established frameworks."@en .
+
+ind:CognitiveLayer a ind:AnalyticalLayer ;
+    rdfs:label "Cognitive Layer"@en ;
+    rdfs:comment "Psychological and perceptual effects on target audiences."@en .
+
+ind:InformationalLayer a ind:AnalyticalLayer ;
+    rdfs:label "Informational Layer"@en ;
+    rdfs:comment "Content, narratives, and information flows."@en .
+
+ind:TechnicalLayer a ind:AnalyticalLayer ;
+    rdfs:label "Technical/Operational Layer"@en ;
+    rdfs:comment "Technical infrastructure, platforms, and operational patterns."@en .
+
+ind:GovernanceLayer a ind:AnalyticalLayer ;
+    rdfs:label "Governance Layer"@en ;
+    rdfs:comment "Institutional, legal, and policy dimensions."@en .
+
+# =============================================================================
+# IND: OBJECT PROPERTIES
+# =============================================================================
+
+ind:hasScope a owl:ObjectProperty ;
+    rdfs:label "has scope"@en ;
+    rdfs:comment "Links an indicator to its analytical scope/object."@en ;
+    rdfs:domain ind:Indicator ;
+    rdfs:range ind:AnalyticalObject .
+
+ind:hasAnalyticalLevel a owl:ObjectProperty ;
+    rdfs:label "has analytical level"@en ;
+    rdfs:comment "Links an indicator to its complexity level (L0-L4)."@en ;
+    rdfs:domain ind:Indicator ;
+    rdfs:range ind:AnalyticalLevel .
+
+ind:operatesInLayer a owl:ObjectProperty ;
+    rdfs:label "operates in layer"@en ;
+    rdfs:comment "Links an indicator to the analytical layer(s) it operates within."@en ;
+    rdfs:domain ind:Indicator ;
+    rdfs:range ind:AnalyticalLayer .
+
+ind:relatedToIndicator a owl:ObjectProperty ;
+    rdfs:label "related to indicator"@en ;
+    rdfs:comment "Links indicators that are semantically or operationally related."@en ;
+    rdfs:domain ind:Indicator ;
+    rdfs:range ind:Indicator .
+
+ind:feedsInto a owl:ObjectProperty ;
+    rdfs:label "feeds into"@en ;
+    rdfs:comment "Indicates that one indicator provides input for another (lower to higher level)."@en ;
+    rdfs:subPropertyOf ind:relatedToIndicator ;
+    rdfs:domain ind:Indicator ;
+    rdfs:range ind:Indicator .
+
+ind:crossDomainLinkTo a owl:ObjectProperty ;
+    rdfs:label "cross-domain link to"@en ;
+    rdfs:comment "Links indicators across different indicator families (e.g., radicalization to conspiracy)."@en ;
+    rdfs:subPropertyOf ind:relatedToIndicator ;
+    rdfs:domain ind:Indicator ;
+    rdfs:range ind:Indicator .
+
+ind:hasFunctionality a owl:ObjectProperty ;
+    rdfs:label "has functionality"@en ;
+    rdfs:comment "Links an indicator to SKOS-defined functionalities from the HYPSTer vocabulary."@en ;
+    rdfs:domain ind:Indicator ;
+    rdfs:range skos:Concept .
+
+# =============================================================================
+# IND: DATA PROPERTIES
+# =============================================================================
+
+ind:indicatorID a owl:DatatypeProperty ;
+    rdfs:label "indicator ID"@en ;
+    rdfs:comment "Unique identifier for the indicator within its family (e.g., IDEO-01, 5COL-15)."@en ;
+    rdfs:domain ind:Indicator ;
+    rdfs:range xsd:string .
+
+ind:definition a owl:DatatypeProperty ;
+    rdfs:label "definition"@en ;
+    rdfs:comment "Explicit definition of what the indicator captures."@en ;
+    rdfs:domain ind:Indicator ;
+    rdfs:range xsd:string .
+
+ind:hipsterContext a owl:DatatypeProperty ;
+    rdfs:label "HIPSTer scope and context"@en ;
+    rdfs:comment "Description of the indicator's role and context within HIPSTer."@en ;
+    rdfs:domain ind:Indicator ;
+    rdfs:range xsd:string .
+
+ind:systemRequirements a owl:DatatypeProperty ;
+    rdfs:label "system requirements"@en ;
+    rdfs:comment "Technical and system requirements for implementing the indicator."@en ;
+    rdfs:domain ind:Indicator ;
+    rdfs:range xsd:string .
+
+ind:levelOrder a owl:DatatypeProperty ;
+    rdfs:label "level order"@en ;
+    rdfs:comment "Numeric ordering of analytical levels (0-4)."@en ;
+    rdfs:domain ind:AnalyticalLevel ;
+    rdfs:range xsd:integer .
+
+# =============================================================================
+# END OF SCHEMA
+# =============================================================================

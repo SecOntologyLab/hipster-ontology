@@ -1,0 +1,134 @@
+@prefix ind: <http://l3ce.eu/ontology/hipster-indicators#> .
+@prefix hyp: <http://l3ce.eu/ontology/hypster-functionalities#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# =============================================================================
+# EVENT-LEVEL RADICALIZATION INDICATORS (RAD-EVT-01 to RAD-EVT-13)
+# =============================================================================
+
+ind:RAD-EVT-01 a ind:EventLevelIndicator ;
+    rdfs:label "Event Date"@en ;
+    ind:indicatorID "RAD-EVT-01" ;
+    ind:definition "Temporal boundaries of the event, defined as a single date or a date range (from-to), representing when the event occurs or unfolds."@en ;
+    ind:hipsterContext "Core temporal anchor for event reconstruction and correlation."@en ;
+    ind:systemRequirements "Start/end date fields; support for single-date and period logic; optional (not mandatory); UTC normalization."@en ;
+    ind:hasScope ind:Event ;
+    ind:hasAnalyticalLevel ind:L3 .
+
+ind:RAD-EVT-02 a ind:EventLevelIndicator ;
+    rdfs:label "Event Map"@en ;
+    ind:indicatorID "RAD-EVT-02" ;
+    ind:definition "Geographic visualization of all locations associated with the event, including locations mentioned in content and detected via metadata."@en ;
+    ind:hipsterContext "Spatial situational awareness for events."@en ;
+    ind:systemRequirements "Interactive map widget; geocoded entities from text/images/video; clustering for dense locations."@en ;
+    ind:hasScope ind:Event, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:RAD-EVT-03 a ind:EventLevelIndicator ;
+    rdfs:label "Actors"@en ;
+    ind:indicatorID "RAD-EVT-03" ;
+    ind:definition "Accounts or personas that consistently communicate about the event across posts and platforms."@en ;
+    ind:hipsterContext "Identification of event-level agents and operators."@en ;
+    ind:systemRequirements "NER from posts; actor aggregation; consistency rules (>=1 post/week); rhetoric similarity; time-interval analysis."@en ;
+    ind:hasScope ind:Person, ind:Post, ind:Event ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-EVT-04 a ind:EventLevelIndicator ;
+    rdfs:label "Influencers"@en ;
+    ind:indicatorID "RAD-EVT-04" ;
+    ind:definition "High-follower accounts or persons that actively disseminate or amplify the event-related narratives."@en ;
+    ind:hipsterContext "Event-level amplification analysis."@en ;
+    ind:systemRequirements "Automatic influencer assignment; follower count displayed; engagement-based influence score; TOP ranking; configurable threshold (default >=10k followers)."@en ;
+    ind:hasScope ind:Person, ind:Network, ind:Event ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Influencer_Networks .
+
+ind:RAD-EVT-05 a ind:EventLevelIndicator ;
+    rdfs:label "Narratives"@en ;
+    ind:indicatorID "RAD-EVT-05" ;
+    ind:definition "Distinct narratives that frame or explain the event, each linked to a higher-level topic and domain."@en ;
+    ind:hipsterContext "Narrative decomposition of the event."@en ;
+    ind:systemRequirements "Narrative classification model; horizontal bar-chart visualization; mandatory topic assignment per narrative."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Event ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-EVT-06 a ind:EventLevelIndicator ;
+    rdfs:label "Hashtags"@en ;
+    ind:indicatorID "RAD-EVT-06" ;
+    ind:definition "Hashtags explicitly used in event-related posts to label, coordinate, or amplify discourse."@en ;
+    ind:hipsterContext "Campaign and coordination signal."@en ;
+    ind:systemRequirements "Metadata extraction; bubble-chart visualization; bubble size = frequency; hover details (hashtag, count, linked narratives)."@en ;
+    ind:hasScope ind:Post, ind:Event ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Hashtags .
+
+ind:RAD-EVT-07 a ind:EventLevelIndicator ;
+    rdfs:label "Keywords"@en ;
+    ind:indicatorID "RAD-EVT-07" ;
+    ind:definition "Recurrent keywords and key phrases associated with the event discourse."@en ;
+    ind:hipsterContext "Semantic anchoring of the event."@en ;
+    ind:systemRequirements "Keyword extraction from metadata; bubble-chart visualization; frequency-based sizing; drill-down to posts."@en ;
+    ind:hasScope ind:Post, ind:Event ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Ideological_Keywords_and_Phrases .
+
+ind:RAD-EVT-08 a ind:EventLevelIndicator ;
+    rdfs:label "Links with Conspiracies and Ideologies"@en ;
+    ind:indicatorID "RAD-EVT-08" ;
+    ind:definition "Analytical linkage between event-related content and predefined conspiracy theories or ideological frameworks (e.g., antisemitism, authoritarianism)."@en ;
+    ind:hipsterContext "Cross-domain risk contextualization."@en ;
+    ind:systemRequirements "Classification model; force-directed network graph; mandatory visual flag/icon on posts linked to conspiracies or ideologies."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative, ind:Event ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Misinformation_and_Conspiracy_Narratives .
+
+ind:RAD-EVT-09 a ind:EventLevelIndicator ;
+    rdfs:label "Languages"@en ;
+    ind:indicatorID "RAD-EVT-09" ;
+    ind:definition "Languages used in event-related content, expressed as proportions."@en ;
+    ind:hipsterContext "Audience and origin profiling at event level."@en ;
+    ind:systemRequirements "Language detection; pie-chart visualization; percentage breakdown."@en ;
+    ind:hasScope ind:Post, ind:Event ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-EVT-10 a ind:EventLevelIndicator ;
+    rdfs:label "Involved Social Groups / Target Audiences"@en ;
+    ind:indicatorID "RAD-EVT-10" ;
+    ind:definition "Social groups explicitly or implicitly targeted by event-related narratives (e.g., unemployed, pensioners, youth)."@en ;
+    ind:hipsterContext "Audience-centric radicalization analysis."@en ;
+    ind:systemRequirements "Social-group taxonomy; LLM + vector DB matching; visual diagram where color = group, size = engagement."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Group, ind:Event ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:RAD-EVT-11 a ind:EventLevelIndicator ;
+    rdfs:label "Popularity / Engagement (Aggregated)"@en ;
+    ind:indicatorID "RAD-EVT-11" ;
+    ind:definition "Aggregated interaction volume across all event-related content (comments, likes, shares, views)."@en ;
+    ind:hipsterContext "Measures event salience and societal impact."@en ;
+    ind:systemRequirements "Defined engagement formula; interactive bar chart; separate bars per interaction type (color-coded); full aggregation across posts."@en ;
+    ind:hasScope ind:InformationMonitoring, ind:Event ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Engagement_Over_Time .
+
+ind:RAD-EVT-12 a ind:EventLevelIndicator ;
+    rdfs:label "Domain"@en ;
+    ind:indicatorID "RAD-EVT-12" ;
+    ind:definition "High-level domain grouping the event (e.g., politics, security, health, conspiracies)."@en ;
+    ind:hipsterContext "Contextual framing above topics and narratives."@en ;
+    ind:systemRequirements "Fixed domain taxonomy; domain displayed above topics and narratives."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Event ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-EVT-13 a ind:EventLevelIndicator ;
+    rdfs:label "Event Timeline"@en ;
+    ind:indicatorID "RAD-EVT-13" ;
+    ind:definition "Temporal evolution of the event showing emergence, escalation, and decline, typically driven by engagement dynamics."@en ;
+    ind:hipsterContext "Activation and escalation tracking."@en ;
+    ind:systemRequirements "Time-series visualization (line/bar); Y-axis = engagement; selectable intervals (day/week/month/custom); synchronized filtering across widgets."@en ;
+    ind:hasScope ind:InformationMonitoring, ind:Event ;
+    ind:hasAnalyticalLevel ind:L3 .
+
+# =============================================================================
+# END BATCH 8: EVENT-LEVEL RADICALIZATION INDICATORS
+# =============================================================================

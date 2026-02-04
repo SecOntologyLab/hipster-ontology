@@ -1,0 +1,315 @@
+@prefix ind: <http://l3ce.eu/ontology/hipster-indicators#> .
+@prefix hyp: <http://l3ce.eu/ontology/hypster-functionalities#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# =============================================================================
+# POST-LEVEL RADICALIZATION INDICATORS (RAD-POST-01 to RAD-POST-32)
+# =============================================================================
+
+ind:RAD-POST-01 a ind:PostLevelIndicator ;
+    rdfs:label "Content Type"@en ;
+    ind:indicatorID "RAD-POST-01" ;
+    ind:definition "The structural type of the data object: post, comment, repost, article, or mixed object."@en ;
+    ind:hipsterContext "Fundamental post metadata for all downstream analytics."@en ;
+    ind:systemRequirements "Explicit content-type field; support for composite types (e.g., text + image)."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-POST-02 a ind:PostLevelIndicator ;
+    rdfs:label "Date"@en ;
+    ind:indicatorID "RAD-POST-02" ;
+    ind:definition "Exact publication date and time of the post."@en ;
+    ind:hipsterContext "Temporal ordering and timeline alignment."@en ;
+    ind:systemRequirements "Unified timestamp (UTC); platform-native + normalized formats."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-POST-03 a ind:PostLevelIndicator ;
+    rdfs:label "Author"@en ;
+    ind:indicatorID "RAD-POST-03" ;
+    ind:definition "Author identifier (name, surname if available, username, platform ID)."@en ;
+    ind:hipsterContext "Attribution and persona linkage."@en ;
+    ind:systemRequirements "Author entity resolution; linkage to persona profile."@en ;
+    ind:hasScope ind:Post, ind:Person ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-POST-04 a ind:PostLevelIndicator ;
+    rdfs:label "Topic"@en ;
+    ind:indicatorID "RAD-POST-04" ;
+    ind:definition "Primary topic(s) associated with the post."@en ;
+    ind:hipsterContext "Entry point for topic-centric dashboards."@en ;
+    ind:systemRequirements "Topic classification model; multi-topic support."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-POST-05 a ind:PostLevelIndicator ;
+    rdfs:label "Domain"@en ;
+    ind:indicatorID "RAD-POST-05" ;
+    ind:definition "High-level domain to which the post belongs (politics, religion, security, health, conspiracies, etc.)."@en ;
+    ind:hipsterContext "Contextual framing above topic level."@en ;
+    ind:systemRequirements "Domain taxonomy; rule- or LLM-based assignment."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-POST-06 a ind:PostLevelIndicator ;
+    rdfs:label "Narrative"@en ;
+    ind:indicatorID "RAD-POST-06" ;
+    ind:definition "Narrative(s) that the post semantically supports or propagates."@en ;
+    ind:hipsterContext "Narrative-level aggregation and escalation logic."@en ;
+    ind:systemRequirements "Narrative classifier; multi-narrative assignment."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-POST-07 a ind:PostLevelIndicator ;
+    rdfs:label "Feelings"@en ;
+    ind:indicatorID "RAD-POST-07" ;
+    ind:definition "Detection of underlying feelings expressed in the post (e.g., alienation, aggression, hope)."@en ;
+    ind:hipsterContext "Early vulnerability and radicalization signal."@en ;
+    ind:systemRequirements "LLM/ML classifier; feeling categories (negative / neutral / positive); longitudinal tracking per author."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Feelings .
+
+ind:RAD-POST-08 a ind:PostLevelIndicator ;
+    rdfs:label "Sentiments"@en ;
+    ind:indicatorID "RAD-POST-08" ;
+    ind:definition "Overall sentiment polarity: positive, negative, or neutral."@en ;
+    ind:hipsterContext "Emotional baseline and drift analysis."@en ;
+    ind:systemRequirements "Sentiment classifier; sentiment-change tracking over time."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Sentiments .
+
+ind:RAD-POST-09 a ind:PostLevelIndicator ;
+    rdfs:label "Emotions"@en ;
+    ind:indicatorID "RAD-POST-09" ;
+    ind:definition "Specific emotions expressed (anger, fear, sadness, joy, trust, surprise)."@en ;
+    ind:hipsterContext "Fine-grained emotional escalation detection."@en ;
+    ind:systemRequirements "Emotion classifier; risk tagging for high-risk emotions; temporal emotion tracking."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Emotions .
+
+ind:RAD-POST-10 a ind:PostLevelIndicator ;
+    rdfs:label "Language"@en ;
+    ind:indicatorID "RAD-POST-10" ;
+    ind:definition "Language in which the post is written."@en ;
+    ind:hipsterContext "Audience profiling and origin inference."@en ;
+    ind:systemRequirements "Language detection model; per-post language label."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-POST-11 a ind:PostLevelIndicator ;
+    rdfs:label "Connection to Extremist Groups / Ideologies"@en ;
+    ind:indicatorID "RAD-POST-11" ;
+    ind:definition "Any explicit or implicit linkage to extremist ideologies, radical movements, conspiracies, or terrorist groups."@en ;
+    ind:hipsterContext "Core radicalization and security-risk indicator."@en ;
+    ind:systemRequirements "Text/image classifiers; symbol detection; relationship modeling; mandatory visual flag when linkage detected."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:RAD-POST-12 a ind:PostLevelIndicator ;
+    rdfs:label "Relation to Topic / Narrative"@en ;
+    ind:indicatorID "RAD-POST-12" ;
+    ind:definition "Semantic relationship between post content and predefined topics or narratives, including strength of alignment."@en ;
+    ind:hipsterContext "Contextual positioning of the post within the information ecosystem."@en ;
+    ind:systemRequirements "LLM-based semantic matching; similarity score (0-100%); max configurable top-N narratives (default 5); force-directed graph visualization."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:RAD-POST-13 a ind:PostLevelIndicator ;
+    rdfs:label "Hate Speech"@en ;
+    ind:indicatorID "RAD-POST-13" ;
+    ind:definition "Presence and proportion of hate speech within the post."@en ;
+    ind:hipsterContext "Escalation and violence-risk signal."@en ;
+    ind:systemRequirements "Hate-speech classifier; percentage score; expandable tooltip/panel with details."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Hate_speech_calculated .
+
+ind:RAD-POST-14 a ind:PostLevelIndicator ;
+    rdfs:label "Content Media"@en ;
+    ind:indicatorID "RAD-POST-14" ;
+    ind:definition "Actual media content included: text, image, video, audio, or combinations."@en ;
+    ind:hipsterContext "Multimodal analysis coordination."@en ;
+    ind:systemRequirements "Media-type detection; explicit listing of included formats."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-POST-15 a ind:PostLevelIndicator ;
+    rdfs:label "Hashtags"@en ;
+    ind:indicatorID "RAD-POST-15" ;
+    ind:definition "Hashtags explicitly used in the post."@en ;
+    ind:hipsterContext "Coordination and amplification signal."@en ;
+    ind:systemRequirements "Hashtag extraction; per-post hashtag list."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L0 ;
+    ind:hasFunctionality hyp:Hashtags .
+
+ind:RAD-POST-16 a ind:PostLevelIndicator ;
+    rdfs:label "Radicalization Level"@en ;
+    ind:indicatorID "RAD-POST-16" ;
+    ind:definition "Composite assessment of whether and how strongly the post contributes to radicalization (none to very high)."@en ;
+    ind:hipsterContext "Post-level escalation trigger."@en ;
+    ind:systemRequirements "Rule-based + statistical model using defined features (hate %, themes, symbols, violence cues, author risk); color-coded risk label."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L4 .
+
+ind:RAD-POST-17 a ind:PostLevelIndicator ;
+    rdfs:label "Post Engagement"@en ;
+    ind:indicatorID "RAD-POST-17" ;
+    ind:definition "Engagement metrics: likes, comments, shares, reposts, views (platform-dependent)."@en ;
+    ind:hipsterContext "Impact and reach measurement."@en ;
+    ind:systemRequirements "Engagement aggregation; time-series visualization (daily/weekly/monthly)."@en ;
+    ind:hasScope ind:Post, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-POST-18 a ind:PostLevelIndicator ;
+    rdfs:label "Clickbait Content"@en ;
+    ind:indicatorID "RAD-POST-18" ;
+    ind:definition "Content designed to attract clicks via sensationalism, emotional exaggeration, or curiosity gaps."@en ;
+    ind:hipsterContext "Attention-manipulation detection."@en ;
+    ind:systemRequirements "Clickbait classifier; rule explanations; tooltip showing triggered rules and keywords."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Sensational_Headlines_and_Clickbait .
+
+ind:RAD-POST-19 a ind:PostLevelIndicator ;
+    rdfs:label "Phishing / Misleading URLs"@en ;
+    ind:indicatorID "RAD-POST-19" ;
+    ind:definition "URLs intended to mislead users or imitate sensitive services (banks, delivery companies, etc.)."@en ;
+    ind:hipsterContext "Fraud and coercion risk detection."@en ;
+    ind:systemRequirements "URL reputation lists; similarity checks; warning flags for sensitive-domain imitation."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:RAD-POST-20 a ind:PostLevelIndicator ;
+    rdfs:label "Misleading Memes / GIFs"@en ;
+    ind:indicatorID "RAD-POST-20" ;
+    ind:definition "Visual content (memes, GIFs) used to distort facts, manipulate emotions, or spread propaganda."@en ;
+    ind:hipsterContext "Visual psychological-operations channel."@en ;
+    ind:systemRequirements "Image/video classifiers; propaganda-template matching; multimodal detection."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Misleading_Memes_GIFs .
+
+ind:RAD-POST-21 a ind:PostLevelIndicator ;
+    rdfs:label "Location"@en ;
+    ind:indicatorID "RAD-POST-21" ;
+    ind:definition "Geographic location referenced in or associated with the post (if available)."@en ;
+    ind:hipsterContext "Spatial context and targeting analysis."@en ;
+    ind:systemRequirements "NER-based location extraction; optional metadata enrichment."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-POST-22 a ind:PostLevelIndicator ;
+    rdfs:label "Keywords"@en ;
+    ind:indicatorID "RAD-POST-22" ;
+    ind:definition "Key terms and phrases extracted from the post."@en ;
+    ind:hipsterContext "Semantic anchoring and cross-indicator linkage."@en ;
+    ind:systemRequirements "Keyword extraction (NER + ML); multilingual support."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Ideological_Keywords_and_Phrases .
+
+ind:RAD-POST-23 a ind:PostLevelIndicator ;
+    rdfs:label "Human or Bot"@en ;
+    ind:indicatorID "RAD-POST-23" ;
+    ind:definition "Probability that the post was generated or amplified by a bot or automated system."@en ;
+    ind:hipsterContext "Automation and manipulation detection."@en ;
+    ind:systemRequirements "Bot-likelihood classifier; LLM + statistical signals."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Human_or_bot .
+
+ind:RAD-POST-24 a ind:PostLevelIndicator ;
+    rdfs:label "Relations"@en ;
+    ind:indicatorID "RAD-POST-24" ;
+    ind:definition "References or links to other posts, persons, or entities."@en ;
+    ind:hipsterContext "Network and influence modeling."@en ;
+    ind:systemRequirements "NER/NEL/RE pipelines; vector DB; graph edges."@en ;
+    ind:hasScope ind:Post, ind:Network ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-POST-25 a ind:PostLevelIndicator ;
+    rdfs:label "Propaganda"@en ;
+    ind:indicatorID "RAD-POST-25" ;
+    ind:definition "Identification of propaganda content (e.g., state-aligned, ideological)."@en ;
+    ind:hipsterContext "Information-warfare detection."@en ;
+    ind:systemRequirements "IR + LLM classifiers; propaganda taxonomy."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-POST-26 a ind:PostLevelIndicator ;
+    rdfs:label "Coordinated Activity"@en ;
+    ind:indicatorID "RAD-POST-26" ;
+    ind:definition "Evidence the post is part of an organized dissemination effort."@en ;
+    ind:hipsterContext "Campaign-level escalation signal."@en ;
+    ind:systemRequirements "Temporal similarity; graph DB; warehouse analytics."@en ;
+    ind:hasScope ind:Post, ind:Network ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Coordinated_Posting_Activity .
+
+ind:RAD-POST-27 a ind:PostLevelIndicator ;
+    rdfs:label "Clean Language"@en ;
+    ind:indicatorID "RAD-POST-27" ;
+    ind:definition "Degree to which language is unusually formal, error-free, or sanitized."@en ;
+    ind:hipsterContext "Possible AI-generated content indicator."@en ;
+    ind:systemRequirements "Linguistic-cleanliness scoring; LLM inference."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-POST-28 a ind:PostLevelIndicator ;
+    rdfs:label "Slang"@en ;
+    ind:indicatorID "RAD-POST-28" ;
+    ind:definition "Use of informal or group-specific slang."@en ;
+    ind:hipsterContext "In-group signaling detection."@en ;
+    ind:systemRequirements "Slang dictionaries; contextual inference."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Slang .
+
+ind:RAD-POST-29 a ind:PostLevelIndicator ;
+    rdfs:label "Code Language"@en ;
+    ind:indicatorID "RAD-POST-29" ;
+    ind:definition "Use of coded words, symbols, or euphemisms."@en ;
+    ind:hipsterContext "Evasion and insider signaling detection."@en ;
+    ind:systemRequirements "Code-language lexicons; semantic similarity detection."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Code_Words_and_Euphemisms .
+
+ind:RAD-POST-30 a ind:PostLevelIndicator ;
+    rdfs:label "Covered Language"@en ;
+    ind:indicatorID "RAD-POST-30" ;
+    ind:definition "Wordplay, ambiguity, metaphors, or indirect phrasing used to obscure meaning."@en ;
+    ind:hipsterContext "Plausible-deniability detection."@en ;
+    ind:systemRequirements "LLM-based ambiguity and indirectness detection."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Covered_Language .
+
+ind:RAD-POST-31 a ind:PostLevelIndicator ;
+    rdfs:label "Power Phrases"@en ;
+    ind:indicatorID "RAD-POST-31" ;
+    ind:definition "Short, emotionally or ideologically charged phrases reinforcing narratives."@en ;
+    ind:hipsterContext "Rhetorical amplification signal."@en ;
+    ind:systemRequirements "Curated phrase lists; NER-based detection; institutional data sources."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Common_phrases .
+
+ind:RAD-POST-32 a ind:PostLevelIndicator ;
+    rdfs:label "Anomalies"@en ;
+    ind:indicatorID "RAD-POST-32" ;
+    ind:definition "Unusual patterns or inconsistencies in content, tone, or engagement relative to baseline."@en ;
+    ind:hipsterContext "Final-stage escalation or deception signal."@en ;
+    ind:systemRequirements "Anomaly detection across content and engagement dimensions."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Anomalies .
+
+# =============================================================================
+# END BATCH 7: POST-LEVEL RADICALIZATION INDICATORS
+# =============================================================================

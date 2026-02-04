@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIPSTer Knowledge Graph Explorer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+            padding: 20px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            color: #e94560;
+            margin-bottom: 5px;
+        }
+        
+        .header .subtitle {
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        .main-container {
+            display: flex;
+            height: calc(100vh - 80px);
+        }
+        
+        .sidebar {
+            width: 300px;
+            background: #16213e;
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 1px solid #0f3460;
+        }
+        
+        .graph-container {
+            flex: 1;
+            position: relative;
+            background: #0f1419;
+        }
+        
+        .controls {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #0f3460;
+            border-radius: 8px;
+        }
+        
+        .controls h3 {
+            color: #e94560;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .filter-group {
+            margin-bottom: 15px;
+        }
+        
+        .filter-group label {
+            display: block;
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .checkbox-item:hover {
+            background: rgba(233, 69, 96, 0.1);
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+        
+        .checkbox-item label {
+            font-size: 12px;
+            cursor: pointer;
+            margin: 0;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background: #e94560;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        }
+        
+        .btn:hover {
+            background: #d63651;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(233, 69, 96, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #533483;
+        }
+        
+        .btn-secondary:hover {
+            background: #6b4594;
+        }
+        
+        .node-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #0f3460;
+            border-radius: 8px;
+            border-left: 4px solid #e94560;
+        }
+        
+        .node-info h3 {
+            color: #e94560;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .node-info p {
+            font-size: 12px;
+            line-height: 1.6;
+            color: #ccc;
+            margin-bottom: 8px;
+        }
+        
+        .node-info .property {
+            display: flex;
+            margin-bottom: 5px;
+        }
+        
+        .node-info .property-key {
+            font-weight: 600;
+            color: #e94560;
+            min-width: 100px;
+            font-size: 11px;
+        }
+        
+        .node-info .property-value {
+            color: #aaa;
+            font-size: 11px;
+        }
+        
+        .legend {
+            margin-top: 20px;
+            padding: 15px;
+            background: #0f3460;
+            border-radius: 8px;
+        }
+        
+        .legend h3 {
+            color: #e94560;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+        
+        .legend-label {
+            font-size: 12px;
+            color: #ccc;
+        }
+        
+        .graph-stats {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(15, 52, 96, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e94560;
+            backdrop-filter: blur(10px);
+        }
+        
+        .graph-stats h3 {
+            color: #e94560;
+            font-size: 12px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 11px;
+        }
+        
+        .stat-label {
+            color: #aaa;
+        }
+        
+        .stat-value {
+            color: #e94560;
+            font-weight: 600;
+        }
+        
+        .node {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .node circle {
+            stroke: #fff;
+            stroke-width: 2px;
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+        }
+        
+        .node.selected circle {
+            stroke: #e94560;
+            stroke-width: 4px;
+            filter: drop-shadow(0 0 15px #e94560);
+        }
+        
+        .node text {
+            font-size: 10px;
+            pointer-events: none;
+            fill: #eee;
+            text-shadow: 0 0 3px #000, 0 0 3px #000;
+        }
+        
+        .link {
+            stroke: #4a5568;
+            stroke-opacity: 0.6;
+            fill: none;
+        }
+        
+        .link.selected {
+            stroke: #e94560;
+            stroke-opacity: 1;
+            stroke-width: 3px;
+        }
+        
+        .link-label {
+            font-size: 9px;
+            fill: #aaa;
+            text-anchor: middle;
+            pointer-events: none;
+            text-shadow: 0 0 3px #000;
+        }
+        
+        .tooltip {
+            position: absolute;
+            padding: 10px;
+            background: rgba(15, 52, 96, 0.95);
+            border: 1px solid #e94560;
+            border-radius: 6px;
+            pointer-events: none;
+            font-size: 12px;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .tooltip h4 {
+            color: #e94560;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+        
+        .tooltip p {
+            color: #ccc;
+            margin-bottom: 3px;
+            line-height: 1.4;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #16213e;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #e94560;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🕸️ HIPSTer Knowledge Graph Explorer</h1>
+        <p class="subtitle">Interactive Semantic Network - Demonization & Disinformation Use Case</p>
+    </div>
+    
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="controls">
+                <h3>🎛️ Display Controls</h3>
+                
+                <div class="filter-group">
+                    <label>Node Types</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="show-classes" checked onchange="updateGraph()">
+                            <label for="show-classes">OWL Classes</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="show-campaigns" checked onchange="updateGraph()">
+                            <label for="show-campaigns">Campaigns</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="show-actors" checked onchange="updateGraph()">
+                            <label for="show-actors">Threat Actors</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="show-indicators" checked onchange="updateGraph()">
+                            <label for="show-indicators">Indicators</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="show-functionalities" checked onchange="updateGraph()">
+                            <label for="show-functionalities">Functionalities (SKOS)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="show-targets" checked onchange="updateGraph()">
+                            <label for="show-targets">Targets</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="resetView()">🔄 Reset View</button>
+                <button class="btn btn-secondary" onclick="toggleLabels()">🏷️ Toggle Labels</button>
+                <button class="btn btn-secondary" onclick="focusDemonization()">🎯 Focus D&D Domain</button>
+            </div>
+            
+            <div class="node-info" id="nodeInfo" style="display: none;">
+                <h3 id="nodeTitle">Select a node</h3>
+                <div id="nodeDetails"></div>
+            </div>
+            
+            <div class="legend">
+                <h3>🎨 Legend</h3>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #8b5cf6;"></div>
+                    <div class="legend-label">OWL Classes</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ef4444;"></div>
+                    <div class="legend-label">Campaigns</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f59e0b;"></div>
+                    <div class="legend-label">Threat Actors</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #10b981;"></div>
+                    <div class="legend-label">Indicators</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #3b82f6;"></div>
+                    <div class="legend-label">Functionalities</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ec4899;"></div>
+                    <div class="legend-label">Targets</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="graph-container">
+            <svg id="graph" width="100%" height="100%"></svg>
+            <div class="graph-stats">
+                <h3>Graph Statistics</h3>
+                <div class="stat-item">
+                    <span class="stat-label">Total Nodes:</span>
+                    <span class="stat-value" id="totalNodes">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total Edges:</span>
+                    <span class="stat-value" id="totalEdges">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">D&D Indicators:</span>
+                    <span class="stat-value" id="ddIndicators">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Active Campaigns:</span>
+                    <span class="stat-value" id="activeCampaigns">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Complete Knowledge Graph Data
+        const fullGraph = {
+            nodes: [
+                // OWL Classes (Ontology Structure)
+                { id: "hti:HybridThreat", label: "Hybrid Threat", type: "class", layer: 0 },
+                { id: "hti:DisinformationCampaign", label: "Disinformation Campaign", type: "class", layer: 1 },
+                { id: "hti:ThreatActor", label: "Threat Actor", type: "class", layer: 0 },
+                { id: "hti:StateActor", label: "State Actor", type: "class", layer: 1 },
+                { id: "hti:ProxyOutlet", label: "Proxy Outlet", type: "class", layer: 1 },
+                { id: "ind:Indicator", label: "Indicator", type: "class", layer: 0 },
+                { id: "ind:IdeologyIndicator", label: "Ideology Indicator", type: "class", layer: 1 },
+                { id: "ind:FifthColumnIndicator", label: "Fifth Column Indicator", type: "class", layer: 1 },
+                { id: "ind:RadicalizationIndicator", label: "Radicalization Indicator", type: "class", layer: 1 },
+                { id: "hti:Target", label: "Target", type: "class", layer: 0 },
+                
+                // Campaigns (Instances)
+                { id: "campaign_001", label: "Ukraine Aggressor\nNarrative 2024-Q1", type: "campaign", 
+                  desc: "Attribution reversal campaign claiming Ukraine as aggressor", event: "Avdiivka Offensive", coord: 0.87 },
+                { id: "campaign_002", label: "Nazi State\nFraming Campaign", type: "campaign",
+                  desc: "Persistent delegitimization portraying Ukraine forces as extremist", event: "EU Integration Talks", coord: 0.92 },
+                { id: "campaign_003", label: "Existential Threat\nAmplification", type: "campaign",
+                  desc: "Survival/no choice logic legitimizing extreme measures", event: "NATO Summit", coord: 0.79 },
+                
+                // Threat Actors (Instances)
+                { id: "actor_rus_001", label: "State Actor\nRF-Alpha", type: "actor", actorType: "StateActor",
+                  desc: "Primary state actor conducting coordinated D&D campaigns" },
+                { id: "proxy_001", label: "Proxy Outlet\nStrategic Echo", type: "actor", actorType: "ProxyOutlet",
+                  desc: "Media outlet amplifying state narratives with attribution laundering" },
+                { id: "proxy_002", label: "Proxy Outlet\nInfoStream", type: "actor", actorType: "ProxyOutlet",
+                  desc: "Secondary outlet focusing on moral inversion narratives" },
+                { id: "network_001", label: "Coordinated Network\nAmplifier Beta", type: "actor", actorType: "CoordinatedNetwork",
+                  desc: "Bot-amplified network providing ecosystem propagation" },
+                
+                // Indicators (Key D&D Indicators)
+                { id: "IDEO-14", label: "IDEO-14\nCoordinated Activity", type: "indicator", domain: "Dehumanization",
+                  def: "Synchronized posting patterns suggesting orchestrated amplification" },
+                { id: "IDEO-18", label: "IDEO-18\nOthering Rhetoric", type: "indicator", domain: "Dehumanization",
+                  def: "Categorical exclusion markers ('they are not like us')" },
+                { id: "IDEO-24", label: "IDEO-24\nRestoration Narratives", type: "indicator", domain: "Dehumanization",
+                  def: "Calls to restore 'glorious past' with authoritarian logic" },
+                { id: "5COL-08", label: "5COL-08\nAttribution Reversal", type: "indicator", domain: "Dehumanization",
+                  def: "Claims target is the true aggressor/source of atrocities" },
+                { id: "5COL-13", label: "5COL-13\nTroll Farms", type: "indicator", domain: "Behavioral",
+                  def: "Evidence of coordinated inauthentic behavior patterns" },
+                { id: "CONSP-07", label: "CONSP-07\nExistential Threat", type: "indicator", domain: "Dehumanization",
+                  def: "'Survival/no choice' logic legitimizing extreme measures" },
+                { id: "RAD-GEN-08", label: "RAD-GEN-08\nDehumanizing Metaphors", type: "indicator", domain: "Dehumanization",
+                  def: "Mapping humans to vermin/disease/dirt (coded lexicon)" },
+                { id: "RAD-GEN-12", label: "RAD-GEN-12\nMoral Disgust Cues", type: "indicator", domain: "Dehumanization",
+                  def: "Emotional triggers reducing empathy, increasing contempt" },
+                
+                // SKOS Functionalities
+                { id: "hyp:DD_Domain", label: "Dehumanization &\nDemonization", type: "functionality",
+                  desc: "Primary SKOS domain for D&D capability classification" },
+                { id: "hyp:Othering", label: "Othering\nPatterns", type: "functionality",
+                  desc: "Out-group boundary construction techniques" },
+                { id: "hyp:MoralInversion", label: "Moral\nInversion", type: "functionality",
+                  desc: "Guilt transfer and attribution reversal tactics" },
+                { id: "hyp:ExistentialFraming", label: "Existential\nFraming", type: "functionality",
+                  desc: "Survival logic normalizing extreme measures" },
+                { id: "hyp:Coordination", label: "Coordination\nPatterns", type: "functionality",
+                  desc: "Behavioral indicators of orchestrated activity" },
+                
+                // Targets
+                { id: "target_uaf", label: "Ukrainian\nArmed Forces", type: "target",
+                  desc: "Primary target group for demonization campaigns" },
+                { id: "target_leadership", label: "Ukrainian\nLeadership", type: "target",
+                  desc: "Political leadership delegitimization target" },
+                { id: "target_civilians", label: "Ukrainian\nCivilians", type: "target",
+                  desc: "Civilian population othering target" }
+            ],
+            
+            links: [
+                // Class hierarchy (rdfs:subClassOf)
+                { source: "hti:DisinformationCampaign", target: "hti:HybridThreat", label: "subClassOf", type: "ontology" },
+                { source: "hti:StateActor", target: "hti:ThreatActor", label: "subClassOf", type: "ontology" },
+                { source: "hti:ProxyOutlet", target: "hti:ThreatActor", label: "subClassOf", type: "ontology" },
+                { source: "ind:IdeologyIndicator", target: "ind:Indicator", label: "subClassOf", type: "ontology" },
+                { source: "ind:FifthColumnIndicator", target: "ind:Indicator", label: "subClassOf", type: "ontology" },
+                { source: "ind:RadicalizationIndicator", target: "ind:Indicator", label: "subClassOf", type: "ontology" },
+                
+                // Instance-to-class (rdf:type)
+                { source: "campaign_001", target: "hti:DisinformationCampaign", label: "type", type: "instance" },
+                { source: "campaign_002", target: "hti:DisinformationCampaign", label: "type", type: "instance" },
+                { source: "campaign_003", target: "hti:DisinformationCampaign", label: "type", type: "instance" },
+                { source: "actor_rus_001", target: "hti:StateActor", label: "type", type: "instance" },
+                { source: "proxy_001", target: "hti:ProxyOutlet", label: "type", type: "instance" },
+                { source: "proxy_002", target: "hti:ProxyOutlet", label: "type", type: "instance" },
+                { source: "IDEO-14", target: "ind:IdeologyIndicator", label: "type", type: "instance" },
+                { source: "IDEO-18", target: "ind:IdeologyIndicator", label: "type", type: "instance" },
+                { source: "5COL-08", target: "ind:FifthColumnIndicator", label: "type", type: "instance" },
+                
+                // Actor conducts campaign
+                { source: "actor_rus_001", target: "campaign_001", label: "conducts", type: "operational" },
+                { source: "actor_rus_001", target: "campaign_002", label: "conducts", type: "operational" },
+                { source: "actor_rus_001", target: "campaign_003", label: "conducts", type: "operational" },
+                { source: "proxy_001", target: "campaign_001", label: "amplifies", type: "operational" },
+                { source: "proxy_002", target: "campaign_002", label: "amplifies", type: "operational" },
+                { source: "network_001", target: "campaign_002", label: "amplifies", type: "operational" },
+                
+                // Campaign exhibits indicators
+                { source: "campaign_001", target: "IDEO-14", label: "exhibits", type: "detection" },
+                { source: "campaign_001", target: "5COL-08", label: "exhibits", type: "detection" },
+                { source: "campaign_001", target: "RAD-GEN-12", label: "exhibits", type: "detection" },
+                { source: "campaign_002", target: "IDEO-18", label: "exhibits", type: "detection" },
+                { source: "campaign_002", target: "5COL-13", label: "exhibits", type: "detection" },
+                { source: "campaign_002", target: "CONSP-07", label: "exhibits", type: "detection" },
+                { source: "campaign_003", target: "IDEO-24", label: "exhibits", type: "detection" },
+                { source: "campaign_003", target: "RAD-GEN-08", label: "exhibits", type: "detection" },
+                
+                // Indicators map to functionalities
+                { source: "IDEO-18", target: "hyp:Othering", label: "hasFunctionality", type: "semantic" },
+                { source: "5COL-08", target: "hyp:MoralInversion", label: "hasFunctionality", type: "semantic" },
+                { source: "CONSP-07", target: "hyp:ExistentialFraming", label: "hasFunctionality", type: "semantic" },
+                { source: "IDEO-14", target: "hyp:Coordination", label: "hasFunctionality", type: "semantic" },
+                { source: "5COL-13", target: "hyp:Coordination", label: "hasFunctionality", type: "semantic" },
+                
+                // Functionalities in domain
+                { source: "hyp:Othering", target: "hyp:DD_Domain", label: "broader", type: "taxonomy" },
+                { source: "hyp:MoralInversion", target: "hyp:DD_Domain", label: "broader", type: "taxonomy" },
+                { source: "hyp:ExistentialFraming", target: "hyp:DD_Domain", label: "broader", type: "taxonomy" },
+                
+                // Campaign targets
+                { source: "campaign_001", target: "target_uaf", label: "targets", type: "operational" },
+                { source: "campaign_002", target: "target_leadership", label: "targets", type: "operational" },
+                { source: "campaign_003", target: "target_civilians", label: "targets", type: "operational" }
+            ]
+        };
+
+        // Color schemes
+        const colors = {
+            class: "#8b5cf6",
+            campaign: "#ef4444",
+            actor: "#f59e0b",
+            indicator: "#10b981",
+            functionality: "#3b82f6",
+            target: "#ec4899"
+        };
+
+        // Graph state
+        let currentGraph = { nodes: [], links: [] };
+        let simulation;
+        let svg, g, link, linkLabel, node;
+        let selectedNode = null;
+        let labelsVisible = true;
+
+        // Initialize
+        window.addEventListener('load', () => {
+            setupGraph();
+            updateGraph();
+        });
+
+        function setupGraph() {
+            svg = d3.select("#graph");
+            const container = document.querySelector('.graph-container');
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            
+            svg.attr("viewBox", [0, 0, width, height]);
+            
+            // Zoom behavior
+            const zoom = d3.zoom()
+                .scaleExtent([0.1, 4])
+                .on("zoom", (event) => {
+                    g.attr("transform", event.transform);
+                });
+            
+            svg.call(zoom);
+            
+            g = svg.append("g");
+            
+            // Arrow marker
+            svg.append("defs").append("marker")
+                .attr("id", "arrowhead")
+                .attr("viewBox", "0 -5 10 10")
+                .attr("refX", 25)
+                .attr("refY", 0)
+                .attr("markerWidth", 6)
+                .attr("markerHeight", 6)
+                .attr("orient", "auto")
+                .append("path")
+                .attr("d", "M0,-5L10,0L0,5")
+                .attr("fill", "#4a5568");
+            
+            // Create simulation
+            simulation = d3.forceSimulation()
+                .force("link", d3.forceLink().id(d => d.id).distance(150))
+                .force("charge", d3.forceManyBody().strength(-800))
+                .force("center", d3.forceCenter(width / 2, height / 2))
+                .force("collision", d3.forceCollide().radius(40));
+        }
+
+        function updateGraph() {
+            // Get filter states
+            const filters = {
+                classes: document.getElementById('show-classes').checked,
+                campaigns: document.getElementById('show-campaigns').checked,
+                actors: document.getElementById('show-actors').checked,
+                indicators: document.getElementById('show-indicators').checked,
+                functionalities: document.getElementById('show-functionalities').checked,
+                targets: document.getElementById('show-targets').checked
+            };
+            
+            // Filter nodes
+            currentGraph.nodes = fullGraph.nodes.filter(n => {
+                if (n.type === 'class' && !filters.classes) return false;
+                if (n.type === 'campaign' && !filters.campaigns) return false;
+                if (n.type === 'actor' && !filters.actors) return false;
+                if (n.type === 'indicator' && !filters.indicators) return false;
+                if (n.type === 'functionality' && !filters.functionalities) return false;
+                if (n.type === 'target' && !filters.targets) return false;
+                return true;
+            });
+            
+            const nodeIds = new Set(currentGraph.nodes.map(n => n.id));
+            currentGraph.links = fullGraph.links.filter(l => 
+                nodeIds.has(l.source.id || l.source) && nodeIds.has(l.target.id || l.target)
+            );
+            
+            renderGraph();
+            updateStats();
+        }
+
+        function renderGraph() {
+            // Clear existing
+            g.selectAll("*").remove();
+            
+            // Links
+            link = g.append("g")
+                .selectAll("line")
+                .data(currentGraph.links)
+                .join("line")
+                .attr("class", "link")
+                .attr("marker-end", "url(#arrowhead)");
+            
+            // Link labels
+            linkLabel = g.append("g")
+                .selectAll("text")
+                .data(currentGraph.links)
+                .join("text")
+                .attr("class", "link-label")
+                .text(d => d.label);
+            
+            // Nodes
+            node = g.append("g")
+                .selectAll("g")
+                .data(currentGraph.nodes)
+                .join("g")
+                .attr("class", "node")
+                .call(d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended))
+                .on("click", nodeClicked);
+            
+            node.append("circle")
+                .attr("r", d => d.type === 'class' ? 15 : d.type === 'campaign' ? 18 : 12)
+                .attr("fill", d => colors[d.type]);
+            
+            node.append("text")
+                .text(d => d.label)
+                .attr("x", 0)
+                .attr("y", d => d.type === 'class' ? -25 : d.type === 'campaign' ? -28 : -20)
+                .attr("text-anchor", "middle")
+                .style("opacity", labelsVisible ? 1 : 0);
+            
+            // Update simulation
+            simulation.nodes(currentGraph.nodes);
+            simulation.force("link").links(currentGraph.links);
+            simulation.alpha(1).restart();
+            
+            simulation.on("tick", () => {
+                link
+                    .attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y);
+                
+                linkLabel
+                    .attr("x", d => (d.source.x + d.target.x) / 2)
+                    .attr("y", d => (d.source.y + d.target.y) / 2);
+                
+                node.attr("transform", d => `translate(${d.x},${d.y})`);
+            });
+        }
+
+        function nodeClicked(event, d) {
+            event.stopPropagation();
+            
+            // Update selection
+            node.classed("selected", n => n === d);
+            selectedNode = d;
+            
+            // Highlight connected links
+            link.classed("selected", l => 
+                (l.source === d || l.target === d)
+            );
+            
+            // Show node info
+            displayNodeInfo(d);
+        }
+
+        function displayNodeInfo(d) {
+            const infoPanel = document.getElementById('nodeInfo');
+            const titleEl = document.getElementById('nodeTitle');
+            const detailsEl = document.getElementById('nodeDetails');
+            
+            infoPanel.style.display = 'block';
+            titleEl.textContent = d.label.replace('\n', ' ');
+            
+            let html = `<div class="property"><span class="property-key">Type:</span><span class="property-value">${d.type}</span></div>`;
+            html += `<div class="property"><span class="property-key">URI:</span><span class="property-value">${d.id}</span></div>`;
+            
+            if (d.desc) html += `<p style="margin-top: 10px;">${d.desc}</p>`;
+            if (d.def) html += `<p style="margin-top: 10px;"><strong>Definition:</strong> ${d.def}</p>`;
+            if (d.event) html += `<div class="property"><span class="property-key">Event:</span><span class="property-value">${d.event}</span></div>`;
+            if (d.coord) html += `<div class="property"><span class="property-key">Coordination:</span><span class="property-value">${d.coord}</span></div>`;
+            if (d.domain) html += `<div class="property"><span class="property-key">Domain:</span><span class="property-value">${d.domain}</span></div>`;
+            
+            // Show connections
+            const incoming = currentGraph.links.filter(l => l.target.id === d.id);
+            const outgoing = currentGraph.links.filter(l => l.source.id === d.id);
+            
+            if (incoming.length > 0) {
+                html += `<p style="margin-top: 10px;"><strong>Incoming (${incoming.length}):</strong></p>`;
+                incoming.forEach(l => {
+                    const source = typeof l.source === 'object' ? l.source : currentGraph.nodes.find(n => n.id === l.source);
+                    html += `<p style="font-size: 10px; color: #888;">← ${source.label} (${l.label})</p>`;
+                });
+            }
+            
+            if (outgoing.length > 0) {
+                html += `<p style="margin-top: 10px;"><strong>Outgoing (${outgoing.length}):</strong></p>`;
+                outgoing.forEach(l => {
+                    const target = typeof l.target === 'object' ? l.target : currentGraph.nodes.find(n => n.id === l.target);
+                    html += `<p style="font-size: 10px; color: #888;">→ ${target.label} (${l.label})</p>`;
+                });
+            }
+            
+            detailsEl.innerHTML = html;
+        }
+
+        function updateStats() {
+            document.getElementById('totalNodes').textContent = currentGraph.nodes.length;
+            document.getElementById('totalEdges').textContent = currentGraph.links.length;
+            document.getElementById('ddIndicators').textContent = 
+                currentGraph.nodes.filter(n => n.type === 'indicator' && n.domain === 'Dehumanization').length;
+            document.getElementById('activeCampaigns').textContent = 
+                currentGraph.nodes.filter(n => n.type === 'campaign').length;
+        }
+
+        function resetView() {
+            svg.transition().duration(750).call(
+                d3.zoom().transform,
+                d3.zoomIdentity
+            );
+            
+            node.classed("selected", false);
+            link.classed("selected", false);
+            selectedNode = null;
+            
+            document.getElementById('nodeInfo').style.display = 'none';
+        }
+
+        function toggleLabels() {
+            labelsVisible = !labelsVisible;
+            node.selectAll("text")
+                .transition()
+                .duration(300)
+                .style("opacity", labelsVisible ? 1 : 0);
+            linkLabel
+                .transition()
+                .duration(300)
+                .style("opacity", labelsVisible ? 1 : 0);
+        }
+
+        function focusDemonization() {
+            // Filter to show only D&D-related nodes
+            document.getElementById('show-classes').checked = false;
+            document.getElementById('show-campaigns').checked = true;
+            document.getElementById('show-actors').checked = true;
+            document.getElementById('show-indicators').checked = true;
+            document.getElementById('show-functionalities').checked = true;
+            document.getElementById('show-targets').checked = true;
+            
+            updateGraph();
+        }
+
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+
+        // Click outside to deselect
+        svg.on("click", () => {
+            node.classed("selected", false);
+            link.classed("selected", false);
+            selectedNode = null;
+            document.getElementById('nodeInfo').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

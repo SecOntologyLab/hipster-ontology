@@ -1,0 +1,252 @@
+@prefix ind: <http://l3ce.eu/ontology/hipster-indicators#> .
+@prefix hyp: <http://l3ce.eu/ontology/hypster-functionalities#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# =============================================================================
+# IDEOLOGY INDICATORS (IDEO-01 to IDEO-24)
+# =============================================================================
+
+ind:IDEO-01 a ind:IdeologyIndicator ;
+    rdfs:label "Core Narratives and Themes"@en ;
+    ind:indicatorID "IDEO-01" ;
+    ind:definition "Overarching ideological narratives (class struggle, supremacy, national purity, authoritarian order)."@en ;
+    ind:hipsterContext "Identifies worldview framing and ideological alignment across content, actors, and communities."@en ;
+    ind:systemRequirements "Narrative taxonomy; clustering; longitudinal tracking; linkage to actors, symbols, events."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Person ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Core_Narratives_and_Themes .
+
+ind:IDEO-02 a ind:IdeologyIndicator ;
+    rdfs:label "Code Words, Keywords, and Euphemisms"@en ;
+    ind:indicatorID "IDEO-02" ;
+    ind:definition "Coded or ambiguous language masking ideological intent."@en ;
+    ind:hipsterContext "Detects evasive and adaptive ideological communication."@en ;
+    ind:systemRequirements "Codeword dictionaries; ML-based term evolution detection; contextual semantic analysis; multimodal support."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Code_Words_and_Euphemisms .
+
+ind:IDEO-03 a ind:IdeologyIndicator ;
+    rdfs:label "Religious or Mythological Symbols"@en ;
+    ind:indicatorID "IDEO-03" ;
+    ind:definition "Religious/mythological imagery used to legitimize ideology."@en ;
+    ind:hipsterContext "Differentiates ideological instrumentalization from legitimate religious use."@en ;
+    ind:systemRequirements "Visual symbol recognition; contextual interpretation; image and video detection."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Religious_or_Mythological_Symbols .
+
+ind:IDEO-04 a ind:IdeologyIndicator ;
+    rdfs:label "Ideological Symbols"@en ;
+    ind:indicatorID "IDEO-04" ;
+    ind:definition "Flags, insignia, icons, emblems, leader portraits tied to ideologies."@en ;
+    ind:hipsterContext "Core symbolic identity signaling."@en ;
+    ind:systemRequirements "Prohibited-symbol catalog; stylized/composite detection; combination logic; frequency tracking."@en ;
+    ind:hasScope ind:Post, ind:Person ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Ideological_Symbols .
+
+ind:IDEO-05 a ind:IdeologyIndicator ;
+    rdfs:label "Color Schemes"@en ;
+    ind:indicatorID "IDEO-05" ;
+    ind:definition "Ideologically associated color combinations."@en ;
+    ind:hipsterContext "Weak but scalable visual ideological signals."@en ;
+    ind:systemRequirements "Color-scheme datasets; image color analysis; correlation with symbols/narratives."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Color_Schemes .
+
+ind:IDEO-06 a ind:IdeologyIndicator ;
+    rdfs:label "Iconography of Leaders and Figures"@en ;
+    ind:indicatorID "IDEO-06" ;
+    ind:definition "Images or quotes of ideological leaders."@en ;
+    ind:hipsterContext "Detects authority legitimation and cult-of-personality patterns."@en ;
+    ind:systemRequirements "Leader recognition; glorification analysis; meme/stylization detection; multimodal support."@en ;
+    ind:hasScope ind:Post, ind:Person ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Iconography_of_Leaders_and_Figures .
+
+ind:IDEO-07 a ind:IdeologyIndicator ;
+    rdfs:label "Hand Gestures or Poses"@en ;
+    ind:indicatorID "IDEO-07" ;
+    ind:definition "Ideology-specific gestures or postures."@en ;
+    ind:hipsterContext "Identifies non-verbal ideological signaling."@en ;
+    ind:systemRequirements "Gesture/pose recognition; regional gesture DB; image and video detection."@en ;
+    ind:hasScope ind:Post, ind:Person ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Hand_Gestures_or_Poses .
+
+ind:IDEO-08 a ind:IdeologyIndicator ;
+    rdfs:label "Propagandistic Imagery"@en ;
+    ind:indicatorID "IDEO-08" ;
+    ind:definition "Stylized, emotionally charged persuasive imagery."@en ;
+    ind:hipsterContext "Identifies intentional ideological persuasion techniques."@en ;
+    ind:systemRequirements "Propaganda style classifiers; emotional polarization detection; multimodal analysis."@en ;
+    ind:hasScope ind:Post, ind:Person ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Propagandistic_Imagery .
+
+ind:IDEO-09 a ind:IdeologyIndicator ;
+    rdfs:label "Militaristic and Uniformed Imagery"@en ;
+    ind:indicatorID "IDEO-09" ;
+    ind:definition "Armed forces, uniforms, weapons glorification."@en ;
+    ind:hipsterContext "Signals authoritarian normalization and escalation pathways."@en ;
+    ind:systemRequirements "Uniform/weapon detection; group-pose recognition; image and video analysis."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Militaristic_and_Uniformed_Imagery .
+
+ind:IDEO-10 a ind:IdeologyIndicator ;
+    rdfs:label "Architectural and Monumental Imagery"@en ;
+    ind:indicatorID "IDEO-10" ;
+    ind:definition "Monumental buildings/statues symbolizing regime power."@en ;
+    ind:hipsterContext "Detects regime nostalgia and authoritarian symbolism."@en ;
+    ind:systemRequirements "Landmark recognition; symbolic interpretation; multimodal detection."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Architectural_and_Monumental_Imagery .
+
+ind:IDEO-11 a ind:IdeologyIndicator ;
+    rdfs:label "Ideological Phrases"@en ;
+    ind:indicatorID "IDEO-11" ;
+    ind:definition "Slogans and ideological jargon."@en ;
+    ind:hipsterContext "Enables semantic and narrative coherence analysis."@en ;
+    ind:systemRequirements "Phrase repositories; semantic similarity detection; linkage to narratives/symbols."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Ideological_Keywords_and_Phrases .
+
+ind:IDEO-12 a ind:IdeologyIndicator ;
+    rdfs:label "Nationalistic Icons and Artifacts"@en ;
+    ind:indicatorID "IDEO-12" ;
+    ind:definition "National symbols or cultural artifacts repurposed ideologically."@en ;
+    ind:hipsterContext "Detects cultural identity appropriation."@en ;
+    ind:systemRequirements "Cultural-symbol DB; ideological misuse detection; stylized/meme recognition."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Nationalistic_Icons_and_Artifacts .
+
+ind:IDEO-13 a ind:IdeologyIndicator ;
+    rdfs:label "Influencer Networks"@en ;
+    ind:indicatorID "IDEO-13" ;
+    ind:definition "Key actors repeatedly spreading ideological content."@en ;
+    ind:hipsterContext "Actor-level and ecosystem-level risk assessment."@en ;
+    ind:systemRequirements "High-frequency publisher detection; network/centrality analysis; influence tracking."@en ;
+    ind:hasScope ind:InformationMonitoring, ind:Person ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Influencer_Networks .
+
+ind:IDEO-14 a ind:IdeologyIndicator ;
+    rdfs:label "Coordinated Activity"@en ;
+    ind:indicatorID "IDEO-14" ;
+    ind:definition "Synchronized posting and artificial amplification."@en ;
+    ind:hipsterContext "Identifies organized influence or information operations."@en ;
+    ind:systemRequirements "Temporal correlation; cross-platform detection; bot indicators; campaign aggregation."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Coordinated_Posting_Activity .
+
+ind:IDEO-15 a ind:IdeologyIndicator ;
+    rdfs:label "Echo Chambers and Group Reinforcement"@en ;
+    ind:indicatorID "IDEO-15" ;
+    ind:definition "Closed communities reinforcing ideology and suppressing dissent."@en ;
+    ind:hipsterContext "Detects accelerated radicalization environments."@en ;
+    ind:systemRequirements "Community detection; interaction homogeneity metrics; diversity suppression indicators."@en ;
+    ind:hasScope ind:InformationMonitoring, ind:Person ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Echo_Chambers_and_Reinforcement .
+
+ind:IDEO-16 a ind:IdeologyIndicator ;
+    rdfs:label "Victimization and Persecution Narratives"@en ;
+    ind:indicatorID "IDEO-16" ;
+    ind:definition "Narratives portraying the group as oppressed or attacked."@en ;
+    ind:hipsterContext "Early warning for grievance-based mobilization."@en ;
+    ind:systemRequirements "Narrative frame detection; sentiment/grievance analysis; escalation linkage."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Post ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Victimization_and_Persecution_Narratives .
+
+ind:IDEO-17 a ind:IdeologyIndicator ;
+    rdfs:label "Hero and Villain Framing"@en ;
+    ind:indicatorID "IDEO-17" ;
+    ind:definition "Binary moral framing of allies vs enemies."@en ;
+    ind:hipsterContext "Identifies polarization and dehumanization trajectories."@en ;
+    ind:systemRequirements "Role extraction; polarity analysis; cross-content consistency checks."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Post ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Hero_and_Villain_Framing .
+
+ind:IDEO-18 a ind:IdeologyIndicator ;
+    rdfs:label "Dehumanization and Demonization"@en ;
+    ind:indicatorID "IDEO-18" ;
+    ind:definition "Language/imagery portraying opponents as subhuman or evil."@en ;
+    ind:hipsterContext "High-risk indicator of potential violence."@en ;
+    ind:systemRequirements "Hate/toxicity classifiers; dehumanization lexicons; escalation triggers."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Dehumanization_and_Demonization .
+
+ind:IDEO-19 a ind:IdeologyIndicator ;
+    rdfs:label "Posting Frequency and Burstiness"@en ;
+    ind:indicatorID "IDEO-19" ;
+    ind:definition "Abnormal spikes in ideological activity."@en ;
+    ind:hipsterContext "Detects campaign activation and mobilization timing."@en ;
+    ind:systemRequirements "Time-series anomaly detection; event correlation; network aggregation."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Posting_Frequency_and_Burstiness .
+
+ind:IDEO-20 a ind:IdeologyIndicator ;
+    rdfs:label "Seasonality and Significant Dates"@en ;
+    ind:indicatorID "IDEO-20" ;
+    ind:definition "Activity aligned with ideological anniversaries/events."@en ;
+    ind:hipsterContext "Supports predictive monitoring and early warning."@en ;
+    ind:systemRequirements "Ideological calendars; seasonal pattern recognition; predictive alerts."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Seasonality_and_Significant_Dates .
+
+ind:IDEO-21 a ind:IdeologyIndicator ;
+    rdfs:label "Emotive and Polarizing Language"@en ;
+    ind:indicatorID "IDEO-21" ;
+    ind:definition "Language provoking fear, anger, hatred, loyalty."@en ;
+    ind:hipsterContext "Core indicator of cognitive manipulation."@en ;
+    ind:systemRequirements "Emotion classifiers; polarization scoring; indicator correlation."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Emotive_and_Polarizing_Language .
+
+ind:IDEO-22 a ind:IdeologyIndicator ;
+    rdfs:label "Historical References and Revisionism"@en ;
+    ind:indicatorID "IDEO-22" ;
+    ind:definition "Selective or distorted historical narratives."@en ;
+    ind:hipsterContext "Detects legitimization through historical manipulation."@en ;
+    ind:systemRequirements "Entity/temporal extraction; baseline comparison; revisionism flags."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Historical_References_and_Revisionism .
+
+ind:IDEO-23 a ind:IdeologyIndicator ;
+    rdfs:label "Historical or Cultural References"@en ;
+    ind:indicatorID "IDEO-23" ;
+    ind:definition "Cultural or historical references legitimizing ideology."@en ;
+    ind:hipsterContext "Reinforces identity anchoring."@en ;
+    ind:systemRequirements "Cultural entity DB; contextual relevance assessment; narrative linkage."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Historical_or_Cultural_References .
+
+ind:IDEO-24 a ind:IdeologyIndicator ;
+    rdfs:label "Restoration and National Rebirth Narratives"@en ;
+    ind:indicatorID "IDEO-24" ;
+    ind:definition "Calls to restore a 'glorious past' or lost order."@en ;
+    ind:hipsterContext "Signals authoritarian mobilization logic."@en ;
+    ind:systemRequirements "Decline-restoration pattern detection; blame attribution; escalation logic."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Post ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Restoration_and_National_Rebirth .
+
+# =============================================================================
+# END BATCH 1: IDEOLOGY INDICATORS
+# =============================================================================

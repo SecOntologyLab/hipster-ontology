@@ -1,0 +1,676 @@
+@prefix ind: <http://l3ce.eu/ontology/hipster-indicators#> .
+@prefix hyp: <http://l3ce.eu/ontology/hypster-functionalities#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# =============================================================================
+# FIFTH COLUMN INDICATORS (5COL-01 to 5COL-68)
+# =============================================================================
+
+ind:5COL-01 a ind:FifthColumnIndicator ;
+    rdfs:label "Social Bubble Analysis"@en ;
+    ind:indicatorID "5COL-01" ;
+    ind:definition "Persistent interaction within a limited set of accounts forming dense clusters with high internal engagement and minimal external exposure."@en ;
+    ind:hipsterContext "Detects echo chambers and influence clusters."@en ;
+    ind:systemRequirements "Graph DB; engagement-weighted clustering; topic homogeneity metrics; bubble metadata."@en ;
+    ind:hasScope ind:Person, ind:Group, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Social_Bubble_Analysis .
+
+ind:5COL-02 a ind:FifthColumnIndicator ;
+    rdfs:label "Foreign-Language Content"@en ;
+    ind:indicatorID "5COL-02" ;
+    ind:definition "Content structurally indicating foreign authorship despite localization or translation."@en ;
+    ind:hipsterContext "Foreign-origin narratives posing as local."@en ;
+    ind:systemRequirements "Language-origin inference; MT artefact detection; foreign source linking; LLM analysis."@en ;
+    ind:hasScope ind:Post, ind:Person ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:5COL-03 a ind:FifthColumnIndicator ;
+    rdfs:label "Shared External Links"@en ;
+    ind:indicatorID "5COL-03" ;
+    ind:definition "Repeated sharing of links from propaganda, fringe, or unverified foreign sources."@en ;
+    ind:hipsterContext "External narrative injection points."@en ;
+    ind:systemRequirements "Risk-source registry; URL repetition tracking; diffusion mapping."@en ;
+    ind:hasScope ind:Post, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:5COL-04 a ind:FifthColumnIndicator ;
+    rdfs:label "Intolerance for Opposition"@en ;
+    ind:indicatorID "5COL-04" ;
+    ind:definition "Hostile, mocking, or coordinated silencing of opposing viewpoints."@en ;
+    ind:hipsterContext "Polarization and dissent suppression."@en ;
+    ind:systemRequirements "Toxicity and sarcasm classifiers; coordinated attack detection."@en ;
+    ind:hasScope ind:Post, ind:Person, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Intolerance_for_Opposition .
+
+ind:5COL-05 a ind:FifthColumnIndicator ;
+    rdfs:label "Rapid Mobilization"@en ;
+    ind:indicatorID "5COL-05" ;
+    ind:definition "Shift from passive engagement to organizing, recruitment, or calls for action."@en ;
+    ind:hipsterContext "Pre-incident escalation indicator."@en ;
+    ind:systemRequirements "Emotional escalation tracking; CTA detection; Commitment Index (RMI)."@en ;
+    ind:hasScope ind:Person, ind:AnalyticalNarrative, ind:Group ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Rapid_Mobilization .
+
+ind:5COL-06 a ind:FifthColumnIndicator ;
+    rdfs:label "Network Anomalies"@en ;
+    ind:indicatorID "5COL-06" ;
+    ind:definition "Statistically abnormal changes in network structure or interaction patterns."@en ;
+    ind:hipsterContext "Coordinated influence detection."@en ;
+    ind:systemRequirements "Network anomaly scoring; synchronicity detection."@en ;
+    ind:hasScope ind:Network, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Network_Anomalies .
+
+ind:5COL-07 a ind:FifthColumnIndicator ;
+    rdfs:label "Suspicious Active Times"@en ;
+    ind:indicatorID "5COL-07" ;
+    ind:definition "Posting patterns aligned with foreign time zones rather than local rhythms."@en ;
+    ind:hipsterContext "Remote or foreign coordination signal."@en ;
+    ind:systemRequirements "Time-of-day profiling; timezone deviation analysis."@en ;
+    ind:hasScope ind:Person, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Suspicious_Active_Times .
+
+ind:5COL-08 a ind:FifthColumnIndicator ;
+    rdfs:label "Conspiratorial Language"@en ;
+    ind:indicatorID "5COL-08" ;
+    ind:definition "Language framing events as secretly controlled or manipulated."@en ;
+    ind:hipsterContext "Delegitimization and paranoia narratives."@en ;
+    ind:systemRequirements "Conspiracy lexicons; theory attribution; LLM classification."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Conspiratorial_Keywords .
+
+ind:5COL-09 a ind:FifthColumnIndicator ;
+    rdfs:label "Anti-State Delegitimization Campaigns"@en ;
+    ind:indicatorID "5COL-09" ;
+    ind:definition "Sustained narratives portraying institutions or leaders as illegitimate or corrupt."@en ;
+    ind:hipsterContext "Core 5th-column activity."@en ;
+    ind:systemRequirements "Institution NER; sentiment aggregation; diffusion analysis."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Post, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Delegitimizing_Campaigns .
+
+ind:5COL-10 a ind:FifthColumnIndicator ;
+    rdfs:label "Community Hijacking"@en ;
+    ind:indicatorID "5COL-10" ;
+    ind:definition "Systematic redirection of group discourse toward polarizing or hostile narratives."@en ;
+    ind:hipsterContext "Hostile takeover of communities."@en ;
+    ind:systemRequirements "Topic baselines; deviation metrics; >=30% displacement alerts."@en ;
+    ind:hasScope ind:Group, ind:AnalyticalNarrative, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Community_Hijacking .
+
+ind:5COL-11 a ind:FifthColumnIndicator ;
+    rdfs:label "Actors Driving Community Hijacking"@en ;
+    ind:indicatorID "5COL-11" ;
+    ind:definition "Individuals whose activity correlates with repeated narrative derailment across groups."@en ;
+    ind:hipsterContext "Identification of influence operators."@en ;
+    ind:systemRequirements "Cross-group deviation scoring; actor aggregation."@en ;
+    ind:hasScope ind:Person, ind:Group ;
+    ind:hasAnalyticalLevel ind:L4 .
+
+ind:5COL-12 a ind:FifthColumnIndicator ;
+    rdfs:label "Symbols (Anti-State / Foreign)"@en ;
+    ind:indicatorID "5COL-12" ;
+    ind:definition "Use of ideological or foreign symbols to signal alignment or provoke identity reactions."@en ;
+    ind:hipsterContext "Visual identity signaling."@en ;
+    ind:systemRequirements "Risk-symbol catalog; image/video recognition; frequency tracking."@en ;
+    ind:hasScope ind:Post, ind:Person ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Ideological_Symbols .
+
+ind:5COL-13 a ind:FifthColumnIndicator ;
+    rdfs:label "Troll Farms"@en ;
+    ind:indicatorID "5COL-13" ;
+    ind:definition "Coordinated human or semi-automated accounts producing inauthentic engagement."@en ;
+    ind:hipsterContext "Industrial-scale manipulation."@en ;
+    ind:systemRequirements "Account pattern analysis; content duplication; micro-network detection."@en ;
+    ind:hasScope ind:Person, ind:Network ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Troll_Farms .
+
+ind:5COL-14 a ind:FifthColumnIndicator ;
+    rdfs:label "Negative Institutional Labeling"@en ;
+    ind:indicatorID "5COL-14" ;
+    ind:definition "Recurrent delegitimizing adjectives applied to institutions."@en ;
+    ind:hipsterContext "Linguistic trust erosion."@en ;
+    ind:systemRequirements "Phrase classifiers; entity-phrase tracking."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:5COL-15 a ind:FifthColumnIndicator ;
+    rdfs:label "Persistent Negative Framing"@en ;
+    ind:indicatorID "5COL-15" ;
+    ind:definition "Consistent dominance of negative framing toward an institution over time."@en ;
+    ind:hipsterContext "Campaign-level hostility."@en ;
+    ind:systemRequirements "Rolling sentiment aggregation; thresholds."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:5COL-16 a ind:FifthColumnIndicator ;
+    rdfs:label "Narrative Spread vs Isolated Events"@en ;
+    ind:indicatorID "5COL-16" ;
+    ind:definition "Distinguishing campaigns from sporadic criticism."@en ;
+    ind:hipsterContext "False-positive reduction."@en ;
+    ind:systemRequirements "Diffusion and clustering analysis."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Narrative_Spread .
+
+ind:5COL-17 a ind:FifthColumnIndicator ;
+    rdfs:label "Engagement Amplification"@en ;
+    ind:indicatorID "5COL-17" ;
+    ind:definition "Disproportionately high engagement on destabilizing content."@en ;
+    ind:hipsterContext "Measures narrative impact."@en ;
+    ind:systemRequirements "Engagement normalization; baseline comparison."@en ;
+    ind:hasScope ind:Post, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Amplification_Patterns .
+
+ind:5COL-18 a ind:FifthColumnIndicator ;
+    rdfs:label "Persistent Anti-State Broadcasters"@en ;
+    ind:indicatorID "5COL-18" ;
+    ind:definition "Accounts repeatedly publishing anti-state narratives."@en ;
+    ind:hipsterContext "Repeat-offender identification."@en ;
+    ind:systemRequirements "Longitudinal broadcaster ranking."@en ;
+    ind:hasScope ind:Person, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:5COL-19 a ind:FifthColumnIndicator ;
+    rdfs:label "False-Flag Operations"@en ;
+    ind:indicatorID "5COL-19" ;
+    ind:definition "Misattribution of responsibility or causality to confuse or justify hostility."@en ;
+    ind:hipsterContext "Advanced cognitive warfare."@en ;
+    ind:systemRequirements "Cause-effect inconsistency detection; analyst review."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:False_Flag_Operations .
+
+ind:5COL-20 a ind:FifthColumnIndicator ;
+    rdfs:label "Online Subversion"@en ;
+    ind:indicatorID "5COL-20" ;
+    ind:definition "Digital activity undermining societal norms or democratic trust without overt violence."@en ;
+    ind:hipsterContext "Hybrid subversion umbrella."@en ;
+    ind:systemRequirements "Narrative classification; norm-violation detection."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Online_Subversion .
+
+ind:5COL-21 a ind:FifthColumnIndicator ;
+    rdfs:label "Amplifying Divisive Narratives"@en ;
+    ind:indicatorID "5COL-21" ;
+    ind:definition "Promotion of narratives designed to fracture society."@en ;
+    ind:hipsterContext "Polarization operations."@en ;
+    ind:systemRequirements "Group-based sentiment analysis; amplification tracking."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Post, ind:Group ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Amplifying_Divisive_Narratives .
+
+ind:5COL-22 a ind:FifthColumnIndicator ;
+    rdfs:label "Engagement Abnormalities"@en ;
+    ind:indicatorID "5COL-22" ;
+    ind:definition "Sudden, inconsistent shifts in posting or engagement behavior."@en ;
+    ind:hipsterContext "Activation indicator."@en ;
+    ind:systemRequirements "Time-series anomaly detection."@en ;
+    ind:hasScope ind:Person, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Engagement_Abnormalities .
+
+ind:5COL-23 a ind:FifthColumnIndicator ;
+    rdfs:label "Geolocation Inconsistencies"@en ;
+    ind:indicatorID "5COL-23" ;
+    ind:definition "Claimed local identity conflicting with technical or contextual indicators."@en ;
+    ind:hipsterContext "External actor exposure."@en ;
+    ind:systemRequirements "Metadata and enrichment analysis."@en ;
+    ind:hasScope ind:Person, ind:Post ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:5COL-24 a ind:FifthColumnIndicator ;
+    rdfs:label "Social Group Targeting"@en ;
+    ind:indicatorID "5COL-24" ;
+    ind:definition "Messaging tailored to specific societal groups to exploit grievances."@en ;
+    ind:hipsterContext "Cleavage exploitation."@en ;
+    ind:systemRequirements "Group classifiers; targeting intensity metrics."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Group ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:5COL-25 a ind:FifthColumnIndicator ;
+    rdfs:label "Demographic Targeting"@en ;
+    ind:indicatorID "5COL-25" ;
+    ind:definition "Narratives aimed at youth or marginalized populations."@en ;
+    ind:hipsterContext "Radicalization risk."@en ;
+    ind:systemRequirements "Demographic classifiers; grievance scoring."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Group ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:5COL-26 a ind:FifthColumnIndicator ;
+    rdfs:label "Outlier Influence"@en ;
+    ind:indicatorID "5COL-26" ;
+    ind:definition "Accounts with disproportionate reach relative to follower base."@en ;
+    ind:hipsterContext "Artificial boosting detection."@en ;
+    ind:systemRequirements "Reach/follower ratios; engagement anomalies."@en ;
+    ind:hasScope ind:Person, ind:Network ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:5COL-27 a ind:FifthColumnIndicator ;
+    rdfs:label "Cross-Platform Activity"@en ;
+    ind:indicatorID "5COL-27" ;
+    ind:definition "Same actors or content appearing across platforms."@en ;
+    ind:hipsterContext "Campaign coordination."@en ;
+    ind:systemRequirements "Cross-platform fingerprinting."@en ;
+    ind:hasScope ind:InformationMonitoring, ind:Network ;
+    ind:hasAnalyticalLevel ind:L4 .
+
+ind:5COL-28 a ind:FifthColumnIndicator ;
+    rdfs:label "High-Risk Behavioral Shifts"@en ;
+    ind:indicatorID "5COL-28" ;
+    ind:definition "Abrupt multi-indicator behavioral changes."@en ;
+    ind:hipsterContext "Pre-incident warning."@en ;
+    ind:systemRequirements "Composite risk scoring."@en ;
+    ind:hasScope ind:Person, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L4 .
+
+ind:5COL-29 a ind:FifthColumnIndicator ;
+    rdfs:label "Color Signaling"@en ;
+    ind:indicatorID "5COL-29" ;
+    ind:definition "Use of ideologically loaded color schemes."@en ;
+    ind:hipsterContext "Weak visual cue."@en ;
+    ind:systemRequirements "Color-scheme detection; narrative correlation."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Color_Schemes .
+
+ind:5COL-30 a ind:FifthColumnIndicator ;
+    rdfs:label "Fake Crisis Creation"@en ;
+    ind:indicatorID "5COL-30" ;
+    ind:definition "Fabrication or exaggeration of crises to induce panic."@en ;
+    ind:hipsterContext "Destabilization tactic."@en ;
+    ind:systemRequirements "Crisis narrative detection; pattern similarity."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Post ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Fake_Crisis_Creation .
+
+ind:5COL-31 a ind:FifthColumnIndicator ;
+    rdfs:label "Cascading Threat Narratives"@en ;
+    ind:indicatorID "5COL-31" ;
+    ind:definition "Sequential chaining of threat narratives across sectors."@en ;
+    ind:hipsterContext "Psychological overload."@en ;
+    ind:systemRequirements "Threat-chain reconstruction."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Cascading_Threats .
+
+ind:5COL-32 a ind:FifthColumnIndicator ;
+    rdfs:label "Cognitive Fatigue"@en ;
+    ind:indicatorID "5COL-32" ;
+    ind:definition "Sustained exposure to conflicting or extreme narratives."@en ;
+    ind:hipsterContext "Decision paralysis induction."@en ;
+    ind:systemRequirements "Stress-narrative tracking."@en ;
+    ind:hasScope ind:Person, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Cognitive_Fatigue .
+
+ind:5COL-33 a ind:FifthColumnIndicator ;
+    rdfs:label "Fear and Anxiety Induction"@en ;
+    ind:indicatorID "5COL-33" ;
+    ind:definition "Persistent emotionally charged fear messaging."@en ;
+    ind:hipsterContext "Core cognitive manipulation."@en ;
+    ind:systemRequirements "Emotion classifiers; intensity thresholds."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Fear_and_Anxiety_Induction .
+
+ind:5COL-34 a ind:FifthColumnIndicator ;
+    rdfs:label "Loss Aversion Manipulation"@en ;
+    ind:indicatorID "5COL-34" ;
+    ind:definition "Exploiting fear of loss to influence behavior."@en ;
+    ind:hipsterContext "Behavioral manipulation."@en ;
+    ind:systemRequirements "Loss-frame detection."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Post ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Loss_Aversion .
+
+ind:5COL-35 a ind:FifthColumnIndicator ;
+    rdfs:label "Sleeper Cell Coordination"@en ;
+    ind:indicatorID "5COL-35" ;
+    ind:definition "Dormant accounts activating simultaneously."@en ;
+    ind:hipsterContext "Strategic activation detection."@en ;
+    ind:systemRequirements "Dormancy and synchronicity analysis."@en ;
+    ind:hasScope ind:Person, ind:Network ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Coordination_of_Sleeper_Cells .
+
+ind:5COL-36 a ind:FifthColumnIndicator ;
+    rdfs:label "Interference in Democratic Processes"@en ;
+    ind:indicatorID "5COL-36" ;
+    ind:definition "Narratives undermining elections or democratic legitimacy."@en ;
+    ind:hipsterContext "National security risk."@en ;
+    ind:systemRequirements "Election-topic detection; trust erosion scoring."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Interfering_in_Democratic_Processes .
+
+ind:5COL-37 a ind:FifthColumnIndicator ;
+    rdfs:label "Doxxing"@en ;
+    ind:indicatorID "5COL-37" ;
+    ind:definition "Public exposure of private information to intimidate."@en ;
+    ind:hipsterContext "Coercion tactic."@en ;
+    ind:systemRequirements "PII detection; target linkage."@en ;
+    ind:hasScope ind:Post, ind:Person ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Doxxing .
+
+ind:5COL-38 a ind:FifthColumnIndicator ;
+    rdfs:label "Common Anti-State Phrases"@en ;
+    ind:indicatorID "5COL-38" ;
+    ind:definition "Recurrent delegitimizing phrases targeting the state."@en ;
+    ind:hipsterContext "Low-level narrative markers."@en ;
+    ind:systemRequirements "Phrase dictionaries; classifiers."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Anti_State_Sentiments .
+
+ind:5COL-39 a ind:FifthColumnIndicator ;
+    rdfs:label "Code Words / Slang"@en ;
+    ind:indicatorID "5COL-39" ;
+    ind:definition "Context-dependent euphemisms signaling subversion."@en ;
+    ind:hipsterContext "Evasion detection."@en ;
+    ind:systemRequirements "Dynamic slang DB; embedding analysis."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Slang .
+
+ind:5COL-40 a ind:FifthColumnIndicator ;
+    rdfs:label "Hashtags"@en ;
+    ind:indicatorID "5COL-40" ;
+    ind:definition "Coordinated hashtag use to amplify narratives."@en ;
+    ind:hipsterContext "Campaign signal."@en ;
+    ind:systemRequirements "Hashtag extraction; co-occurrence tracking."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L0 ;
+    ind:hasFunctionality hyp:Hashtags .
+
+ind:5COL-41 a ind:FifthColumnIndicator ;
+    rdfs:label "Ambiguity"@en ;
+    ind:indicatorID "5COL-41" ;
+    ind:definition "Deliberately vague statements allowing plausible deniability."@en ;
+    ind:hipsterContext "Moderation evasion."@en ;
+    ind:systemRequirements "Ambiguity classifiers."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Ambiguity .
+
+ind:5COL-42 a ind:FifthColumnIndicator ;
+    rdfs:label "Mimicking Local Dialects"@en ;
+    ind:indicatorID "5COL-42" ;
+    ind:definition "Linguistic imitation to appear native."@en ;
+    ind:hipsterContext "Identity spoofing."@en ;
+    ind:systemRequirements "Stylometric mismatch detection."@en ;
+    ind:hasScope ind:Post, ind:Person ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Mimicking_local_dialects .
+
+ind:5COL-43 a ind:FifthColumnIndicator ;
+    rdfs:label "Profile Images and Avatars"@en ;
+    ind:indicatorID "5COL-43" ;
+    ind:definition "Generic, reused, or symbolic profile imagery."@en ;
+    ind:hipsterContext "Sockpuppet indicator."@en ;
+    ind:systemRequirements "Image reuse and AI-image detection."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Profile_Images_and_Avatars .
+
+ind:5COL-44 a ind:FifthColumnIndicator ;
+    rdfs:label "Seasonality"@en ;
+    ind:indicatorID "5COL-44" ;
+    ind:definition "Activity spikes around symbolic dates or crises."@en ;
+    ind:hipsterContext "Predictive monitoring."@en ;
+    ind:systemRequirements "Ideological calendar; seasonal anomalies."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Seasonality .
+
+ind:5COL-45 a ind:FifthColumnIndicator ;
+    rdfs:label "Posting Times"@en ;
+    ind:indicatorID "5COL-45" ;
+    ind:definition "Coordinated or unusual posting-hour waves."@en ;
+    ind:hipsterContext "Operational coordination."@en ;
+    ind:systemRequirements "Time-series wave detection."@en ;
+    ind:hasScope ind:Person, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Posting_Times .
+
+ind:5COL-46 a ind:FifthColumnIndicator ;
+    rdfs:label "Information Overload"@en ;
+    ind:indicatorID "5COL-46" ;
+    ind:definition "Flooding information space to overwhelm attention."@en ;
+    ind:hipsterContext "Smoke-screen tactic."@en ;
+    ind:systemRequirements "Volume anomaly and saturation metrics."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Information_Overload .
+
+ind:5COL-47 a ind:FifthColumnIndicator ;
+    rdfs:label "Narrative Seeding"@en ;
+    ind:indicatorID "5COL-47" ;
+    ind:definition "Planned introduction of new narratives."@en ;
+    ind:hipsterContext "Early influence stage."@en ;
+    ind:systemRequirements "Novel topic detection; diffusion tracking."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Narrative_Seeding .
+
+ind:5COL-48 a ind:FifthColumnIndicator ;
+    rdfs:label "Narrative Hijacking"@en ;
+    ind:indicatorID "5COL-48" ;
+    ind:definition "Repurposing legitimate narratives for hostile goals."@en ;
+    ind:hipsterContext "Advanced framing manipulation."@en ;
+    ind:systemRequirements "Semantic drift detection."@en ;
+    ind:hasScope ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Narrative_Hijacking .
+
+ind:5COL-49 a ind:FifthColumnIndicator ;
+    rdfs:label "Dog Whistles"@en ;
+    ind:indicatorID "5COL-49" ;
+    ind:definition "Coded messaging aimed at specific audiences."@en ;
+    ind:hipsterContext "Selective mobilization."@en ;
+    ind:systemRequirements "Context-aware phrase detection."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Dog_Whistles .
+
+ind:5COL-50 a ind:FifthColumnIndicator ;
+    rdfs:label "Cultural Appropriation"@en ;
+    ind:indicatorID "5COL-50" ;
+    ind:definition "Manipulative reuse of cultural symbols or language."@en ;
+    ind:hipsterContext "Identity exploitation."@en ;
+    ind:systemRequirements "Cultural symbol DB; misuse detection."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Cultural_Appropriation .
+
+ind:5COL-51 a ind:FifthColumnIndicator ;
+    rdfs:label "Information Laundering"@en ;
+    ind:indicatorID "5COL-51" ;
+    ind:definition "Masking disinformation origins via intermediaries."@en ;
+    ind:hipsterContext "Credibility engineering."@en ;
+    ind:systemRequirements "Source-chain reconstruction."@en ;
+    ind:hasScope ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Information_Laundering .
+
+ind:5COL-52 a ind:FifthColumnIndicator ;
+    rdfs:label "Crisis Exploitation"@en ;
+    ind:indicatorID "5COL-52" ;
+    ind:definition "Using real crises as cover for propaganda."@en ;
+    ind:hipsterContext "Opportunistic influence."@en ;
+    ind:systemRequirements "Crisis detection; narrative linkage."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Crisis_Exploitation .
+
+ind:5COL-53 a ind:FifthColumnIndicator ;
+    rdfs:label "Identity Switching"@en ;
+    ind:indicatorID "5COL-53" ;
+    ind:definition "Shifts in persona or ideology over time."@en ;
+    ind:hipsterContext "Deception and amplification."@en ;
+    ind:systemRequirements "Stylometric drift analysis."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Switching_Identities .
+
+ind:5COL-54 a ind:FifthColumnIndicator ;
+    rdfs:label "Associations with Subversive Groups"@en ;
+    ind:indicatorID "5COL-54" ;
+    ind:definition "Links to known hostile organizations."@en ;
+    ind:hipsterContext "Actor-level risk."@en ;
+    ind:systemRequirements "Entity lists; relationship extraction."@en ;
+    ind:hasScope ind:Person, ind:Network ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:5COL-55 a ind:FifthColumnIndicator ;
+    rdfs:label "Sockpuppets"@en ;
+    ind:indicatorID "5COL-55" ;
+    ind:definition "Multiple fake identities controlled by one operator."@en ;
+    ind:hipsterContext "Artificial consensus creation."@en ;
+    ind:systemRequirements "Behavioral similarity detection."@en ;
+    ind:hasScope ind:Person, ind:Network ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Sockpuppets .
+
+ind:5COL-56 a ind:FifthColumnIndicator ;
+    rdfs:label "Bot-Like Activity"@en ;
+    ind:indicatorID "5COL-56" ;
+    ind:definition "Automated or semi-automated posting behavior."@en ;
+    ind:hipsterContext "Scale amplification."@en ;
+    ind:systemRequirements "Regularity metrics; similarity scoring."@en ;
+    ind:hasScope ind:Person, ind:Network ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Bot_Like_Activity .
+
+ind:5COL-57 a ind:FifthColumnIndicator ;
+    rdfs:label "Amplification Patterns"@en ;
+    ind:indicatorID "5COL-57" ;
+    ind:definition "Hub-and-spoke dissemination structures."@en ;
+    ind:hipsterContext "Campaign detection."@en ;
+    ind:systemRequirements "Centrality metrics; virality anomalies."@en ;
+    ind:hasScope ind:Network, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Amplification_Patterns .
+
+ind:5COL-58 a ind:FifthColumnIndicator ;
+    rdfs:label "Divide-and-Conquer Tactics"@en ;
+    ind:indicatorID "5COL-58" ;
+    ind:definition "Promotion of inter-group conflict narratives."@en ;
+    ind:hipsterContext "Social fragmentation."@en ;
+    ind:systemRequirements "Group sentiment and grievance analysis."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Group ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Divide_and_Conquer_Tactics .
+
+ind:5COL-59 a ind:FifthColumnIndicator ;
+    rdfs:label "Lack of Counter-Narrative Engagement"@en ;
+    ind:indicatorID "5COL-59" ;
+    ind:definition "Avoidance or suppression of dissenting views."@en ;
+    ind:hipsterContext "Echo-chamber reinforcement."@en ;
+    ind:systemRequirements "Interaction diversity metrics."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:Group ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:5COL-60 a ind:FifthColumnIndicator ;
+    rdfs:label "Cross-Platform Content Mirroring"@en ;
+    ind:indicatorID "5COL-60" ;
+    ind:definition "Identical content replicated across platforms."@en ;
+    ind:hipsterContext "Coordination evidence."@en ;
+    ind:systemRequirements "Cross-platform vector similarity."@en ;
+    ind:hasScope ind:InformationMonitoring, ind:Network ;
+    ind:hasAnalyticalLevel ind:L4 .
+
+ind:5COL-61 a ind:FifthColumnIndicator ;
+    rdfs:label "Coordinated Posting Patterns"@en ;
+    ind:indicatorID "5COL-61" ;
+    ind:definition "Synchronized dissemination by multiple accounts."@en ;
+    ind:hipsterContext "Influence operation marker."@en ;
+    ind:systemRequirements "Temporal similarity detection."@en ;
+    ind:hasScope ind:Network, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Coordinated_Posting_Patterns .
+
+ind:5COL-62 a ind:FifthColumnIndicator ;
+    rdfs:label "Misinformation Playbooks"@en ;
+    ind:indicatorID "5COL-62" ;
+    ind:definition "Reusable tactical patterns for disinformation."@en ;
+    ind:hipsterContext "Doctrine-level detection."@en ;
+    ind:systemRequirements "Pattern libraries; LLM matching."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Misinformation_Playbooks .
+
+ind:5COL-63 a ind:FifthColumnIndicator ;
+    rdfs:label "Memes and GIFs"@en ;
+    ind:indicatorID "5COL-63" ;
+    ind:definition "Humorous visuals used to normalize narratives."@en ;
+    ind:hipsterContext "Narrative softening."@en ;
+    ind:systemRequirements "Meme classification; visual-semantic analysis."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Memes_and_GIFs .
+
+ind:5COL-64 a ind:FifthColumnIndicator ;
+    rdfs:label "Misleading Memes"@en ;
+    ind:indicatorID "5COL-64" ;
+    ind:definition "Memes spreading false or distorted information."@en ;
+    ind:hipsterContext "Low-cost manipulation."@en ;
+    ind:systemRequirements "Fact-mismatch detection."@en ;
+    ind:hasScope ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Misleading_Memes_GIFs .
+
+ind:5COL-65 a ind:FifthColumnIndicator ;
+    rdfs:label "Meme Warfare"@en ;
+    ind:indicatorID "5COL-65" ;
+    ind:definition "Systematic meme-based psychological operations."@en ;
+    ind:hipsterContext "Cognitive ops channel."@en ;
+    ind:systemRequirements "Meme diffusion analysis."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Meme_Warfare .
+
+ind:5COL-66 a ind:FifthColumnIndicator ;
+    rdfs:label "Emotionally Charged Messaging"@en ;
+    ind:indicatorID "5COL-66" ;
+    ind:definition "Sustained fear, anger, or betrayal narratives."@en ;
+    ind:hipsterContext "Emotional hijacking."@en ;
+    ind:systemRequirements "Emotion-intensity trend analysis."@en ;
+    ind:hasScope ind:Post, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L4 .
+
+ind:5COL-67 a ind:FifthColumnIndicator ;
+    rdfs:label "Disinformation Campaigns"@en ;
+    ind:indicatorID "5COL-67" ;
+    ind:definition "Sustained dissemination of false or manipulated information."@en ;
+    ind:hipsterContext "Strategic manipulation."@en ;
+    ind:systemRequirements "Fact-checking integration; reuse detection."@en ;
+    ind:hasScope ind:AnalyticalNarrative, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Disinformation_Campaigns .
+
+ind:5COL-68 a ind:FifthColumnIndicator ;
+    rdfs:label "Astroturfing"@en ;
+    ind:indicatorID "5COL-68" ;
+    ind:definition "Fabricated appearance of grassroots support."@en ;
+    ind:hipsterContext "False legitimacy creation."@en ;
+    ind:systemRequirements "Authenticity checks; consensus anomalies."@en ;
+    ind:hasScope ind:InformationMonitoring, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Astroturfing .
+
+# =============================================================================
+# END BATCH 2: FIFTH COLUMN INDICATORS
+# =============================================================================

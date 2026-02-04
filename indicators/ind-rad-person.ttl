@@ -1,0 +1,566 @@
+@prefix ind: <http://l3ce.eu/ontology/hipster-indicators#> .
+@prefix hyp: <http://l3ce.eu/ontology/hypster-functionalities#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# =============================================================================
+# PERSON-LEVEL RADICALIZATION INDICATORS (RAD-PER-01 to RAD-PER-57)
+# =============================================================================
+
+ind:RAD-PER-01 a ind:PersonLevelIndicator ;
+    rdfs:label "Language"@en ;
+    ind:indicatorID "RAD-PER-01" ;
+    ind:definition "Languages used by the person across posts, comments, and reposts (likes excluded)."@en ;
+    ind:hipsterContext "Identity, origin, and audience profiling."@en ;
+    ind:systemRequirements "Language classifier; pie chart by volume; aggregation across platforms; exclude likes."@en ;
+    ind:hasScope ind:Person, ind:Post ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-PER-02 a ind:PersonLevelIndicator ;
+    rdfs:label "Basic Metadata"@en ;
+    ind:indicatorID "RAD-PER-02" ;
+    ind:definition "Publicly available profile attributes (name, username, bio, work, education, location, connections)."@en ;
+    ind:hipsterContext "Baseline identity and attribution layer."@en ;
+    ind:systemRequirements "Unified person schema (bio, followers, friends, platform IDs, verification, join date)."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-PER-03 a ind:PersonLevelIndicator ;
+    rdfs:label "Last Interaction"@en ;
+    ind:indicatorID "RAD-PER-03" ;
+    ind:definition "Most recent observable activity timestamp across all sources."@en ;
+    ind:hipsterContext "Activity recency indicator."@en ;
+    ind:systemRequirements "Unified timestamp across platforms; single value per person."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-PER-04 a ind:PersonLevelIndicator ;
+    rdfs:label "User Account Creation Date"@en ;
+    ind:indicatorID "RAD-PER-04" ;
+    ind:definition "Account creation dates per platform."@en ;
+    ind:hipsterContext "Longevity and trust assessment."@en ;
+    ind:systemRequirements "Platform-specific creation dates; tabular view."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-PER-05 a ind:PersonLevelIndicator ;
+    rdfs:label "Media Channels"@en ;
+    ind:indicatorID "RAD-PER-05" ;
+    ind:definition "Platforms and channels where the person is active (FB, X, Telegram, YouTube, blogs)."@en ;
+    ind:hipsterContext "Cross-platform footprint mapping."@en ;
+    ind:systemRequirements "Channel list; username correlation; optional email-based account discovery."@en ;
+    ind:hasScope ind:Person, ind:InformationMonitoring ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-PER-06 a ind:PersonLevelIndicator ;
+    rdfs:label "Content Themes"@en ;
+    ind:indicatorID "RAD-PER-06" ;
+    ind:definition "Topics most frequently used or referenced by the person."@en ;
+    ind:hipsterContext "Thematic radicalization signals."@en ;
+    ind:systemRequirements "Topic classifier; bar chart; topic activity index; editable topic taxonomy."@en ;
+    ind:hasScope ind:Person, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Content_themes .
+
+ind:RAD-PER-07 a ind:PersonLevelIndicator ;
+    rdfs:label "Narrative Spread"@en ;
+    ind:indicatorID "RAD-PER-07" ;
+    ind:definition "Distribution of narratives disseminated by the person (percentage-based)."@en ;
+    ind:hipsterContext "Narrative-level influence profiling."@en ;
+    ind:systemRequirements "Narrative classifier; normalized % (100%); narrative activity index."@en ;
+    ind:hasScope ind:Person, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Narrative_Spread .
+
+ind:RAD-PER-08 a ind:PersonLevelIndicator ;
+    rdfs:label "Hate Speech (Calculated)"@en ;
+    ind:indicatorID "RAD-PER-08" ;
+    ind:definition "Proportion of posts containing hate-speech elements."@en ;
+    ind:hipsterContext "Escalation and violence risk signal."@en ;
+    ind:systemRequirements "Hate-speech model; % of total content; time-range filter; threshold alerts."@en ;
+    ind:hasScope ind:Person, ind:Post ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Hate_speech_calculated .
+
+ind:RAD-PER-09 a ind:PersonLevelIndicator ;
+    rdfs:label "Social Bubble"@en ;
+    ind:indicatorID "RAD-PER-09" ;
+    ind:definition "Graph of persons and accounts the individual repeatedly interacts with."@en ;
+    ind:hipsterContext "Detection of radicalized networks."@en ;
+    ind:systemRequirements "Graph DB; engagement-weighted nodes; topic-colored clusters; top leaders/topics."@en ;
+    ind:hasScope ind:Person, ind:Network ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Social_bubble .
+
+ind:RAD-PER-10 a ind:PersonLevelIndicator ;
+    rdfs:label "Echo Chamber Participation"@en ;
+    ind:indicatorID "RAD-PER-10" ;
+    ind:definition "Degree of participation in closed, reinforcing communities."@en ;
+    ind:hipsterContext "Ideological reinforcement detection."@en ;
+    ind:systemRequirements "Community detection; ECP index; cluster thresholds (>=50% internal sharing)."@en ;
+    ind:hasScope ind:Person, ind:Network ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Echo_Chamber_Participation .
+
+ind:RAD-PER-11 a ind:PersonLevelIndicator ;
+    rdfs:label "Interaction"@en ;
+    ind:indicatorID "RAD-PER-11" ;
+    ind:definition "Person's interactions: likes, comments, shares, views over time."@en ;
+    ind:hipsterContext "Behavioral intensity tracking."@en ;
+    ind:systemRequirements "Time-series per interaction type; multi-curve visualization."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Influence_and_Interaction .
+
+ind:RAD-PER-12 a ind:PersonLevelIndicator ;
+    rdfs:label "Influence"@en ;
+    ind:indicatorID "RAD-PER-12" ;
+    ind:definition "Reactions received from others (likes, comments, shares)."@en ;
+    ind:hipsterContext "External impact measurement."@en ;
+    ind:systemRequirements "Engagement-in metrics; time-series visualization."@en ;
+    ind:hasScope ind:Person, ind:Network ;
+    ind:hasAnalyticalLevel ind:L3 .
+
+ind:RAD-PER-13 a ind:PersonLevelIndicator ;
+    rdfs:label "Sudden Changes"@en ;
+    ind:indicatorID "RAD-PER-13" ;
+    ind:definition "Abrupt changes in activity, tone, or content."@en ;
+    ind:hipsterContext "Early-warning behavioral signal."@en ;
+    ind:systemRequirements "Anomaly detection; baseline deviation flags."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Sudden_changes_or_shifts .
+
+ind:RAD-PER-14 a ind:PersonLevelIndicator ;
+    rdfs:label "Narrative Shifts"@en ;
+    ind:indicatorID "RAD-PER-14" ;
+    ind:definition "Changes in narratives used over time."@en ;
+    ind:hipsterContext "Ideological drift detection."@en ;
+    ind:systemRequirements "Narrative time-series; rolling averages; >=6-month view."@en ;
+    ind:hasScope ind:Person, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Narrative_Shifts .
+
+ind:RAD-PER-15 a ind:PersonLevelIndicator ;
+    rdfs:label "Behavioral Shifts"@en ;
+    ind:indicatorID "RAD-PER-15" ;
+    ind:definition "Changes in posting frequency, platforms, timing, or content type."@en ;
+    ind:hipsterContext "Escalation trajectory analysis."@en ;
+    ind:systemRequirements "Comparative behavior metrics; temporal alignment."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Behavioral_Shifts .
+
+ind:RAD-PER-16 a ind:PersonLevelIndicator ;
+    rdfs:label "Topic Shifts"@en ;
+    ind:indicatorID "RAD-PER-16" ;
+    ind:definition "Changes in dominant topics over time."@en ;
+    ind:hipsterContext "Radicalization pathway signal."@en ;
+    ind:systemRequirements "Topic time-series; engagement-weighted curves."@en ;
+    ind:hasScope ind:Person, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Topic_Shifts .
+
+ind:RAD-PER-17 a ind:PersonLevelIndicator ;
+    rdfs:label "Psychological and Ideological Commitment"@en ;
+    ind:indicatorID "RAD-PER-17" ;
+    ind:definition "Transition from neutral language to emotionally loaded or ideologically rigid language."@en ;
+    ind:hipsterContext "Indoctrination detection."@en ;
+    ind:systemRequirements "Emotional intensity metrics; extremist lexicon use; commitment index."@en ;
+    ind:hasScope ind:Person, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Psychological_and_Ideological_Commitment .
+
+ind:RAD-PER-18 a ind:PersonLevelIndicator ;
+    rdfs:label "High Radicalization"@en ;
+    ind:indicatorID "RAD-PER-18" ;
+    ind:definition "Rapid transition from passive to active radical engagement."@en ;
+    ind:hipsterContext "High-risk escalation marker."@en ;
+    ind:systemRequirements "Rad Index formula; thresholds; color-coded risk categories; 6-month trend."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:High_radicalization .
+
+ind:RAD-PER-19 a ind:PersonLevelIndicator ;
+    rdfs:label "5th Column Association"@en ;
+    ind:indicatorID "RAD-PER-19" ;
+    ind:definition "Boolean indicator linking the person to internal subversion patterns."@en ;
+    ind:hipsterContext "Hybrid-threat linkage."@en ;
+    ind:systemRequirements "Rule-based classification; profile flag."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L2 .
+
+ind:RAD-PER-20 a ind:PersonLevelIndicator ;
+    rdfs:label "Social Media Content"@en ;
+    ind:indicatorID "RAD-PER-20" ;
+    ind:definition "Distribution of content types (posts, videos, lives, shares)."@en ;
+    ind:hipsterContext "Activity composition overview."@en ;
+    ind:systemRequirements "Bar chart by content type and platform."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L0 ;
+    ind:hasFunctionality hyp:Social_Media_Content .
+
+ind:RAD-PER-21 a ind:PersonLevelIndicator ;
+    rdfs:label "Sentiments"@en ;
+    ind:indicatorID "RAD-PER-21" ;
+    ind:definition "Overall sentiment distribution (positive/negative/neutral)."@en ;
+    ind:hipsterContext "Emotional polarity monitoring."@en ;
+    ind:systemRequirements "Sentiment classifier; speedometer or percentage view."@en ;
+    ind:hasScope ind:Person, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Sentiments .
+
+ind:RAD-PER-22 a ind:PersonLevelIndicator ;
+    rdfs:label "High-Risk Profile"@en ;
+    ind:indicatorID "RAD-PER-22" ;
+    ind:definition "Composite high-risk status (extremism, violence, coordination)."@en ;
+    ind:hipsterContext "Governance-level risk flag."@en ;
+    ind:systemRequirements "Multi-rule engine; centrality, violence, propaganda thresholds; justification drill-down."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:High_risk_profile .
+
+ind:RAD-PER-23 a ind:PersonLevelIndicator ;
+    rdfs:label "Target Audience"@en ;
+    ind:indicatorID "RAD-PER-23" ;
+    ind:definition "Social groups targeted by the person's content."@en ;
+    ind:hipsterContext "Recruitment and influence analysis."@en ;
+    ind:systemRequirements "Audience taxonomy; editable groups; risk segmentation."@en ;
+    ind:hasScope ind:Person, ind:Group ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-PER-24 a ind:PersonLevelIndicator ;
+    rdfs:label "Social Media Status"@en ;
+    ind:indicatorID "RAD-PER-24" ;
+    ind:definition "Role classification (influencer, agent, bot, troll, user)."@en ;
+    ind:hipsterContext "Actor-type identification."@en ;
+    ind:systemRequirements "Role classifier; confidence scoring."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L4 .
+
+ind:RAD-PER-25 a ind:PersonLevelIndicator ;
+    rdfs:label "Intolerance for Opposition"@en ;
+    ind:indicatorID "RAD-PER-25" ;
+    ind:definition "Hostile responses toward opposing views."@en ;
+    ind:hipsterContext "Polarization and cancel-culture signal."@en ;
+    ind:systemRequirements "Toxicity detection; cancel-technique classifier."@en ;
+    ind:hasScope ind:Person, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Intolerance_for_Opposition .
+
+ind:RAD-PER-26 a ind:PersonLevelIndicator ;
+    rdfs:label "Silence Followed by Bursts"@en ;
+    ind:indicatorID "RAD-PER-26" ;
+    ind:definition "Periods of inactivity followed by sudden activity spikes."@en ;
+    ind:hipsterContext "Tasking or coordination signal."@en ;
+    ind:systemRequirements "Burst detection (>3x baseline); time-window comparison."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Silence_Followed_by_Bursts .
+
+ind:RAD-PER-27 a ind:PersonLevelIndicator ;
+    rdfs:label "Rapid Mobilization"@en ;
+    ind:indicatorID "RAD-PER-27" ;
+    ind:definition "Shift toward calls for action, recruitment, or engagement."@en ;
+    ind:hipsterContext "Pre-incident escalation indicator."@en ;
+    ind:systemRequirements "Multi-axis mobilization index; CTA detection; commitment scoring."@en ;
+    ind:hasScope ind:Person, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Rapid_Mobilization .
+
+ind:RAD-PER-28 a ind:PersonLevelIndicator ;
+    rdfs:label "Suspicious Active Times"@en ;
+    ind:indicatorID "RAD-PER-28" ;
+    ind:definition "Posting times aligned with foreign time zones."@en ;
+    ind:hipsterContext "External operator indicator."@en ;
+    ind:systemRequirements "Activity-hour heatmap; timezone inference."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Suspicious_Active_Times .
+
+ind:RAD-PER-29 a ind:PersonLevelIndicator ;
+    rdfs:label "Feelings (Long-Term)"@en ;
+    ind:indicatorID "RAD-PER-29" ;
+    ind:definition "Persistent emotional states (alienation, confusion)."@en ;
+    ind:hipsterContext "Psychological vulnerability analysis."@en ;
+    ind:systemRequirements "LLM emotion inference; pie/radar charts."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Feelings .
+
+ind:RAD-PER-30 a ind:PersonLevelIndicator ;
+    rdfs:label "Emotions (Short-Term)"@en ;
+    ind:indicatorID "RAD-PER-30" ;
+    ind:definition "Immediate emotions (fear, anger, disgust, joy)."@en ;
+    ind:hipsterContext "Momentary escalation signal."@en ;
+    ind:systemRequirements "Emotion classifier; radar chart."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Emotions .
+
+ind:RAD-PER-31 a ind:PersonLevelIndicator ;
+    rdfs:label "Behavioral Changes Over Time"@en ;
+    ind:indicatorID "RAD-PER-31" ;
+    ind:definition "Long-term evolution of channels, content type, and volume."@en ;
+    ind:hipsterContext "Radicalization trajectory mapping."@en ;
+    ind:systemRequirements "Warehouse analytics; anomaly detection."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Behavioral_Changes_Over_Time .
+
+ind:RAD-PER-32 a ind:PersonLevelIndicator ;
+    rdfs:label "Behavioral Trends (Calculated)"@en ;
+    ind:indicatorID "RAD-PER-32" ;
+    ind:definition "Gradual shifts in tone, rhetoric, and interaction patterns."@en ;
+    ind:hipsterContext "Progressive radicalization detection."@en ;
+    ind:systemRequirements "Sentiment/emotion drift; rhetoric change detection; comparative analysis."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Behavioral_Trends_calculated .
+
+ind:RAD-PER-33 a ind:PersonLevelIndicator ;
+    rdfs:label "Radicalization Stage"@en ;
+    ind:indicatorID "RAD-PER-33" ;
+    ind:definition "Current stage in radicalization lifecycle."@en ;
+    ind:hipsterContext "Governance and intervention planning."@en ;
+    ind:systemRequirements "Stage classifier (grievance -> violence -> deradicalization)."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Radicalization_Stage .
+
+ind:RAD-PER-34 a ind:PersonLevelIndicator ;
+    rdfs:label "Human or Bot (Calculated)"@en ;
+    ind:indicatorID "RAD-PER-34" ;
+    ind:definition "Probability that content is human- or bot-generated."@en ;
+    ind:hipsterContext "Automation detection."@en ;
+    ind:systemRequirements "Bot-likelihood classifier; statistical + AI model."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Human_or_bot .
+
+ind:RAD-PER-35 a ind:PersonLevelIndicator ;
+    rdfs:label "Covered Language"@en ;
+    ind:indicatorID "RAD-PER-35" ;
+    ind:definition "Use of wordplay, ambiguity, or indirect expressions."@en ;
+    ind:hipsterContext "Plausible deniability detection."@en ;
+    ind:systemRequirements "Covered-language classifier; slang/context mapping."@en ;
+    ind:hasScope ind:Person, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Covered_Language .
+
+ind:RAD-PER-36 a ind:PersonLevelIndicator ;
+    rdfs:label "Slang"@en ;
+    ind:indicatorID "RAD-PER-36" ;
+    ind:definition "Use of group-specific or coded slang."@en ;
+    ind:hipsterContext "In-group signaling detection."@en ;
+    ind:systemRequirements "Slang dictionary; LLM contextual inference."@en ;
+    ind:hasScope ind:Person, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Slang .
+
+ind:RAD-PER-37 a ind:PersonLevelIndicator ;
+    rdfs:label "Abnormal Activity"@en ;
+    ind:indicatorID "RAD-PER-37" ;
+    ind:definition "Continuous 24/7 activity or extreme silence."@en ;
+    ind:hipsterContext "Automation or coordination marker."@en ;
+    ind:systemRequirements "Behavioral rules; warehouse baselines."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Abnormal_activity .
+
+ind:RAD-PER-38 a ind:PersonLevelIndicator ;
+    rdfs:label "Post Frequency"@en ;
+    ind:indicatorID "RAD-PER-38" ;
+    ind:definition "Number of posts per time unit."@en ;
+    ind:hipsterContext "Activity intensity signal."@en ;
+    ind:systemRequirements "Frequency counters; thresholds."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Post_Frequency .
+
+ind:RAD-PER-39 a ind:PersonLevelIndicator ;
+    rdfs:label "Burstiness"@en ;
+    ind:indicatorID "RAD-PER-39" ;
+    ind:definition "Periodic or clustered posting patterns."@en ;
+    ind:hipsterContext "Task-driven activity indicator."@en ;
+    ind:systemRequirements "Burst metrics; periodicity detection."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Burstiness .
+
+ind:RAD-PER-40 a ind:PersonLevelIndicator ;
+    rdfs:label "Engagement Type Pattern"@en ;
+    ind:indicatorID "RAD-PER-40" ;
+    ind:definition "Distribution of likes, shares, reposts."@en ;
+    ind:hipsterContext "Interaction strategy profiling."@en ;
+    ind:systemRequirements "Engagement-type classifier."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Engagement_Patterns .
+
+ind:RAD-PER-41 a ind:PersonLevelIndicator ;
+    rdfs:label "Same Text Across Channels"@en ;
+    ind:indicatorID "RAD-PER-41" ;
+    ind:definition "Identical or near-identical content across platforms."@en ;
+    ind:hipsterContext "Coordinated promotion signal."@en ;
+    ind:systemRequirements "Semantic similarity (IR/LLM); cross-platform matching."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L4 .
+
+ind:RAD-PER-42 a ind:PersonLevelIndicator ;
+    rdfs:label "Feelings Change"@en ;
+    ind:indicatorID "RAD-PER-42" ;
+    ind:definition "Temporal evolution of emotional states."@en ;
+    ind:hipsterContext "Psychological escalation tracking."@en ;
+    ind:systemRequirements "Emotion time-series; interpolation/extrapolation."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Feelings_change .
+
+ind:RAD-PER-43 a ind:PersonLevelIndicator ;
+    rdfs:label "Amplification Pattern"@en ;
+    ind:indicatorID "RAD-PER-43" ;
+    ind:definition "Preferential amplification of specific content or actors."@en ;
+    ind:hipsterContext "Coordinated influence signal."@en ;
+    ind:systemRequirements "Amplification ratio; actor-centric analysis."@en ;
+    ind:hasScope ind:Person, ind:Network ;
+    ind:hasAnalyticalLevel ind:L3 ;
+    ind:hasFunctionality hyp:Amplification_Patterns .
+
+ind:RAD-PER-44 a ind:PersonLevelIndicator ;
+    rdfs:label "Viral Content (Calculated)"@en ;
+    ind:indicatorID "RAD-PER-44" ;
+    ind:definition "Content significantly outperforming baseline engagement norms."@en ;
+    ind:hipsterContext "Disproportionate reach detection."@en ;
+    ind:systemRequirements "Outlier detection; content-type normalization."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Viral_content_calculated .
+
+ind:RAD-PER-45 a ind:PersonLevelIndicator ;
+    rdfs:label "Community Belonging"@en ;
+    ind:indicatorID "RAD-PER-45" ;
+    ind:definition "Membership or participation in communities."@en ;
+    ind:hipsterContext "Network-based risk context."@en ;
+    ind:systemRequirements "Community membership inference; graph analysis."@en ;
+    ind:hasScope ind:Person, ind:Group ;
+    ind:hasAnalyticalLevel ind:L2 ;
+    ind:hasFunctionality hyp:Community_belonging .
+
+ind:RAD-PER-46 a ind:PersonLevelIndicator ;
+    rdfs:label "Betweenness Centrality"@en ;
+    ind:indicatorID "RAD-PER-46" ;
+    ind:definition "Degree to which the person connects otherwise separate clusters."@en ;
+    ind:hipsterContext "Broker / coordinator detection."@en ;
+    ind:systemRequirements "Centrality metrics; SOM/KNN clustering."@en ;
+    ind:hasScope ind:Person, ind:Network ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Betweenness_Centrality .
+
+ind:RAD-PER-47 a ind:PersonLevelIndicator ;
+    rdfs:label "Deviation from Group Mean"@en ;
+    ind:indicatorID "RAD-PER-47" ;
+    ind:definition "Degree of deviation from group norms."@en ;
+    ind:hipsterContext "Leadership or radical outlier detection."@en ;
+    ind:systemRequirements "Distance-from-mean calculation."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L4 ;
+    ind:hasFunctionality hyp:Deviation_from_the_mean_of_the_group .
+
+ind:RAD-PER-48 a ind:PersonLevelIndicator ;
+    rdfs:label "IP (If Available)"@en ;
+    ind:indicatorID "RAD-PER-48" ;
+    ind:definition "IP address metadata."@en ;
+    ind:hipsterContext "Attribution support."@en ;
+    ind:systemRequirements "Metadata capture (if lawful)."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-PER-49 a ind:PersonLevelIndicator ;
+    rdfs:label "UTC (If Available)"@en ;
+    ind:indicatorID "RAD-PER-49" ;
+    ind:definition "UTC timestamps from metadata."@en ;
+    ind:hipsterContext "Temporal normalization."@en ;
+    ind:systemRequirements "Metadata capture."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L1 .
+
+ind:RAD-PER-50 a ind:PersonLevelIndicator ;
+    rdfs:label "VPN Usage"@en ;
+    ind:indicatorID "RAD-PER-50" ;
+    ind:definition "Detection of VPN or anonymization services."@en ;
+    ind:hipsterContext "Obfuscation indicator."@en ;
+    ind:systemRequirements "Metadata inference (if available)."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-PER-51 a ind:PersonLevelIndicator ;
+    rdfs:label "Device Info"@en ;
+    ind:indicatorID "RAD-PER-51" ;
+    ind:definition "Device type and model metadata."@en ;
+    ind:hipsterContext "Attribution and automation clues."@en ;
+    ind:systemRequirements "Device fingerprinting (if available)."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-PER-52 a ind:PersonLevelIndicator ;
+    rdfs:label "Propaganda"@en ;
+    ind:indicatorID "RAD-PER-52" ;
+    ind:definition "Identification of propaganda content (initially pro-Kremlin)."@en ;
+    ind:hipsterContext "Information warfare detection."@en ;
+    ind:systemRequirements "Propaganda classifier; type taxonomy."@en ;
+    ind:hasScope ind:Person, ind:AnalyticalNarrative ;
+    ind:hasAnalyticalLevel ind:L3 .
+
+ind:RAD-PER-53 a ind:PersonLevelIndicator ;
+    rdfs:label "Communication Metadata"@en ;
+    ind:indicatorID "RAD-PER-53" ;
+    ind:definition "Patterns of who, when, and how often the person communicates."@en ;
+    ind:hipsterContext "Interaction profiling."@en ;
+    ind:systemRequirements "Communication graphs; frequency tables."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L0 .
+
+ind:RAD-PER-54 a ind:PersonLevelIndicator ;
+    rdfs:label "Location Data"@en ;
+    ind:indicatorID "RAD-PER-54" ;
+    ind:definition "Geographic metadata of publishing."@en ;
+    ind:hipsterContext "Origin and targeting analysis."@en ;
+    ind:systemRequirements "Geo-heatmaps; region aggregation."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Location_Data .
+
+ind:RAD-PER-55 a ind:PersonLevelIndicator ;
+    rdfs:label "Active and Communication Time"@en ;
+    ind:indicatorID "RAD-PER-55" ;
+    ind:definition "Typical hours and days of activity."@en ;
+    ind:hipsterContext "Behavioral rhythm profiling."@en ;
+    ind:systemRequirements "Hourly/weekly heatmaps."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Active_and_communication_time .
+
+ind:RAD-PER-56 a ind:PersonLevelIndicator ;
+    rdfs:label "Time Zone (Calculated)"@en ;
+    ind:indicatorID "RAD-PER-56" ;
+    ind:definition "Inferred posting time zone."@en ;
+    ind:hipsterContext "Origin spoofing detection."@en ;
+    ind:systemRequirements "Time-zone inference model."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Time_zone_calculated .
+
+ind:RAD-PER-57 a ind:PersonLevelIndicator ;
+    rdfs:label "Algorithmicity (Calculated)"@en ;
+    ind:indicatorID "RAD-PER-57" ;
+    ind:definition "Boolean indicating algorithmic or scripted behavior."@en ;
+    ind:hipsterContext "Automation risk signal."@en ;
+    ind:systemRequirements "Rule-based + ML classifier."@en ;
+    ind:hasScope ind:Person ;
+    ind:hasAnalyticalLevel ind:L1 ;
+    ind:hasFunctionality hyp:Algorithmicity_calculated .
+
+# =============================================================================
+# END BATCH 5: PERSON-LEVEL RADICALIZATION INDICATORS
+# =============================================================================

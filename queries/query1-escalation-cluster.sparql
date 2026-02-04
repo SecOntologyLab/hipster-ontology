@@ -1,0 +1,32 @@
+﻿# Query Pattern 1: Escalation Cluster Detection
+# 
+# Purpose: Find campaigns where D&D indicators co-occur with moral 
+# inversion narratives and coordination signals within +/-72h of event triggers.
+#
+# Reference: Bruze et al. (2026), Open Research Europe, Section 4.7
+# Repository: https://github.com/SecOntologyLab/hipster-ontology
+
+PREFIX hti: <http://l3ce.eu/ontology/hybrid-threat-intelligence#>
+PREFIX ind: <http://l3ce.eu/ontology/hipster-indicators#>
+PREFIX hyp: <http://l3ce.eu/ontology/hypster-functionalities#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?campaign ?campaignLabel ?eventTrigger ?coordinationScore
+       (COUNT(DISTINCT ?indicator) AS ?indicatorCount)
+       (GROUP_CONCAT(DISTINCT ?indicatorLabel; separator="; ") AS ?indicators)
+WHERE {
+    ?campaign a hti:DisinformationCampaign .
+    ?campaign rdfs:label ?campaignLabel .
+    ?campaign hti:triggeredBy ?event .
+    ?event rdfs:label ?eventTrigger .
+    ?campaign hti:exhibits ?indicator .
+    ?indicator rdfs:label ?indicatorLabel .
+    ?indicator ind:hasFunctionality ?func .
+    ?func skos:broader* hyp:Dehumanization_and_Demonization .
+    ?campaign hti:hasCoordinationScore ?coordinationScore .
+    FILTER(?coordinationScore > 0.7)
+}
+GROUP BY ?campaign ?campaignLabel ?eventTrigger ?coordinationScore
+HAVING (COUNT(DISTINCT ?indicator) >= 3)
+ORDER BY DESC(?coordinationScore)
