@@ -75,6 +75,15 @@ This framework is documented in:
 | `sparql-demo.html` | Query demonstrations | Simplified versions for accessibility |
 
 **Note:** The interactive SPARQL demos are illustrative. For formal query specifications, see `/queries/`.
+## 🔬 Live Interactive Demos
+
+> Click any demo below to launch directly in your browser — no installation required.
+
+| Demo | Description |
+|------|-------------|
+| [🌐 Ontology Explorer](https://secontologylab.github.io/hipster-ontology/visualisations/ontology-demo.html) | Browse the full HIPSTer ontology class hierarchy and class definitions |
+| [🕸️ Ontology Network](https://secontologylab.github.io/hipster-ontology/visualisations/ontology-network.html) | Interactive node-link visualisation of semantic relationships across hybrid threat domains |
+| [🔍 SPARQL Query Demo](https://secontologylab.github.io/hipster-ontology/visualisations/sparql-demo.html) | Run live SPARQL queries against the HIPSTer ontology and explore inference results |
 
 ### `/data/` - Assessment Data
 
