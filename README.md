@@ -12,7 +12,7 @@ This framework is documented in:
 
 1. **Paskauskas, R. A., Bružė, E., Sabaliauskaitė, G., Matulytė, R., & Lavišius, T.** (2026). Hybrid-Threat Intelligence: A Critical Review of Semantic Integration Challenges and the HIPSTer Ontological Framework. *Journal of Intelligent Communication* (https://ojs.ukscip.com/JIC/article/view/102647).
 
-2. **Bružė, E., Paskauskas, R. A., Sabaliauskaitė, G., Matulytė, R., & Lavišius, T.** (2026). Integration of Hybrid Threat Intelligence: The HiPSTer Ontological Method for Cross-Domain Correlation in Influence Operations. *Open Research Europe* (https://www.mruni.eu/wp-content/uploads/2026/06/03.-HIPSTer-MRU-Publication-2-openreseurope.pdf).
+2. **Bružė, E., Paskauskas, R. A., Sabaliauskaitė, G., Matulytė, R., & Lavišius, T.** (2026). Integration of Hybrid Threat Intelligence: The HiPSTer Ontological Method for Cross-Domain Correlation in Influence Operations. *Open Research Europe* (https://open-research-europe.ec.europa.eu/articles/6-213).
 
 ## Repository Contents
 
